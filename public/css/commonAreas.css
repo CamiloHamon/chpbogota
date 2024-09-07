@@ -1,0 +1,49 @@
+#data-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 5px;
+    margin-top: 3rem;
+  }
+  
+
+/* Estilos de la tarjeta */
+.card {
+    width: 250px;
+    margin: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  
+  .card:hover {
+    transform: scale(1.05);
+  }
+  
+  .card-image {
+    width: 100%;
+    height: auto;
+    border-radius:8px 8px 0px 0px;
+  }
+  
+  .card-content {
+    padding: 10px 8px;
+  }
+  
+  .card-title {
+    font-size: 18px;
+    color: #8B1D42;
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+  
+  .card-edition {
+    font-size: 16px;
+    color: #8B1D42;
+    font-weight: 600;
+  }
+  

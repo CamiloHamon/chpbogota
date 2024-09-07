@@ -1,0 +1,28 @@
+h5 {
+    font-size: 16px;
+    line-height: 20px;
+    font-weight: 400;
+    letter-spacing: 0px;
+}
+h1, h2, h3, h4, h5, h6 {
+   margin-bottom: 15px;
+}
+.text-center{
+    text-align: center;
+}
+.d-flex {
+    display: flex;
+}
+.justify-center{
+    justify-content: center;
+}
+.mt-1 {
+    margin-top: 1rem;
+}
+.my-1 {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+.pos-relative{
+    position: relative;
+}

@@ -1,5 +1,4 @@
 import express from 'express';
-import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import helmet from 'helmet';
 import morgan from 'morgan';
@@ -9,9 +8,15 @@ import cookieParser from 'cookie-parser';
 import session from 'express-session';
 import rateLimit from 'express-rate-limit';
 import csurf from 'csurf';
-import bcrypt from 'bcryptjs';
 import { engine } from 'express-handlebars';
 import fileStore from 'session-file-store';
+import connectDB from './config/db.js'; // Importa la función de conexión
+
+// Para manejar rutas en ES Modules
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 // Inicializa dotenv para acceder a las variables de entorno
 dotenv.config();
@@ -19,8 +24,21 @@ dotenv.config();
 // Inicializa la aplicación Express
 const app = express();
 
+// Middleware para servir archivos estáticos desde la carpeta public
+app.use(express.static(join(__dirname, 'public')));
+
 // Middleware de seguridad y manejo de cabeceras HTTP
-app.use(helmet());
+app.use(helmet({
+  contentSecurityPolicy: {
+    directives: {
+      "default-src": ["'self'"],
+      "frame-src": ["'self'", "https://www.youtube.com"], // Permite iframes de YouTube
+      "script-src": ["'self'", "https://www.youtube.com", "https://www.youtube-nocookie.com"],
+      "img-src": ["'self'", "https://i.ytimg.com"], // Permite imágenes de YouTube
+    },
+  },
+}));
+
 
 // Logger de peticiones HTTP
 app.use(morgan('dev'));
@@ -42,10 +60,18 @@ const limiter = rateLimit({
 });
 app.use(limiter);
 
-// Configuración de Handlebars como motor de plantillas
-app.engine('handlebars', engine());
+// Configuración de Handlebars con helpers personalizados
+app.engine('handlebars', engine({
+  defaultLayout: 'main', // Define un layout predeterminado
+  layoutsDir: join(__dirname, 'views', 'layouts'), // Define la carpeta de layouts
+  partialsDir: join(__dirname, 'views', 'partials'),
+  helpers: {
+    eq: (v1, v2) => v1 === v2 // Helper personalizado para comparaciones
+  }
+}));
+
 app.set('view engine', 'handlebars');
-app.set('views', './views');
+app.set('views', join(__dirname, 'views'));
 
 // Configuración de sesiones con almacenamiento en archivos
 const FileStore = fileStore(session);
@@ -60,18 +86,26 @@ app.use(session({
 // Protección CSRF
 app.use(csurf({ cookie: true }));
 
-// Ruta principal
-app.get('/', (req, res) => {
-  res.render('home', { title: 'Home', csrfToken: req.csrfToken() });
-});
+// Rutas
+// Importar rutas
+import homeViewRoutes from './routes/views/home.view.routes.js';
+import whoiamViewRoutes from './routes/views/whoiam.view.routes.js';
+import servicesViewRoutes from './routes/views/services.view.routes.js';
+import commonAreas from './routes/views/common-areas.routes.js';
 
-// Conexión a MongoDB
-mongoose.connect(process.env.MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
-  .then(() => console.log('MongoDB conectado'))
-  .catch((err) => console.log(err));
+app.use('/', homeViewRoutes);
+app.use('/quienesomos', whoiamViewRoutes);
+app.use('/servicios', servicesViewRoutes);
+app.use('/bienescomunes', commonAreas);
+
+// APIs
+// Importar rutas
+import commonAreasApi from './routes/api/common-areas.api.routes.js';
+
+app.use('/api/common-areas', commonAreasApi);
+
+// Conectar a la base de datos
+connectDB();  // Establece la conexión al iniciar la app
 
 // Iniciar servidor
 const PORT = process.env.PORT || 5000;

@@ -1,0 +1,248 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Estilos generales */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+}
+
+/* Contenedor centrado */
+.container {
+    width: 100%;
+    max-width: 1220px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+/* Barra superior amarilla */
+.top-bar {
+    background-color: #e6bd0a; /* Color amarillo */
+    height: 5px; /* Grosor de la barra */
+    display: none; /* Oculta por defecto */
+}
+
+/* Header */
+#main-header {
+    padding: 61px 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+#main-header .container-header {
+    background-color: #8B1D42; /* Color del menú */
+    height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 auto;
+    max-width: 1220px;
+    padding: 0 15px;
+}
+
+#main-header .logo img {
+    height: 50px;
+}
+
+#main-header nav ul {
+    list-style: none;
+    display: flex;
+    gap: 30px; /* Espaciado entre los elementos del menú */
+    justify-content: center;
+    align-items: center;
+}
+
+#main-header nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 10px 20px;
+    transition: all 0.3s ease;
+}
+
+#main-header nav ul li a:hover, #main-header nav ul li a.active {
+    color: #FFD700;
+}
+
+#main-header nav ul li a {
+    height: 100%;
+    display: block;
+    line-height: 60px;
+    padding: 15px 0;
+    position: relative;
+}
+
+#main-header nav ul li a.active::after {
+    content: "";
+    height: 4px;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: -4px;
+    z-index: 203;
+    background: #FFD700;
+}
+
+#main-header nav ul li a.active.scroll-header::after {
+   bottom: 11px;
+   top: inherit;
+}
+
+/* Contenido principal */
+main {
+    padding-top: 100px; /* Deja espacio para el header fijo */
+}
+
+/* Footer */
+#main-footer {
+    background-color: #8B1D42;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+}
+
+#main-footer p {
+    margin: 5px 0;
+}
+
+/* Header cuando el usuario hace scroll */
+#main-header.scroll-header {
+    padding: 0;
+    background-color: #8B1D42;
+}
+
+.banner {
+    height: 430px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #000;
+    background-repeat: no-repeat;
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.banner h6.title {
+    font-size: 80px;
+    line-height: 80px;
+    font-weight: 700;
+    letter-spacing: 0px;
+    color: #fff;
+    padding-top: 150px;
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+
+.banner.home {
+    height: 800px;
+    padding-top: 60px;
+    margin-bottom: 160px;
+}
+
+.asociados-banner-container {
+    text-decoration: none;
+    position: absolute;
+    bottom: -96px;
+    width: 100%;
+    max-width: 600px; /* Ajusta según tu necesidad */
+  }
+  
+  .asociados-banner-container img {
+    width: 100%;
+    display: block;
+  }
+  
+  /* Texto en el banner */
+  .asociados-text-container {
+    background-color: #e6bd0a; /* Fondo amarillo */
+    color: #000; /* Color del texto negro */
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    padding: 10px 0;
+  }
+  
+  /* Overlay que aparece al hacer hover */
+  .asociados-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(139, 29, 66, 0.8); /* Color del overlay */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+  
+  .asociados-overlay img {
+    width: 100px; /* Ajusta el tamaño del logo */
+    opacity: 0.8;
+  }
+  
+  .asociados-banner-container:hover .asociados-overlay {
+    opacity: 1;
+  }
+  
+  /* Estilos para el contenedor principal del menú */
+.menu ul {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+  }
+  
+  .menu ul li {
+    position: relative; /* Necesario para posicionar el submenú */
+  }
+  
+  /* Estilos para el submenú */
+  .dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #8B1D42;
+    display: none!important; /* Oculto por defecto */
+    flex-direction: column;
+    padding: 0px;
+    min-width: 145px;
+    z-index: 1000;
+    align-items: start !important;
+    gap: 0rem!important;
+  }
+  
+  .dropdown-menu li {
+    list-style: none;
+    width: 100%;
+  }
+  
+  .dropdown-menu li a {
+    display: block;
+    color: white;
+    text-decoration: none!important;
+    transition: background 0.3s;
+    line-height: normal !important;
+    height: auto!important;
+    padding: 8px 16px !important;
+  }
+  
+  .dropdown-menu li a:hover {
+    background-color: #6f1534; /* Color para hover */
+  }
+  
+  /* Mostrar el submenú cuando el mouse está sobre el menú principal */
+  .dropdown:hover .dropdown-menu {
+    display: flex!important;
+  }
+  

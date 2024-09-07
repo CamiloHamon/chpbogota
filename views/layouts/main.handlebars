@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}}</title>
+    <link rel="stylesheet" href="/css/layout.css">
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header id="main-header">
+        <div class="container-header">
+            <div class="logo d-flex">
+                <img src="/images/faviconcaph.png" alt="Logo">
+            </div>
+            <nav class="menu">
+                <ul>
+                    <li><a href="/" class="{{#if (eq activePage 'inicio')}}active{{/if}}">Inicio</a></li>
+                    <li><a href="quienesomos" class="{{#if (eq activePage 'quienesomos')}}active{{/if}}">Quiénes
+                            Somos</a></li>
+                    <li><a href="servicios" class="{{#if (eq activePage 'servicios')}}active{{/if}}">Servicios</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-btn {{#if (eq activePage 'bienescomunes')}}active{{/if}}">Bienes Comunes</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/bienescomunes">Revista</a></li>
+                            <li><a href="#">Videos</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#">Galería</a></li>
+                    <li><a href="#">Contacto</a></li>
+                </ul>
+            </nav>
+
+        </div>
+    </header>
+
+    {{#if (eq activePage 'inicio')}}
+    <div class="banner home pos-relative" style="background-image: url('/images/banners/{{activePage}}.jpg');">
+        {{> carouselhome}}
+        <a target="_blank" href="/asociados" class="asociados-banner-container">
+            <div class="asociados-text-container">
+                <p>CONOCE A NUESTROS ASOCIADOS</p>
+            </div>
+            <img src="/images/home/asociados.png" alt="Conoce a nuestros asociados">
+            <div class="asociados-overlay">
+                <img src="/images/faviconcaph.png" alt="Logo">
+            </div>
+        </a>
+    </div>
+    {{else}}
+    <div class="banner" style="background-image: url('/images/banners/{{activePage}}.jpg');">
+        <h6 class="title">{{title}}</h6>
+    </div>
+    {{/if}}
+
+    <!-- Contenido principal -->
+    <main class="container">
+        {{{body}}}
+    </main>
+
+    <!-- Footer -->
+    <footer id="main-footer">
+        <div class="container">
+            <p>© 2024 Colegio de Administradores de Propiedad Horizontal de Bogotá | Todos los Derechos Reservados |
+                Website by: GatoMontés</p>
+            <p>Calle 63A No. 11-40 Of 404 | Tels: 249 2709 - 606 0338 | Cel: 316 679 7878 | colegiophbogota@gmail.com
+            </p>
+        </div>
+    </footer>
+
+    <script src="/js/layout.js"></script>
+</body>
+
+</html>
