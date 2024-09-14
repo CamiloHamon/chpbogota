@@ -1,0 +1,101 @@
+#data-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 3rem;
+}
+
+/* Estilos de la tarjeta */
+.card {
+  position: relative; /* Para colocar los íconos de forma absoluta */
+  display: flex;
+  flex-direction: column;
+  width: 353px;
+  margin: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+/* Estilos para las imágenes */
+.card-image {
+  width: 100%;
+  height: auto;
+  border-radius: 8px 8px 0 0;
+}
+
+/* Estilos para el contenido */
+.card-content {
+  padding: 10px 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+/* Estilos para el título */
+.card-title {
+  font-size: 18px;
+  color: #8B1D42;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+/* Estilos para los íconos */
+.card-icons {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: none;
+  gap: 10px;
+  height: 100%;
+  width: 100%;
+  background: #a3282875;
+  border-radius: 8px;
+}
+
+/* Mostrar los íconos al hacer hover */
+.card:hover .card-icons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Estilos para cada icono */
+.icon {
+  background-color: rgba(0, 0, 0, 0.7);
+  color: #fff;
+  padding: 8px;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon:hover {
+  background-color: rgba(0, 0, 0, 1);
+}
+
+.icon svg {
+  width: 35px;
+  height: 35px;
+  fill: white;
+}
+
+/* Estilo específico para el enlace */
+.icon-external {
+  text-decoration: none;
+  color: inherit;
+}

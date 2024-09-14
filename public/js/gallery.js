@@ -7,10 +7,9 @@ const renderContent = (items) => {
     items.forEach(item => {
         html += `
         <a href="${item.url}" target="_blank" class="card">
-          <img src="/images/common-areas/${item.urlImage}" alt="${item.title}" class="card-image" loading="lazy"/>
+          <img src="/images/gallery/${item.urlImage}" alt="${item.title}" class="card-image" loading="lazy"/>
           <div class="card-content">
             <h2 class="card-title">${item.title}</h2>
-            <p class="card-edition">${item.edition}</p>
           </div>
         </a>`;
     });
@@ -43,7 +42,7 @@ const renderPagination = (totalPages, currentPage, paginatorInstance) => {
 // Función para obtener todos los datos del servidor (de una sola vez)
 const fetchAllData = async () => {
     showLoading(); // Mostrar indicador de carga
-    const response = await fetch('/api/common-areas'); // Un solo request para todos los datos
+    const response = await fetch('/api/gallery'); // Un solo request para todos los datos
     const result = await response.json();
     hideLoading(); // Ocultar indicador de carga después de cargar los datos
     return result.data; // Supone que la API devuelve todos los datos en 'data'

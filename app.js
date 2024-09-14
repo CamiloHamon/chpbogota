@@ -32,13 +32,34 @@ app.use(helmet({
   contentSecurityPolicy: {
     directives: {
       "default-src": ["'self'"],
-      "frame-src": ["'self'", "https://www.youtube.com"], // Permite iframes de YouTube
-      "script-src": ["'self'", "https://www.youtube.com", "https://www.youtube-nocookie.com"],
-      "img-src": ["'self'", "https://i.ytimg.com"], // Permite imágenes de YouTube
-    },
-  },
+      "frame-src": [
+        "'self'", 
+        "https://www.youtube.com", 
+        "https://player.vimeo.com" // Permitir iframes de Vimeo
+      ],
+      "script-src": [
+        "'self'", 
+        "https://www.youtube.com", 
+        "https://www.youtube-nocookie.com", 
+        "https://player.vimeo.com" // Permitir scripts de Vimeo
+      ],
+      "img-src": [
+        "'self'", 
+        "https://i.ytimg.com", 
+        "https://i.vimeocdn.com" // Permitir imágenes de Vimeo
+      ],
+      "media-src": [
+        "'self'", 
+        "https://player.vimeo.com" // Permitir recursos multimedia de Vimeo
+      ],
+      "connect-src": [
+        "'self'",
+        "https://player.vimeo.com", // Permitir conexiones a los servidores de Vimeo
+        "https://f.vimeocdn.com"    // Conexiones necesarias para cargar el contenido de Vimeo
+      ]
+    }
+  }
 }));
-
 
 // Logger de peticiones HTTP
 app.use(morgan('dev'));
@@ -92,17 +113,25 @@ import homeViewRoutes from './routes/views/home.view.routes.js';
 import whoiamViewRoutes from './routes/views/whoiam.view.routes.js';
 import servicesViewRoutes from './routes/views/services.view.routes.js';
 import commonAreas from './routes/views/common-areas.routes.js';
+import videosRoutes from './routes/views/videos.routes.js';
+import galleryRoutes from './routes/views/gallery.routes.js';
 
 app.use('/', homeViewRoutes);
 app.use('/quienesomos', whoiamViewRoutes);
 app.use('/servicios', servicesViewRoutes);
 app.use('/bienescomunes', commonAreas);
+app.use('/videos', videosRoutes);
+app.use('/galeria', galleryRoutes);
 
 // APIs
 // Importar rutas
 import commonAreasApi from './routes/api/common-areas.api.routes.js';
+import videosApi from './routes/api/videos.api.routes.js';
+import galleryApi from './routes/api/gallery.api.routes.js';
 
 app.use('/api/common-areas', commonAreasApi);
+app.use('/api/videos', videosApi);
+app.use('/api/gallery', galleryApi);
 
 // Conectar a la base de datos
 connectDB();  // Establece la conexión al iniciar la app

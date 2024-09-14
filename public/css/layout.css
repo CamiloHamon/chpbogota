@@ -67,7 +67,7 @@ body {
     transition: all 0.3s ease;
 }
 
-#main-header nav ul li a:hover, #main-header nav ul li a.active {
+#main-header nav ul li a:hover, #main-header nav ul li a.active, #main-header nav ul li a.active-dropdown {
     color: #FFD700;
 }
 
@@ -217,7 +217,7 @@ main {
     flex-direction: column;
     padding: 0px;
     min-width: 145px;
-    z-index: 1000;
+    z-index: 10;
     align-items: start !important;
     gap: 0rem!important;
   }
