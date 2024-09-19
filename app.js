@@ -33,30 +33,61 @@ app.use(helmet({
     directives: {
       "default-src": ["'self'"],
       "frame-src": [
-        "'self'", 
-        "https://www.youtube.com", 
-        "https://player.vimeo.com" // Permitir iframes de Vimeo
+        "'self'",
+        "https://www.youtube.com",
+        "https://player.vimeo.com",
+        "https://www.google.com",           // Permitir iframes de Google
+        "https://maps.google.com"           // Permitir iframes de Google Maps
       ],
       "script-src": [
-        "'self'", 
-        "https://www.youtube.com", 
-        "https://www.youtube-nocookie.com", 
-        "https://player.vimeo.com" // Permitir scripts de Vimeo
+        "'self'",
+        "'unsafe-inline'",                  // Necesario para scripts inline de Google Maps
+        "https://www.youtube.com",
+        "https://www.youtube-nocookie.com",
+        "https://player.vimeo.com",
+        "https://maps.googleapis.com",      // Permitir scripts de Google Maps API
+        "https://maps.gstatic.com"
+      ],
+      "style-src": [
+        "'self'",
+        "'unsafe-inline'",                  // Necesario para estilos inline de Google Maps
+        "https://fonts.googleapis.com",
+        "https://maps.googleapis.com",
+        "https://maps.gstatic.com"
       ],
       "img-src": [
-        "'self'", 
-        "https://i.ytimg.com", 
-        "https://i.vimeocdn.com" // Permitir imágenes de Vimeo
-      ],
-      "media-src": [
-        "'self'", 
-        "https://player.vimeo.com" // Permitir recursos multimedia de Vimeo
+        "'self'",
+        "data:",                            // Permitir imágenes inline en base64
+        "https://i.ytimg.com",
+        "https://i.vimeocdn.com",
+        "https://maps.googleapis.com",
+        "https://maps.gstatic.com",
+        "https://maps.google.com",
+        "https://maps.gstatic.com",
+        "https://www.google.com"
       ],
       "connect-src": [
         "'self'",
-        "https://player.vimeo.com", // Permitir conexiones a los servidores de Vimeo
-        "https://f.vimeocdn.com"    // Conexiones necesarias para cargar el contenido de Vimeo
-      ]
+        "https://player.vimeo.com",
+        "https://f.vimeocdn.com",
+        "https://maps.googleapis.com",
+        "https://maps.gstatic.com",
+        "https://www.google.com",
+        "https://clients4.google.com",
+        "https://clients2.google.com"
+      ],
+      "font-src": [
+        "'self'",
+        "https://fonts.gstatic.com",
+        "https://fonts.googleapis.com"
+      ],
+      "media-src": [
+        "'self'",
+        "https://player.vimeo.com"
+      ],
+      "object-src": ["'none'"],             // Bloquear objetos embebidos (por seguridad)
+      "base-uri": ["'self'"],
+      "form-action": ["'self'"]
     }
   }
 }));
@@ -115,6 +146,7 @@ import servicesViewRoutes from './routes/views/services.view.routes.js';
 import commonAreas from './routes/views/common-areas.routes.js';
 import videosRoutes from './routes/views/videos.routes.js';
 import galleryRoutes from './routes/views/gallery.routes.js';
+import contactRoutes from './routes/views/contact-us.routes.js';
 
 app.use('/', homeViewRoutes);
 app.use('/quienesomos', whoiamViewRoutes);
@@ -122,16 +154,19 @@ app.use('/servicios', servicesViewRoutes);
 app.use('/bienescomunes', commonAreas);
 app.use('/videos', videosRoutes);
 app.use('/galeria', galleryRoutes);
+app.use('/contacto', contactRoutes);
 
 // APIs
 // Importar rutas
 import commonAreasApi from './routes/api/common-areas.api.routes.js';
 import videosApi from './routes/api/videos.api.routes.js';
 import galleryApi from './routes/api/gallery.api.routes.js';
+import contactApi from './routes/api/contact-us.api.routes.js';
 
 app.use('/api/common-areas', commonAreasApi);
 app.use('/api/videos', videosApi);
 app.use('/api/gallery', galleryApi);
+app.use('/api/contact', contactApi);
 
 // Conectar a la base de datos
 connectDB();  // Establece la conexión al iniciar la app

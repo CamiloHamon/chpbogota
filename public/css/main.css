@@ -13,8 +13,17 @@ h1, h2, h3, h4, h5, h6 {
 .d-flex {
     display: flex;
 }
+.flex-direction-column {
+    flex-direction: column;
+}
 .justify-center{
     justify-content: center;
+}
+.justify-end{
+    justify-content: end;
+}
+.items-center{
+    align-items: center;
 }
 .mt-1 {
     margin-top: 1rem;
@@ -22,6 +31,13 @@ h1, h2, h3, h4, h5, h6 {
 .my-1 {
     margin-top: 1rem;
     margin-bottom: 1rem;
+}
+.mt-2 {
+    margin-top: 2rem;
+}
+.my-2 {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
 }
 .pos-relative{
     position: relative;

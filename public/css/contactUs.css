@@ -1,0 +1,80 @@
+/* Estilos para el formulario de contacto */
+.contact-form {
+    width: 100%;
+    max-width: 500px;
+    margin: 2rem auto 4rem auto;
+  }
+  
+  /* Estilos para cada grupo de formulario */
+  .contact-form .form-group {
+    margin-bottom: 20px;
+  }
+  
+  /* Estilos para las etiquetas */
+  .contact-form .form-label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  /* Estilos para los campos de entrada */
+  .contact-form .form-input,
+  .contact-form .form-textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+  }
+  
+  /* Estilos para el enfoque de los campos */
+  .contact-form .form-input:focus,
+  .contact-form .form-textarea:focus {
+    border-color: #761537;
+    outline: none;
+  }
+  
+  /* Estilos para mensajes de error */
+  .contact-form .error-message {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+  }
+  
+  /* Estilos para campos con error */
+  .contact-form .form-input.error,
+  .contact-form .form-textarea.error {
+    border-color: red;
+  }
+  
+  /* Estilos para el botón de envío */
+  .contact-form .form-button {
+    background-color: #761537;
+    color: #fff;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    min-width: 85px;
+  }
+  
+  /* Efecto hover en el botón */
+  .contact-form .form-button:hover {
+    background-color: #5e112c;
+  }
+  
+  /* Media queries para responsividad */
+  @media (max-width: 600px) {
+    .contact-form {
+      padding: 15px;
+    }
+  
+    .contact-form .form-button {
+      width: 100%;
+    }
+  }
+  

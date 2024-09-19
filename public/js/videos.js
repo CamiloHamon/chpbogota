@@ -52,7 +52,7 @@ const renderContent = (items) => {
 
 // Función para abrir el modal con contenido dinámico
 const openModal = (content, type, title = "Contenido dinámico") => {
-    const modal = document.getElementById('video-modal');
+    const modal = document.getElementById('message-modal');
     const modalBody = document.getElementById('modal-body');
     const modalTitle = document.getElementById('modal-title');
 
@@ -77,7 +77,7 @@ const openModal = (content, type, title = "Contenido dinámico") => {
 
 // Cerrar el modal
 const closeModal = () => {
-    const modal = document.getElementById('video-modal');
+    const modal = document.getElementById('message-modal');
     const modalBody = document.getElementById('modal-body');
     modalBody.innerHTML = '';  // Limpiar el contenido dinámico al cerrar
     modal.style.display = 'none';
@@ -91,7 +91,7 @@ document.querySelector('.close').addEventListener('click', closeModal);
 
 // Cerrar modal al hacer clic fuera del modal
 window.addEventListener('click', (event) => {
-    const modal = document.getElementById('video-modal');
+    const modal = document.getElementById('message-modal');
     if (event.target == modal) {
         closeModal();
     }
