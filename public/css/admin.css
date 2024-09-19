@@ -1,0 +1,146 @@
+/* admin.css */
+
+/* Reset de márgenes y paddings */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Contenedor principal */
+  .admin-container {
+    display: flex;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Barra lateral */
+  .sidebar {
+    width: 250px;
+    background-color: #761537;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .sidebar-header {
+    padding: 20px;
+    background-color: #5e112c;
+    text-align: center;
+  }
+  
+  .sidebar-header h2 {
+    margin: 0;
+    font-size: 24px;
+  }
+  
+  .menu {
+    list-style: none;
+    flex: 1;
+  }
+  
+  .menu li {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .menu li a {
+    display: block;
+    padding: 15px 20px;
+    color: #fff;
+    text-decoration: none;
+    transition: background-color 0.3s;
+  }
+  
+  .menu li a:hover {
+    background-color: #5e112c;
+  }
+  
+  .sidebar-footer {
+    padding: 15px 20px;
+    background-color: #5e112c;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .sidebar-footer a {
+    color: #fff;
+    text-decoration: none;
+    margin-bottom: 10px;
+  }
+  
+  .logout-button {
+    background-color: #a1174f;
+    padding: 10px;
+    text-align: center;
+    border-radius: 4px;
+  }
+  
+  .logout-button:hover {
+    background-color: #870e3b;
+  }
+  
+  /* Contenido principal */
+  .main-content {
+    flex: 1;
+    background-color: #f4f4f4;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .header {
+    background-color: #fff;
+    padding: 20px;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .header h1 {
+    font-size: 28px;
+    color: #333;
+  }
+  
+  .content {
+    flex: 1;
+    padding: 20px;
+  }
+  
+  .content p {
+    font-size: 18px;
+    color: #555;
+  }
+  
+  /* Responsividad */
+  @media (max-width: 768px) {
+    .admin-container {
+      flex-direction: column;
+    }
+  
+    .sidebar {
+      width: 100%;
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+  
+    .sidebar-header, .sidebar-footer {
+      display: none;
+    }
+  
+    .menu {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+  
+    .menu li {
+      flex: 1 1 50%;
+    }
+  
+    .menu li a {
+      text-align: center;
+      padding: 10px;
+    }
+  
+    .main-content {
+      padding-top: 20px;
+    }
+  }
+  

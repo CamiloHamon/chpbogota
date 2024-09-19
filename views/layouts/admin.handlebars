@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Panel de Administración</title>
+  <meta name="csrf-token" content="{{csrfToken}}">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Enlace al archivo CSS -->
+  <link rel="stylesheet" href="/css/admin.css">
+  <link rel="stylesheet" href="/css/main.css">
+
+</head>
+
+<body>
+  <div class="admin-container">
+    <!-- Barra lateral de navegación -->
+    <nav class="sidebar">
+      <div class="sidebar-header">
+        <h2>Administración</h2>
+      </div>
+      <ul class="menu">
+        <li><a href="/admin/revistas">Revistas</a></li>
+        <li><a href="/admin/videos">Videos</a></li>
+        <li><a href="/admin/galeria">Galería</a></li>
+        <li><a href="/admin/noticias">Noticias</a></li>
+        <li><a href="/admin/usuarios">Usuarios</a></li>
+      </ul>
+      <div class="sidebar-footer">
+        <a href="/admin/perfil">Perfil</a>
+        <a href="/logout" class="logout-button">Cerrar Sesión</a>
+      </div>
+    </nav>
+
+    <!-- Contenido principal -->
+    <main class="main-content">
+      {{{body}}}
+    </main>
+  </div>
+
+  <!-- Enlace al archivo JavaScript (si es necesario) -->
+  <!-- <script src="/js/admin.js"></script> -->
+</body>
+
+</html>

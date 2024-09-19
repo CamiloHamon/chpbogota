@@ -147,6 +147,7 @@ import commonAreas from './routes/views/common-areas.routes.js';
 import videosRoutes from './routes/views/videos.routes.js';
 import galleryRoutes from './routes/views/gallery.routes.js';
 import contactRoutes from './routes/views/contact-us.routes.js';
+import adminRoutes from './routes/views/admin.routes.js';
 
 app.use('/', homeViewRoutes);
 app.use('/quienesomos', whoiamViewRoutes);
@@ -155,6 +156,7 @@ app.use('/bienescomunes', commonAreas);
 app.use('/videos', videosRoutes);
 app.use('/galeria', galleryRoutes);
 app.use('/contacto', contactRoutes);
+app.use('/admin', adminRoutes);
 
 // APIs
 // Importar rutas
@@ -162,11 +164,13 @@ import commonAreasApi from './routes/api/common-areas.api.routes.js';
 import videosApi from './routes/api/videos.api.routes.js';
 import galleryApi from './routes/api/gallery.api.routes.js';
 import contactApi from './routes/api/contact-us.api.routes.js';
+import adminApi from './routes/api/admin.api.routes.js';
 
 app.use('/api/common-areas', commonAreasApi);
 app.use('/api/videos', videosApi);
 app.use('/api/gallery', galleryApi);
 app.use('/api/contact', contactApi);
+app.use('/api/admin', adminApi);
 
 // Conectar a la base de datos
 connectDB();  // Establece la conexión al iniciar la app

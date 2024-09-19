@@ -1,0 +1,151 @@
+/* common-areas.css */
+
+#commonAreasTable {
+    margin-top: 20px;
+    border-radius: 8px;
+  }
+  
+  .edit-btn, .toggle-status-btn {
+    padding: 5px 10px;
+    margin: 2px;
+    background-color: #761537;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .edit-btn:hover, .toggle-status-btn:hover {
+    background-color: #5e112c;
+  }
+  
+  .main-container {
+    width: 100%;
+    max-width: 1220px;
+    margin: 0 auto;
+    padding: 0 15px;
+  }
+
+  .tabulator .tabulator-tableholder {
+    height: 100%!important;
+  }
+
+  .tabulator-col-title {
+    display: flex;
+    justify-content: center;
+}
+
+.tabulator .tabulator-header,
+ .tabulator,
+  .tabulator .tabulator-footer,
+   .tabulator .tabulator-tableholder,
+    .tabulator .tabulator-tableholder .tabulator-table,
+     .tabulator-row .tabulator-cell.tabulator-row-handle,
+      .tabulator-frozen.tabulator-frozen-right,
+       .tabulator-row .tabulator-cell.tabulator-frozen,
+       .tabulator .tabulator-header .tabulator-frozen {
+border: none!important;
+}
+
+.tabulator .tabulator-header .tabulator-col {
+  background: #761537!important;
+}
+
+
+
+.tabulator-col-title {
+  border-bottom: none!important;
+}
+
+/* Estilos generales para la tabla */
+#commonAreasTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'Arial', sans-serif;
+  font-size: 14px;
+}
+
+/* Encabezado de la tabla */
+.tabulator-col-title {
+  background-color: #761537; /* Color principal que mencionaste */
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  padding: 10px;
+  border-bottom: 2px solid #ddd;
+}
+
+/* Estilos para las celdas */
+.tabulator-cell {
+  padding: 10px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+  vertical-align: middle;
+}
+
+/* Alternar color de filas para mejor legibilidad */
+.tabulator-row:nth-child(even) {
+  background-color: #f9f9f9;
+}
+.tabulator-row:nth-child(odd) {
+  background-color: #ffffff;
+}
+
+/* Estilos para los botones de acción */
+.edit-btn, .toggle-status-btn {
+  padding: 5px 10px;
+  font-size: 12px;
+  color: white;
+  background-color: #0d6efd; /* Color principal */
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin: 5px;
+}
+
+.toggle-status-btn {
+  background-color: #761537;
+}
+
+.toggle-status-btn:hover {
+  background-color: #761537b4;
+}
+
+.edit-btn:hover {
+  background-color: #0d6dfda9; /* Color más oscuro para hover */
+}
+
+/* Mejorar la presentación de las imágenes */
+.tabulator-cell img {
+  max-width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.tabulator .tabulator-footer .tabulator-footer-contents {
+  padding: 8px 10px!important;
+}
+
+.tabulator .tabulator-footer .tabulator-page {
+  padding: 5px 9px!important;
+}
+
+.tabulator .tabulator-footer .tabulator-page.active {
+  color: #761537!important;
+  font-weight: 600;
+}
+/* Responsividad: adaptarse a pantallas más pequeñas */
+@media only screen and (max-width: 768px) {
+  .tabulator-cell {
+      padding: 5px;
+      font-size: 12px;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .tabulator-row.tabulator-selectable:hover {
+      cursor: default!important;
+      background-color: #dbcbcb!important;
+  }
+}
