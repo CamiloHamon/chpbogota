@@ -1,6 +1,6 @@
 /* common-areas.css */
 
-#commonAreasTable {
+#commonAreasTable, #videosTable, #galleryTable, #usersTable {
     border-radius: 8px;
   }
   
@@ -21,7 +21,7 @@
     width: 100%;
     max-width: 1220px;
     margin: 0 auto;
-    padding: 15px;
+    padding: 10px;
   }
 
   .tabulator .tabulator-tableholder {
@@ -59,7 +59,6 @@ border: none!important;
 #commonAreasTable {
   width: 100%;
   border-collapse: collapse;
-  font-family: 'Arial', sans-serif;
   font-size: 14px;
 }
 
@@ -148,8 +147,8 @@ border: none!important;
 }
 
 .icon{
-  height: 25px;
-  width: 25px;
+  height: 21px;
+  width: 21px;
   color: #fff;
   fill: #fff;
 }

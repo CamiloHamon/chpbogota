@@ -17,4 +17,9 @@ router.get('/usuarios', (req, res) => {
   res.render('admin/users', { layout: 'admin', title: 'Usuarios', activePage: 'users', csrfToken: req.csrfToken() });
 });
 
+router.get('/perfil', (req, res) => {
+  res.render('admin/profile', { layout: 'admin', title: 'Perfil', activePage: 'perfil', csrfToken: req.csrfToken() });
+});
+
+
 export default router;

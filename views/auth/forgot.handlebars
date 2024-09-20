@@ -1,0 +1,20 @@
+<h2 class="text-center">Recuperar contraseña</h2>
+{{#if error_msg}}
+<div class="alert alert-danger">
+    <p>{{error_msg}}</p>
+</div>
+{{/if}}
+<alert class="alert-success">
+    <p>{{success_msg}}</p>
+</alert>
+{{#if success_msg}}
+{{/if}}
+<form action="/auth/forgot" method="POST" class="contact-form m-0im">
+    <input type="hidden" value="{{csrfToken}}" name="_csrf">
+    <div class="form-group">
+        <label for="email" class="form-label">Correo electrónico:</label>
+        <input type="email" name="email" id="email" required class="custom-input">
+    </div>
+    <button class="color-primary w-100" type="submit">Enviar</button>
+</form>
+<p><a href="/auth">Volver al inicio de sesión</a></p>

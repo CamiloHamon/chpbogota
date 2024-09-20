@@ -1,0 +1,46 @@
+/* profile.css */
+  
+  .main-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f4f4f4;
+  }
+  
+  .profile-card {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 100%;
+    max-width: 400px;
+  }
+  
+  .profile-info {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+  }
+  
+  .profile-input {
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #eee;
+    border-radius: 5px;
+    background-color: #f4f4f4;
+    color: #333;
+    cursor: not-allowed;
+  }
+  
+  .profile-input:disabled {
+    background-color: #eee;
+  }
+  

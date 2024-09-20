@@ -1,0 +1,31 @@
+<h2 class="text-center">Iniciar sesión</h2>
+
+{{#if error}}
+<div class="alert alert-danger">
+    <p class="">{{error}}</p>
+</div>
+{{/if}}
+
+{{#if success_msg}}
+<div class="alert alert-success">
+    <p>{{success_msg}}</p>
+</div>
+{{/if}}
+
+<form action="/auth" method="POST" class="contact-form m-0im">
+    <input type="hidden" value="{{csrfToken}}" name="_csrf">
+    <div class="form-group">
+        <label class="form-label" for="email">Correo electrónico:</label>
+        <!-- Prellenar el campo de email con el valor pasado desde el servidor -->
+        <input class="custom-input" type="email" name="email" id="email" value="{{email}}" required autocomplete="on">
+    </div>
+    <div class="form-group">
+        <label class="form-label" for="password">Contraseña:</label>
+        <input class="custom-input" type="password" name="password" id="password" required>
+    </div>
+    <div class="d-flex">
+        <button class="color-primary w-100" type="submit">Ingresar</button>
+    </div>
+</form>
+
+<p><a href="/auth/forgot">¿Olvidaste tu contraseña?</a></p>

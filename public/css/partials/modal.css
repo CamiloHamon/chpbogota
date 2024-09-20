@@ -10,6 +10,15 @@
     background-color: rgba(0, 0, 0, 0.8);
 }
 
+.modal-content.modal-sm {
+    max-width: 350px;
+    padding: 30px 0 20px 0;
+}
+
+button#modal-confirm-btn {
+    width: 90%;
+}
+
 .modal-content {
     position: relative;
     margin: auto;

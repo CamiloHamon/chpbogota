@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Variables globales
     const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
     const confirmModal = document.getElementById('message-modal');
+    const modalContent = document.getElementById('modal-content');
     const modalTitle = document.getElementById('modal-title');
     const modalBody = document.getElementById('modal-body');
     const closeModalBtn = document.querySelector('.close');
@@ -120,7 +121,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     title: "Acciones",
                     maxWidth: 100,
                     field: "_id",
-                    height: 100,
                     hozAlign: "center",
                     vertAlign: "middle",
                     resizable: false,
@@ -129,8 +129,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         const rowData = cell.getData();
                         return `
                             <div class='d-flex flex-direction-column'>
-                                <button class="edit-btn" data-id="${rowData._id}">Editar</button>
-                                <button class="delete-btn color-primary" data-id="${rowData._id}">Eliminar</button>
+                                <button class="edit-btn w-100 sm" data-id="${rowData._id}">Editar</button>
+                                <button class="delete-btn w-100 sm color-primary" data-id="${rowData._id}">Eliminar</button>
                             </div>
                         `;
                     },
@@ -191,6 +191,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function openModal(mode, data = {}) {
+        modalContent.classList.remove('modal-sm')
         currentMode = mode;
         currentId = data._id || null;
 
@@ -271,6 +272,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         modalTitle.textContent = 'Confirmación';
         modalBody.innerHTML = `<p>¿Estás seguro que deseas eliminar este usuario?</p>`;
+        modalContent.classList.add('modal-sm')
         modalBody.appendChild(confirmBtn);
 
         confirmModal.style.display = 'flex';

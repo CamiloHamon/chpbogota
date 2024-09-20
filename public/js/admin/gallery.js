@@ -27,6 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Variables globales
     const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
     const confirmModal = document.getElementById('message-modal');
+    const modalContent = document.getElementById('modal-content');
     const modalTitle = document.getElementById('modal-title');
     const modalBody = document.getElementById('modal-body');
     const closeModalBtn = document.querySelector('.close');
@@ -148,8 +149,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         const rowData = cell.getData();
                         return `
                             <div class='d-flex flex-direction-column'>
-                                <button class="edit-btn" data-id="${rowData._id}">Editar</button>  
-                                <button class="toggle-status-btn" data-id="${rowData._id}" data-active="${rowData.active}">${rowData.active ? 'Inactivar' : 'Activar'}</button>
+                                <button class="edit-btn w-100 sm" data-id="${rowData._id}">Editar</button>  
+                                <button class="toggle-status-btn w-100 sm" data-id="${rowData._id}" data-active="${rowData.active}">${rowData.active ? 'Inactivar' : 'Activar'}</button>
                             </div>
                         `;
                     },
@@ -223,6 +224,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function openModal(mode, data = {}) {
+        modalContent.classList.remove('modal-sm')
         currentMode = mode;
         currentId = data._id || null;
 
@@ -384,6 +386,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function openConfirmModal(id, status, isActive) {
+        modalContent.classList.add('modal-sm')
         currentId = id;
         newStatus = status;
 

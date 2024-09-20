@@ -1,0 +1,44 @@
+body {
+    display: flex;
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center;     /* Centra verticalmente */
+    min-height: 100vh;       /* Asegura que el body ocupe al menos el alto de la ventana */
+    margin: 0;               /* Opcional: elimina márgenes por defecto */
+    background-color: #f1f1f1;
+}
+
+.auth-container {
+    width: 400px;
+    margin: 20px auto;
+    padding: 25px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 1px 3px rgb(219 180 180);
+}
+
+.auth-container h1 {
+    text-align: center;
+}
+
+p {
+    text-align: center;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.img-logo-auth {
+    width: 100%;
+    max-width: 70px;
+}
+
+@media (max-width: 768px) {
+    .auth-container {
+        width: 100%;
+    }
+}

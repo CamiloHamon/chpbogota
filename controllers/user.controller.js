@@ -1,5 +1,6 @@
 // controllers/userController.js
 import User from '../models/user.model.js';
+import bcrypt from 'bcryptjs';
 
 // Roles permitidos
 const validRoles = ['admin', 'superadmin'];
@@ -138,14 +139,114 @@ export const getAllUsers = async (req, res) => {
 
 export const getUser = async (req, res) => {
     try {
-      const user = await User.findById(req.params.id);
-      if (!user) {
-        return res.status(404).json({ success: false, message: 'Usuario no encontrada' });
-      }
-      res.json({ success: true, user });
+        const user = await User.findById(req.params.id);
+        if (!user) {
+            return res.status(404).json({ success: false, message: 'Usuario no encontrada' });
+        }
+        res.json({ success: true, user });
     } catch (error) {
-      res.status(500).json({ success: false, message: 'Error interno del servidor' });
+        res.status(500).json({ success: false, message: 'Error interno del servidor' });
     }
-  }
-  
+}
+
+// Obtener el perfil del usuario autenticado
+export const getProfile = async (req, res) => {
+    try {
+        const user = req.user; // Asumimos que req.user contiene el usuario autenticado
+
+        if (!user) {
+            return res.status(401).json({
+                success: false,
+                message: 'Usuario no autenticado',
+            });
+        }
+
+        // Solo devolvemos el nombre y el email
+        return res.status(200).json({
+            success: true,
+            data: {
+                name: user.name,
+                email: user.email,
+                role: user.role
+            },
+        });
+    } catch (error) {
+        console.error('Error al obtener el perfil:', error);
+        return res.status(500).json({
+            success: false,
+            message: 'Error al obtener el perfil',
+        });
+    }
+};
+// Actualizar el perfil del usuario autenticado
+export const updateProfile = async (req, res) => {
+    try {
+        const userId = req.user._id; // Asumimos que req.user contiene el usuario autenticado
+        const { name, currentPassword, password, passwordConfirm } = req.body;
+
+        if (!name) {
+            return res.status(400).json({
+                success: false,
+                message: 'El nombre es obligatorio',
+            });
+        }
+
+        const user = await User.findById(userId);
+
+        // Actualizar el nombre
+        user.name = name;
+
+        // Si el usuario quiere cambiar su contraseña
+        if (currentPassword || password || passwordConfirm) {
+            if (!currentPassword || !password || !passwordConfirm) {
+                return res.status(400).json({
+                    success: false,
+                    message: 'Debes completar todos los campos de contraseña',
+                });
+            }
+
+            // Verificar que la contraseña actual es correcta
+            const isMatch = await bcrypt.compare(currentPassword, user.password);
+            if (!isMatch) {
+                return res.status(400).json({
+                    success: false,
+                    message: 'La contraseña actual es incorrecta',
+                });
+            }
+
+            // Validar que la nueva contraseña cumpla con los requisitos
+            const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()\-_=+{};:,<.>]).{6,}$/;
+            if (!passwordRegex.test(password)) {
+                return res.status(400).json({
+                    success: false,
+                    message: 'La nueva contraseña no cumple con los requisitos de seguridad',
+                });
+            }
+
+            if (password !== passwordConfirm) {
+                return res.status(400).json({
+                    success: false,
+                    message: 'Las nuevas contraseñas no coinciden',
+                });
+            }
+
+            // Encriptar la nueva contraseña
+            const salt = await bcrypt.genSalt(10);
+            user.password = await bcrypt.hash(password, salt);
+        }
+
+        await user.save();
+
+        return res.status(200).json({
+            success: true,
+            message: 'Perfil actualizado exitosamente',
+        });
+    } catch (error) {
+        console.error('Error al actualizar el perfil:', error);
+        return res.status(500).json({
+            success: false,
+            message: 'Error al actualizar el perfil',
+        });
+    }
+};
 

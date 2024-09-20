@@ -149,8 +149,19 @@ export default class FormBuilder {
         // Validar contraseñas
         const passwordInput = document.getElementById('password');
         const passwordConfirmInput = document.getElementById('passwordConfirm');
+        const currentPasswordInput = document.getElementById('currentPassword');
+
         const passwordErrorElement = document.getElementById(`error-password`);
         const passwordConfirmErrorElement = document.getElementById(`error-passwordConfirm`);
+        const currentPasswordErrorElement = document.getElementById(`error-currentPassword`);
+
+        if (currentPasswordErrorElement) {
+            currentPasswordErrorElement.classList.remove('error');
+        }
+
+        if (currentPasswordInput) {
+            currentPasswordInput.classList.remove('error');
+        }
 
         if (passwordInput) {
             passwordInput.classList.remove('error');
@@ -166,6 +177,19 @@ export default class FormBuilder {
 
         if (passwordConfirmErrorElement) {
             passwordConfirmErrorElement.classList.remove('error');
+        }
+
+        if (currentPasswordInput && currentPasswordErrorElement) {
+
+            if (currentPasswordInput.value.trim() === '') {
+                currentPasswordInput.classList.add('error');
+                currentPasswordErrorElement.textContent = 'La contraseña es obligatoria.';
+                isValid = false;
+            } else if (!this.validatePassword(currentPasswordInput.value.trim())) {
+                currentPasswordInput.classList.add('error');
+                currentPasswordErrorElement.textContent = 'La contraseña debe tener al menos 6 caracteres, una letra mayúscula, un número y un carácter especial.';
+                isValid = false;
+            }
         }
 
         if (mode === 'add') {

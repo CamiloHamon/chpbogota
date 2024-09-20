@@ -1,0 +1,37 @@
+<!-- views/profile.hbs -->
+<link rel="stylesheet" href="/css/admin/profile.css">
+
+<section class="main-container">
+    <div class="profile-card">
+        <h1>Mi Perfil</h1>
+        <div class="profile-info">
+            <!-- Input deshabilitado para el nombre -->
+            <div class="form-group">
+                <label for="profile-name">Nombre</label>
+                <input type="text" id="profile-name" disabled class="profile-input">
+            </div>
+
+            <!-- Input deshabilitado para el email -->
+            <div class="form-group">
+                <label for="profile-email">Correo electrónico</label>
+                <input type="email" id="profile-email" disabled class="profile-input">
+            </div>
+
+             <!-- Input deshabilitado para el email -->
+            <div class="form-group">
+                <label for="profile-rol">Rol</label>
+                <input type="email" id="profile-rol" disabled class="profile-input">
+            </div>
+
+            <!-- Botón para editar el perfil -->
+            <button id="edit-profile-btn" class="color-primary btn-edit">
+                Editar Perfil
+            </button>
+        </div>
+    </div>
+</section>
+
+<!-- Modal para editar el perfil -->
+{{> modal}}
+
+<script type="module" src="/js/admin/profile.js"></script>

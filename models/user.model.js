@@ -1,11 +1,15 @@
+// models/user.model.js
+
 import mongoose from 'mongoose';
-import bcrypt from 'bcryptjs'
+import bcrypt from 'bcryptjs';
 
 const UserSchema = new mongoose.Schema({
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-    role: { type: String, enum: ['admin', 'superadmin'], required: true }
+    role: { type: String, enum: ['admin', 'superadmin'], required: true },
+    resetPasswordToken: { type: String },
+    resetPasswordExpires: { type: Date }
 });
 
 // Método para encriptar la password antes de guardar

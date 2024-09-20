@@ -9,8 +9,10 @@ import session from 'express-session';
 import rateLimit from 'express-rate-limit';
 import csurf from 'csurf';
 import { engine } from 'express-handlebars';
-import fileStore from 'session-file-store';
 import connectDB from './config/db.js'; // Importa la función de conexión
+import passport from './config/passport.js';
+import flash from 'connect-flash';
+import MongoStore from 'connect-mongo';
 
 // Para manejar rutas en ES Modules
 import { fileURLToPath } from 'url';
@@ -114,6 +116,7 @@ const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutos
   max: 100, // Limita a 100 solicitudes por IP
 });
+
 app.use(limiter);
 
 // Configuración de Handlebars con helpers personalizados
@@ -129,18 +132,51 @@ app.engine('handlebars', engine({
 app.set('view engine', 'handlebars');
 app.set('views', join(__dirname, 'views'));
 
+// Conectar a la base de datos
+connectDB();  // Establece la conexión al iniciar la app
+
 // Configuración de sesiones con almacenamiento en archivos
-const FileStore = fileStore(session);
 app.use(session({
-  store: new FileStore(),
   secret: process.env.SESSION_SECRET || 'supersecretkey',
   resave: false,
   saveUninitialized: false,
-  cookie: { secure: false }, // Cambiar a true si usas HTTPS
+  store: MongoStore.create({
+    mongoUrl: process.env.MONGO_URI, // URL de tu base de datos MongoDB
+    collectionName: 'sessions', // Nombre de la colección donde se almacenarán las sesiones
+  }),
+  cookie: { maxAge: 1000 * 60 * 60 * 24 }, // 1 día de vida para la cookie
 }));
+
+// Inicializar Passport y sesiones
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Middleware para manejar mensajes flash
+app.use(flash());
+
+// Middleware para asignar mensajes flash a las vistas
+app.use((req, res, next) => {
+  res.locals.success_msg = req.flash('success_msg');
+  res.locals.error_msg = req.flash('error_msg');
+  res.locals.error = req.flash('error'); // Passport pone errores aquí por defecto
+  next();
+});
+
+app.use((req, res, next) => {
+  res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+  res.setHeader('Pragma', 'no-cache');
+  res.setHeader('Expires', '0');
+  res.setHeader('Surrogate-Control', 'no-store');
+  next();
+});
 
 // Protección CSRF
 app.use(csurf({ cookie: true }));
+
+app.use((req, res, next) => {
+  res.locals.csrfToken = req.csrfToken(); // Pasa el token CSRF a las vistas
+  next();
+});
 
 // Rutas
 // Importar rutas
@@ -152,6 +188,7 @@ import videosRoutes from './routes/views/videos.routes.js';
 import galleryRoutes from './routes/views/gallery.routes.js';
 import contactRoutes from './routes/views/contact-us.routes.js';
 import adminRoutes from './routes/views/admin.routes.js';
+import authRoutes from './routes/views/auth.routes.js';
 
 app.use('/', homeViewRoutes);
 app.use('/quienesomos', whoiamViewRoutes);
@@ -161,6 +198,7 @@ app.use('/videos', videosRoutes);
 app.use('/galeria', galleryRoutes);
 app.use('/contacto', contactRoutes);
 app.use('/admin', adminRoutes);
+app.use('/auth', authRoutes);
 
 // APIs
 // Importar rutas
@@ -175,9 +213,6 @@ app.use('/api/videos', videosApi);
 app.use('/api/gallery', galleryApi);
 app.use('/api/contact', contactApi);
 app.use('/api/admin', adminApi);
-
-// Conectar a la base de datos
-connectDB();  // Establece la conexión al iniciar la app
 
 // Iniciar servidor
 const PORT = process.env.PORT || 5000;

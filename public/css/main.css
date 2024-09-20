@@ -1,5 +1,25 @@
+@font-face {
+  font-family: 'Poppins';
+  src: 
+       url('/fonts/Poppins-Regular.woff') format('woff'),
+       url('/fonts/Poppins-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+html, body, button, input, textarea, select {
+  font-family: 'Poppins', sans-serif;
+}
+
+h1, h2, h3, h4, h5, a {
+  color: #761537;
+}
+
+button, p, label, span, input, select{
+  font-size: 16px;
+}
+
 h5 {
-    font-size: 16px;
     line-height: 20px;
     font-weight: 400;
     letter-spacing: 0px;
@@ -24,6 +44,9 @@ h5 {
 }
 .items-center{
     align-items: center;
+}
+.m-0im {
+  margin: 0!important;
 }
 .mt-1 {
     margin-top: 1rem;
@@ -58,9 +81,8 @@ h5 {
 .custom-input {
     width: 100%;
     padding: 8px 10px;
-    border: 2px solid #ddd;
+    border: 1px solid #ddd;
     border-radius: 5px; /* Bordes redondeados */
-    font-size: 16px;
     color: #333;
     outline: none;
     transition: border-color 0.3s ease;
@@ -80,7 +102,6 @@ h5 {
 /* Adaptarse mejor a pantallas pequeñas */
 @media (max-width: 768px) {
     .custom-input {
-        font-size: 14px;
         padding: 8px;
     }
 }
@@ -144,6 +165,11 @@ h5 {
     cursor: pointer;
     margin: 10px 0;
 }
+
+.sm {
+  padding: 5px 10px;
+    font-size: 14px;
+}
 button.color-primary {    color: #fff;}
 button:hover {
     background-color: #5e112c;
@@ -170,7 +196,11 @@ button:hover {
     display: block;
     margin-bottom: 5px;
     font-weight: bold;
-    color: #333;
+    color: #761537;
+  }
+
+  label {
+    color: #761537;
   }
   
   /* Estilos para los campos de entrada */
@@ -180,7 +210,6 @@ button:hover {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    font-size: 16px;
   }
   
   /* Estilos para el enfoque de los campos */
@@ -210,7 +239,6 @@ button:hover {
     padding: 12px 20px;
     border: none;
     border-radius: 4px;
-    font-size: 16px;
     cursor: pointer;
     display: flex;
     justify-content: center;
@@ -264,3 +292,39 @@ button:hover {
   .tabulator-row .tabulator-cell {
     white-space: break-spaces!important;
   }
+
+  .tabulator .tabulator-footer .tabulator-page,.tabulator .tabulator-footer .tabulator-page-size  {
+    border: none!important;
+  }
+
+  .error-message {
+    color: red;
+    text-align: center;
+}
+
+.success-message {
+    color: green;
+    text-align: center;
+}
+.w-100{
+  width: 100%;
+}
+.alert {
+  position: relative;
+  margin-bottom: 1rem;
+  border: 1px solid transparent;
+  border-radius: .25rem;
+}
+.alert-danger {
+  color: #842029;
+  background-color: #f8d7da;
+  border-color: #f5c2c7;
+}
+.alert>p {
+  margin: 0.5rem;
+}
+.alert-success {
+  color: #0f5132;
+  background-color: #d1e7dd;
+  border-color: #badbcc;
+}
