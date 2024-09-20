@@ -355,6 +355,8 @@ document.addEventListener('DOMContentLoaded', () => {
         event.preventDefault();
 
         const errorUrlImage = document.getElementById('error-urlImage');
+        console.log(urlImage);
+        
         if (!urlImage) {
             errorUrlImage.textContent = 'La imagen es obligatoria.';
         } else {

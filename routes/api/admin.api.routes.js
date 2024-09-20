@@ -3,6 +3,7 @@ import { getAllCommonAreas, toggleCommonAreaStatus, addCommonArea, getCommonArea
 import { uploadImage, deleteImage } from '../../controllers/images.controller.js';
 import { addVideo, getVideo, getVideos, toggleVideosStatus, updateVideo } from '../../controllers/videos.controller.js';
 import { addGallery, getGalleries, getGallery, toggleGalleryStatus, updateGallery } from '../../controllers/gallery.controller.js';
+import { createNewUser, deleteUser, getAllUsers, getUser, updateUser } from '../../controllers/user.controller.js';
 
 const router = express.Router();
 
@@ -29,5 +30,13 @@ router.patch('/gallery/:id/toggle-status', toggleGalleryStatus);
 router.post('/gallery/add', addGallery);
 router.get('/gallery/:id', getGallery);
 router.put('/gallery/:id', updateGallery);
+
+//users
+router.post('/users/add', createNewUser);
+router.get('/users', getAllUsers);
+router.get('/users/:id', getUser);
+router.put('/users/:id', updateUser);
+router.delete('/users/:id', deleteUser);
+
 
 export default router;

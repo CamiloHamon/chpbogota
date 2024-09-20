@@ -1,0 +1,24 @@
+<!-- views/admin/users.hbs -->
+<link rel="stylesheet" href="/css/admin/common-areas.css">
+<link rel="stylesheet" href="/modules/tabulator/index.css">
+<link rel="stylesheet" href="/modules/loader/index.css">
+
+<section class="main-container">
+    <div class="container-buttons-title">
+        <h1>Administración - {{title}}</h1>
+        <div class="d-flex items-center gap-5px">
+            <button id="add-btn" class="color-primary">
+                Agregar
+            </button>
+            <input id="search-all" type="text" placeholder="Buscar..." class="custom-input">
+        </div>
+    </div>
+    <div id="usersTable"></div>
+</section>
+
+<!-- Partial modal -->
+{{> modal}}
+
+<script type="module" src="/js/admin/users.js"></script>
+<script type="module" src="/modules/tabulator/index.js"></script>
+<script type="module" src="/modules/loader/index.js"></script>

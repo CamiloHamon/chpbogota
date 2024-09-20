@@ -13,4 +13,8 @@ router.get('/galeria', (req, res) => {
   res.render('admin/gallery', { layout: 'admin', title: 'Galería', activePage: 'gallery', csrfToken: req.csrfToken() });
 });
 
+router.get('/usuarios', (req, res) => {
+  res.render('admin/users', { layout: 'admin', title: 'Usuarios', activePage: 'users', csrfToken: req.csrfToken() });
+});
+
 export default router;
