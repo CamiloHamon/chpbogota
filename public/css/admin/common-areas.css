@@ -1,7 +1,6 @@
 /* common-areas.css */
 
 #commonAreasTable {
-    margin-top: 20px;
     border-radius: 8px;
   }
   
@@ -22,7 +21,7 @@
     width: 100%;
     max-width: 1220px;
     margin: 0 auto;
-    padding: 0 15px;
+    padding: 15px;
   }
 
   .tabulator .tabulator-tableholder {
@@ -132,8 +131,9 @@ border: none!important;
 }
 
 .tabulator .tabulator-footer .tabulator-page.active {
-  color: #761537!important;
+  background: #761537 !important;
   font-weight: 600;
+  color: #fff!important;
 }
 /* Responsividad: adaptarse a pantallas más pequeñas */
 @media only screen and (max-width: 768px) {
@@ -147,5 +147,36 @@ border: none!important;
   .tabulator-row.tabulator-selectable:hover {
       cursor: default!important;
       background-color: #dbcbcb!important;
+  }
+}
+
+#modal-body>p {
+  margin: 15px 0 10px 0px;
+}
+
+.icon{
+  height: 25px;
+  width: 25px;
+  color: #fff;
+  fill: #fff;
+}
+
+.container-buttons-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 5px;
+}
+
+.gap-5px {
+  gap: 5px;
+}
+
+@media only screen and (max-width: 768px) {
+  .container-buttons-title {
+    display: block;
+    justify-content: space-between;
+    padding-top: 0;
+    align-items: center;
   }
 }

@@ -4,9 +4,6 @@ h5 {
     font-weight: 400;
     letter-spacing: 0px;
 }
-h1, h2, h3, h4, h5, h6 {
-   margin-bottom: 15px;
-}
 .text-center{
     text-align: center;
 }
@@ -22,6 +19,9 @@ h1, h2, h3, h4, h5, h6 {
 .justify-end{
     justify-content: end;
 }
+.justify-between{
+    justify-content: space-between;
+}
 .items-center{
     align-items: center;
 }
@@ -31,6 +31,12 @@ h1, h2, h3, h4, h5, h6 {
 .my-1 {
     margin-top: 1rem;
     margin-bottom: 1rem;
+}
+.ml-1 {
+    margin-left: 1rem;
+}
+.mr-1 {
+    margin-right: 1rem;
 }
 .mt-2 {
     margin-top: 2rem;
@@ -48,3 +54,213 @@ h1, h2, h3, h4, h5, h6 {
 .pos-relative{
     position: relative;
 }
+/* Estilos del input personalizado */
+.custom-input {
+    width: 100%;
+    padding: 8px 10px;
+    border: 2px solid #ddd;
+    border-radius: 5px; /* Bordes redondeados */
+    font-size: 16px;
+    color: #333;
+    outline: none;
+    transition: border-color 0.3s ease;
+    box-sizing: border-box;
+}
+
+/* Cambiar el borde al enfocar */
+.custom-input:focus {
+    border-color: #761537; /* Color principal */
+}
+
+/* Placeholder más claro */
+.custom-input::placeholder {
+    color: #999;
+}
+
+/* Adaptarse mejor a pantallas pequeñas */
+@media (max-width: 768px) {
+    .custom-input {
+        font-size: 14px;
+        padding: 8px;
+    }
+}
+
+.w-400px{
+    width: 400px;
+}
+/* Estilo del toggle switch */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 99px;
+    height: 30px;
+  }
+  
+  .switch input {
+    display: none;
+  }
+  
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: 0.4s;
+    border-radius: 34px;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 6px;
+    bottom: 6px;
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 50%;
+  }
+  
+  input:checked + .slider {
+    background-color: #761537;
+  }
+  
+  input:checked + .slider:before {
+    transform: translateX(20px);
+  }
+  
+  .text-switch{
+    font-size: 13px;
+  }
+
+  button {
+    padding: 10px 12px;
+    border-radius: 5px;
+    border: none;
+    background: #761537;
+    cursor: pointer;
+    margin: 10px 0;
+}
+button.color-primary {    color: #fff;}
+button:hover {
+    background-color: #5e112c;
+}
+/* Estilos para el formulario de contacto */
+.contact-form {
+    width: 100%;
+    max-width: 500px;
+    margin: 2rem auto;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Estilos para cada grupo de formulario */
+  .contact-form .form-group {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  /* Estilos para las etiquetas */
+  .contact-form .form-label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  /* Estilos para los campos de entrada */
+  .contact-form .form-input,
+  .contact-form .form-textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+  }
+  
+  /* Estilos para el enfoque de los campos */
+  .contact-form .form-input:focus,
+  .contact-form .form-textarea:focus {
+    border-color: #761537;
+    outline: none;
+  }
+  
+  /* Estilos para mensajes de error */
+  .contact-form .error-message {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+  }
+  
+  /* Estilos para campos con error */
+  .contact-form .form-input.error,
+  .contact-form .form-textarea.error {
+    border-color: red;
+  }
+  
+  /* Estilos para el botón de envío */
+  .contact-form .form-button {
+    background-color: #761537;
+    color: #fff;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    min-width: 85px;
+  }
+  
+  /* Efecto hover en el botón */
+  .contact-form .form-button:hover {
+    background-color: #5e112c;
+  }
+  
+  /* Media queries para responsividad */
+  @media (max-width: 600px) {
+    .contact-form {
+      margin: 20px 0 10px 0;
+    }
+  
+    .contact-form .form-button {
+      width: 100%;
+    }
+  }
+  .filepond--root .filepond--credits[style] {
+    display: none!important;
+  }
+
+  .filepond--root{
+    border: none!important;
+  }
+  a{
+    text-decoration: none;
+  }
+  a.btn{
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+    background: #157615;
+    cursor: pointer;
+    margin: 10px 0;
+    color: #fff;
+    line-height: 0;
+  }
+
+  @media only screen and (max-width: 768px) {
+    #message-modal .modal-content {
+    width: 90%;
+    max-height: 90%;
+    overflow: auto;
+    }
+  }
+
+  .tabulator-row .tabulator-cell {
+    white-space: break-spaces!important;
+  }

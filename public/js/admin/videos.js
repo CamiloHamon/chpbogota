@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const formConfig = [
         { label: 'Título', id: 'title', type: 'text', required: true },
-        { label: 'Edición', id: 'edition', type: 'text', required: true },
+        { label: 'Descripción', id: 'description', type: 'textarea', required: true },
         { label: 'URL', id: 'url', type: 'text', required: true },
         { label: 'Imagen', id: 'urlImage', type: 'file', required: true }
     ];
@@ -66,11 +66,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function initializeTable() {
-        table = new Tabulator("#commonAreasTable", {
-            ajaxURL: "/api/admin/common-areas",
+        table = new Tabulator("#videosTable", {
+            ajaxURL: "/api/admin/videos",
             pagination: true,
-            paginationSize: 5,
-            paginationSizeSelector: [5, 10, 15, 20],
+            paginationSize: 8,
+            paginationSizeSelector: [8, 10, 15, 20],
             layout: "fitColumns",
             responsiveLayout: "collapse",
             rowHeader: {
@@ -112,8 +112,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     frozen: true
                 },
                 {
-                    title: "Edición",
-                    field: "edition",
+                    title: "Descripción",
+                    field: "description",
                     hozAlign: "center",
                     vertAlign: "middle",
                     resizable: false,
@@ -206,7 +206,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function initializeEventHandlers() {
-        document.getElementById('commonAreasTable').addEventListener('click', handleTableClick);
+        document.getElementById('videosTable').addEventListener('click', handleTableClick);
         addButton.addEventListener('click', () => openModal('add'));
         closeModalBtn.addEventListener('click', closeModal);
         submitButton.addEventListener('click', handleFormSubmit);
@@ -218,10 +218,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (target.classList.contains('edit-btn')) {
             const id = target.getAttribute('data-id');
-            fetch(`/api/admin/common-areas/${id}`)
+            fetch(`/api/admin/videos/${id}`)
                 .then(response => response.json())
                 .then(data => {
-                    openModal('edit', data.commonArea);
+                    openModal('edit', data.video);
                 })
                 .catch(error => console.error('Error al obtener datos:', error));
         } else if (target.classList.contains('toggle-status-btn')) {
@@ -236,7 +236,7 @@ document.addEventListener('DOMContentLoaded', () => {
         currentMode = mode;
         currentId = data._id || null;
 
-        modalTitle.textContent = mode === 'edit' ? 'Editar revista' : 'Agregar nueva revista';
+        modalTitle.textContent = mode === 'edit' ? 'Editar video' : 'Agregar nueva video';
         modalBody.innerHTML = '';
 
         formBuilder = new FormBuilder(formConfig, 'itemForm');
@@ -249,7 +249,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (mode === 'edit') {
             document.getElementById('title').value = data.title;
-            document.getElementById('edition').value = data.edition;
+            document.getElementById('description').value = data.description;
             document.getElementById('url').value = data.url;
         }
 
@@ -266,7 +266,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const serverOptions = {
             process: {
-                url: '/api/admin/upload-image/common-areas',
+                url: '/api/admin/upload-image/videos',
                 method: 'POST',
                 headers: {
                     'CSRF-Token': csrfToken
@@ -281,7 +281,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     load();
                     return;
                 }
-                fetch(`/api/admin/delete-image/common-areas`, {
+                fetch(`/api/admin/delete-image/videos`, {
                     method: 'DELETE',
                     headers: {
                         'CSRF-Token': csrfToken,
@@ -344,7 +344,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (currentMode === 'edit' && data.urlImage) {
             urlImage = data.urlImage;
-            filePondInstance.addFile(`/images/common-areas/${data.urlImage}`)
+            filePondInstance.addFile(`/images/videos/${data.urlImage}`)
             .catch(err => {
                 console.error('Error al cargar la imagen:', err);
             });
@@ -364,7 +364,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (formBuilder.validateForm() && urlImage) {
             const data = {
                 title: document.getElementById('title').value,
-                edition: document.getElementById('edition').value,
+                description: document.getElementById('description').value,
                 url: document.getElementById('url').value,
                 urlImage: urlImage
             };
@@ -380,7 +380,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             };
 
-            const endpoint = currentMode === 'edit' ? `/api/admin/common-areas/${currentId}` : '/api/admin/common-areas/add';
+            const endpoint = currentMode === 'edit' ? `/api/admin/videos/${currentId}` : '/api/admin/videos/add';
 
             fetch(endpoint, fetchOptions)
                 .then(response => response.json())
@@ -410,7 +410,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (currentId !== null) {
             showLoading();
 
-            fetch(`/api/admin/common-areas/${currentId}/toggle-status`, {
+            fetch(`/api/admin/videos/${currentId}/toggle-status`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',

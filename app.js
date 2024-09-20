@@ -35,6 +35,7 @@ app.use(helmet({
       "frame-src": [
         "'self'",
         "https://www.youtube.com",
+        "https://vimeo.com", 
         "https://player.vimeo.com",
         "https://www.google.com",           // Permitir iframes de Google
         "https://maps.google.com"           // Permitir iframes de Google Maps
@@ -55,8 +56,10 @@ app.use(helmet({
         "https://maps.googleapis.com",
         "https://maps.gstatic.com"
       ],
+      "worker-src": ["'self'", "blob:"],
       "img-src": [
         "'self'",
+        "blob:",
         "data:",                            // Permitir imágenes inline en base64
         "https://i.ytimg.com",
         "https://i.vimeocdn.com",
@@ -69,6 +72,7 @@ app.use(helmet({
       "connect-src": [
         "'self'",
         "https://player.vimeo.com",
+        "https://vimeo.com",
         "https://f.vimeocdn.com",
         "https://maps.googleapis.com",
         "https://maps.gstatic.com",

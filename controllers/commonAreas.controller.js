@@ -19,13 +19,7 @@ export const getCommonAreas = async (req, res) => {
 
 export const getAllCommonAreas = async (req, res) => {
   try {
-    const { page = 1, limit = 5 } = req.query;
-    const skip = (page - 1) * limit;
-
     const commonAreas = await CommonArea.find()
-      .skip(skip)
-      .limit(Number(limit));
-
     // Añadir el prefijo a cada imagen antes de enviar la respuesta
     const updatedCommonAreas = commonAreas.map(area => {
       return {
@@ -34,14 +28,9 @@ export const getAllCommonAreas = async (req, res) => {
       };
     });
 
-    const total = await CommonArea.countDocuments();
-
     res.json({
       success: true,
       data: updatedCommonAreas,
-      last_row: total,
-      page: Number(page),
-      last_page: Math.ceil(total / limit)
     });
   } catch (err) {
     console.error(err);
@@ -69,5 +58,97 @@ export const toggleCommonAreaStatus = async (req, res) => {
       success: false,
       error: 'Error al actualizar el estado del bien común'
     });
+  }
+};
+
+export const addCommonArea = async (req, res) => {
+  try {
+    // Asegúrate de que los campos se reciben correctamente
+    const { title, edition, url, urlImage } = req.body;
+    // Verificar si todos los campos requeridos están presentes
+    if (!title || !edition || !url || !urlImage) {
+      return res.status(400).json({ success: false, message: 'Todos los campos son obligatorios' });
+    }
+
+    const date = new Date();
+    // Crear una nueva instancia del modelo
+    const newCommonArea = new CommonArea({
+      title,
+      edition,
+      urlImage,
+      url,
+      active: true,
+      insert: date,
+      update: date
+    });
+
+    // Guardar en la base de datos
+    await newCommonArea.save();
+
+    return res.status(201).json({
+      success: true,
+      message: 'Área común creada exitosamente',
+      commonArea: newCommonArea
+    });
+  } catch (error) {
+    console.error('Error al crear área común:', error);
+    return res.status(500).json({
+      success: false,
+      message: 'Error interno del servidor'
+    });
+  }
+};
+
+export const getCommonArea = async (req, res) => {
+  try {
+    const commonArea = await CommonArea.findById(req.params.id);
+    if (!commonArea) {
+      return res.status(404).json({ success: false, message: 'Revista no encontrada' });
+    }
+    res.json({ success: true, commonArea });
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'Error interno del servidor' });
+  }
+}
+
+export const updateCommonArea = async (req, res) => {
+  const { id } = req.params;
+  const { title, edition, url, urlImage } = req.body;
+
+  try {
+      // Buscar y actualizar el CommonArea por ID
+      const date = new Date();
+      const updatedCommonArea = await CommonArea.findByIdAndUpdate(
+          id, // ID del CommonArea que vamos a actualizar
+          {
+              title,
+              edition,
+              url,
+              urlImage,
+              update: date
+          }, 
+          { new: true } // Retornar el documento actualizado
+      );
+
+      // Si no se encuentra el documento, retornar un error 404
+      if (!updatedCommonArea) {
+          return res.status(404).json({
+              success: false,
+              message: 'Área común no encontrada'
+          });
+      }
+
+      // Respuesta exitosa
+      return res.status(200).json({
+          success: true,
+          message: 'Área común actualizada con éxito',
+          commonArea: updatedCommonArea
+      });
+  } catch (error) {
+      console.error('Error al actualizar el área común:', error);
+      return res.status(500).json({
+          success: false,
+          message: 'Error interno del servidor'
+      });
   }
 };

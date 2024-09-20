@@ -8,7 +8,7 @@
     <div class="container-buttons-title">
         <h1 class="">Administración - {{title}}</h1>
         <div class="d-flex items-center gap-5px">
-            <a href="/bienescomunes" target="__blank" class="btn">
+            <a href="/videos" target="__blank" class="btn">
                 <svg class="icon"><use href="/icons/icons.svg#icon-eye"></use></svg>
             </a>
             <button id="add-btn" class="color-primary">
@@ -22,13 +22,13 @@
             </label>
         </div>
     </div>
-    <div id="commonAreasTable"></div>
+    <div id="videosTable"></div>
 </section>
 
 <!-- Partial modal -->
 {{>modal}}
 
-<script type="module" src="/js/admin/common-areas.js"></script>
+<script type="module" src="/js/admin/videos.js"></script>
 <script type="module" src="/modules/tabulator/index.js"></script>
 <script type="module" src="/modules/filePond/index.js"></script>
 <script type="module" src="/modules/filePond/imgPreview.js"></script>

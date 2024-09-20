@@ -1,38 +1,108 @@
 import Paginator from '../modules/paginator/index.js';
 import { showLoading, hideLoading } from '../modules/loader/index.js';
 
+// Funciones para extraer IDs de videos
+
+// Función para extraer el ID de videos de YouTube
+function getYouTubeVideoID(url) {
+    let videoID = null;
+    try {
+        const urlObj = new URL(url);
+
+        // Caso de youtu.be
+        if (urlObj.hostname === 'youtu.be') {
+            videoID = urlObj.pathname.slice(1);
+        }
+        // Casos de youtube.com
+        else if (urlObj.hostname.includes('youtube.com')) {
+            if (urlObj.pathname === '/watch') {
+                videoID = urlObj.searchParams.get('v');
+            } else if (urlObj.pathname.startsWith('/embed/')) {
+                videoID = urlObj.pathname.split('/embed/')[1];
+            } else if (urlObj.pathname.startsWith('/v/')) {
+                videoID = urlObj.pathname.split('/v/')[1];
+            } else if (urlObj.pathname.startsWith('/shorts/')) {
+                videoID = urlObj.pathname.split('/shorts/')[1];
+            }
+        }
+    } catch (e) {
+        console.error('URL de YouTube inválida:', url);
+    }
+    return videoID;
+}
+
+// Función para extraer el ID de videos de Vimeo
+function getVimeoVideoID(url) {
+    let videoID = null;
+    try {
+        const urlObj = new URL(url);
+
+        // Caso de player.vimeo.com
+        if (urlObj.hostname === 'player.vimeo.com') {
+            const pathParts = urlObj.pathname.split('/');
+            videoID = pathParts[pathParts.length - 1];
+        }
+        // Caso de vimeo.com
+        else if (urlObj.hostname === 'vimeo.com') {
+            const pathParts = urlObj.pathname.split('/');
+            videoID = pathParts[pathParts.length - 1];
+        }
+    } catch (e) {
+        console.error('URL de Vimeo inválida:', url);
+    }
+    return videoID;
+}
+
 // Función para renderizar el contenido paginado
 const renderContent = (items) => {
     let html = '';
     items.forEach(item => {
-        let url = item.url.substring(0, item.url.indexOf('?'));
+        let videoID;
+        let embedUrl;
+        let normalUrl;
+        let platform; // Para determinar si es YouTube o Vimeo
 
-        // Reemplazar "/embed/" por "watch?v="
-        if (url.includes('/embed/')) {
-            url = url.replace('/embed/', '/watch?v=');
+        if (item.url.includes('youtube.com') || item.url.includes('youtu.be')) {
+            platform = 'youtube';
+            videoID = getYouTubeVideoID(item.url);
+            if (videoID) {
+                embedUrl = `https://www.youtube.com/embed/${videoID}`;
+                normalUrl = `https://www.youtube.com/watch?v=${videoID}`;
+            }
+        } else if (item.url.includes('vimeo.com') || item.url.includes('player.vimeo.com')) {
+            platform = 'vimeo';
+            videoID = getVimeoVideoID(item.url);
+            if (videoID) {
+                embedUrl = `https://player.vimeo.com/video/${videoID}`;
+                normalUrl = `https://vimeo.com/${videoID}`;
+            }
+        } else {
+            // Si no es YouTube ni Vimeo, puedes manejarlo según tus necesidades
+            console.warn(`URL no reconocida: ${item.url}`);
+            return; // Saltar este item
         }
 
-        if (url.includes('player.vimeo.com/video/')) {
-            url = url.replace('player.vimeo.com/video', 'vimeo.com');
+        if (embedUrl && normalUrl) {
+            html += `
+            <div class="card" data-url="${embedUrl}" data-type="iframe" data-title="${item.title}">
+              <img src="/images/videos/${item.urlImage}" alt="${item.title}" class="card-image" loading="lazy" />
+              <div class="card-content">
+                <h2 class="card-title">${item.title}</h2>
+              </div>
+              <div class="card-icons">
+                <span class="icon icon-eye" data-url="${embedUrl}" data-type="iframe" data-title="${item.title}" title="Ver en modal">
+                  <!-- Usar el SVG de 'icon-eye' desde el archivo 'icons.html' -->
+                  <svg><use href="/icons/icons.svg#icon-eye"></use></svg>
+                </span>
+                <a href="${normalUrl}" target="_blank" class="icon icon-external" title="Ver en nueva ventana">
+                  <!-- Usar el SVG de 'icon-external' desde el archivo 'icons.html' -->
+                  <svg><use href="/icons/icons.svg#icon-external"></use></svg>
+                </a>
+              </div>
+            </div>`;
+        } else {
+            console.warn(`No se pudo procesar el video con URL: ${item.url}`);
         }
-        
-        html += `
-        <div class="card" data-url="${item.url}" data-type="${item.type}" data-title="${item.title}">
-          <img src="/images/videos/${item.urlImage}" alt="${item.title}" class="card-image" loading="lazy" />
-          <div class="card-content">
-            <h2 class="card-title">${item.title}</h2>
-          </div>
-          <div class="card-icons">
-            <span class="icon icon-eye" data-url="${item.url}" data-type="${item.type}" data-title="${item.title}" title="Ver en modal">
-              <!-- Usar el SVG de 'icon-eye' desde el archivo 'icons.html' -->
-              <svg><use href="/icons/icons.svg#icon-eye"></use></svg>
-            </span>
-            <a href="${url}" target="_blank" class="icon icon-external" title="Ver en nueva ventana">
-              <!-- Usar el SVG de 'icon-external' desde el archivo 'icons.html' -->
-              <svg><use href="/icons/icons.svg#icon-external"></use></svg>
-            </a>
-          </div>
-        </div>`;
     });
 
     document.getElementById('data-container').innerHTML = html;
@@ -51,7 +121,8 @@ const renderContent = (items) => {
 };
 
 // Función para abrir el modal con contenido dinámico
-const openModal = (content, type, title = "Contenido dinámico") => {
+const openModal = (content, type, title = "Contenido dinámico") => {    
+
     const modal = document.getElementById('message-modal');
     const modalBody = document.getElementById('modal-body');
     const modalTitle = document.getElementById('modal-title');
@@ -75,7 +146,7 @@ const openModal = (content, type, title = "Contenido dinámico") => {
     modal.style.display = 'flex';
 };
 
-// Cerrar el modal
+// Función para cerrar el modal
 const closeModal = () => {
     const modal = document.getElementById('message-modal');
     const modalBody = document.getElementById('modal-body');
@@ -86,9 +157,6 @@ const closeModal = () => {
 // Agregar event listener para cerrar el modal con el botón de cerrar
 document.querySelector('.close').addEventListener('click', closeModal);
 
-// Cerrar modal al hacer clic en el botón de cerrar
-document.querySelector('.close').addEventListener('click', closeModal);
-
 // Cerrar modal al hacer clic fuera del modal
 window.addEventListener('click', (event) => {
     const modal = document.getElementById('message-modal');
@@ -96,7 +164,6 @@ window.addEventListener('click', (event) => {
         closeModal();
     }
 });
-
 
 // Función para renderizar los botones de paginación
 const renderPagination = (totalPages, currentPage, paginatorInstance) => {
@@ -136,7 +203,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         dataSource: data, // Aquí usamos todo el conjunto de datos
         renderContent: renderContent,
         renderPagination: renderPagination,
-        pageSize: 9// Cuántos elementos por página
+        pageSize: 9 // Cuántos elementos por página
     });
 
     paginator.init(); // Inicializar paginación con todos los datos
