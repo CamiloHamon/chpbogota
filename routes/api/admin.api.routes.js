@@ -2,6 +2,7 @@ import express from 'express';
 import { getAllCommonAreas, toggleCommonAreaStatus, addCommonArea, getCommonArea, updateCommonArea } from '../../controllers/commonAreas.controller.js';
 import { uploadImage, deleteImage } from '../../controllers/images.controller.js';
 import { addVideo, getVideo, getVideos, toggleVideosStatus, updateVideo } from '../../controllers/videos.controller.js';
+import { addGallery, getGalleries, getGallery, toggleGalleryStatus, updateGallery } from '../../controllers/gallery.controller.js';
 
 const router = express.Router();
 
@@ -21,5 +22,12 @@ router.patch('/videos/:id/toggle-status', toggleVideosStatus);
 router.post('/videos/add', addVideo);
 router.get('/videos/:id', getVideo);
 router.put('/videos/:id', updateVideo);
+
+//gallery
+router.get('/gallery', getGalleries);
+router.patch('/gallery/:id/toggle-status', toggleGalleryStatus);
+router.post('/gallery/add', addGallery);
+router.get('/gallery/:id', getGallery);
+router.put('/gallery/:id', updateGallery);
 
 export default router;

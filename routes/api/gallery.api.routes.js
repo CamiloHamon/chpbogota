@@ -1,8 +1,8 @@
 import express from 'express';
-import { getGallery } from '../../controllers/gallery.controller.js';
+import { getGalleriesActive } from '../../controllers/gallery.controller.js';
 
 const router = express.Router();
 
-router.get('/', getGallery);
+router.get('/', getGalleriesActive);
 
 export default router;
