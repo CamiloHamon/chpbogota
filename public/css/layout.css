@@ -5,6 +5,10 @@
   box-sizing: border-box;
 }
 
+a.logo.d-flex {
+  max-width: 40px;
+}
+
 /* Estilos generales */
 body {
   line-height: 1.6;
