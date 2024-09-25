@@ -37,7 +37,7 @@ app.use(helmet({
       "frame-src": [
         "'self'",
         "https://www.youtube.com",
-        "https://vimeo.com", 
+        "https://vimeo.com",
         "https://player.vimeo.com",
         "https://www.google.com",           // Permitir iframes de Google
         "https://maps.google.com"           // Permitir iframes de Google Maps
@@ -125,7 +125,10 @@ app.engine('handlebars', engine({
   layoutsDir: join(__dirname, 'views', 'layouts'), // Define la carpeta de layouts
   partialsDir: join(__dirname, 'views', 'partials'),
   helpers: {
-    eq: (v1, v2) => v1 === v2 // Helper personalizado para comparaciones
+    eq: (v1, v2) => v1 === v2, // Helper personalizado para comparaciones
+    ifEquals: function (arg1, arg2, options) {
+      return (arg1 === arg2) ? options.fn(this) : options.inverse(this);
+    }
   }
 }));
 
@@ -151,6 +154,12 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+// Middleware para pasar el usuario a las vistas
+app.use((req, res, next) => {
+  res.locals.user = req.user ? req.user.toObject() : null; // Convertir a objeto plano
+  next();
+});
+
 // Middleware para manejar mensajes flash
 app.use(flash());
 
@@ -174,7 +183,7 @@ app.use((req, res, next) => {
 app.use(csurf({ cookie: true }));
 
 app.use((req, res, next) => {
-  res.locals.csrfToken = req.csrfToken(); // Pasa el token CSRF a las vistas
+  res.locals.csrfToken = req.csrfToken(); // Pasa el token CSRF a las vistas  
   next();
 });
 

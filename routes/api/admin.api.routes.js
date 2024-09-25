@@ -5,40 +5,51 @@ import { addVideo, getVideo, getVideos, toggleVideosStatus, updateVideo } from '
 import { addGallery, getGalleries, getGallery, toggleGalleryStatus, updateGallery } from '../../controllers/gallery.controller.js';
 import { createNewUser, deleteUser, getAllUsers, getProfile, getUser, updateProfile, updateUser } from '../../controllers/user.controller.js';
 
-const router = express.Router();
+import { isAuthenticated, isAdmin, isSuperAdmin } from '../../middlewares/auth.js';
 
-// common areas
-router.get('/common-areas', getAllCommonAreas);
-router.patch('/common-areas/:id/toggle-status', toggleCommonAreaStatus);
-router.post('/common-areas/add', addCommonArea);
-router.get('/common-areas/:id', getCommonArea);
-router.put('/common-areas/:id', updateCommonArea);
-// imgs
-router.post('/upload-image/:folder', uploadImage);
-router.delete('/delete-image/:folder', deleteImage);
+const adminRouter = express.Router();
 
-//videos
-router.get('/videos', getVideos);
-router.patch('/videos/:id/toggle-status', toggleVideosStatus);
-router.post('/videos/add', addVideo);
-router.get('/videos/:id', getVideo);
-router.put('/videos/:id', updateVideo);
+// Aplicar middlewares generales de autenticación y rol
+adminRouter.use(isAuthenticated); // Todas las rutas a continuación requieren autenticación
+adminRouter.use(isAdmin); // Solo admin y superadmin pueden acceder a las rutas a continuación
 
-//gallery
-router.get('/gallery', getGalleries);
-router.patch('/gallery/:id/toggle-status', toggleGalleryStatus);
-router.post('/gallery/add', addGallery);
-router.get('/gallery/:id', getGallery);
-router.put('/gallery/:id', updateGallery);
+// Rutas de Common Areas
+adminRouter.get('/common-areas', getAllCommonAreas);
+adminRouter.patch('/common-areas/:id/toggle-status', toggleCommonAreaStatus);
+adminRouter.post('/common-areas/add', addCommonArea);
+adminRouter.get('/common-areas/:id', getCommonArea);
+adminRouter.put('/common-areas/:id', updateCommonArea);
 
-//users
-router.post('/users/add', createNewUser);
-router.get('/users', getAllUsers);
-router.get('/users/:id', getUser);
-router.put('/users/:id', updateUser);
-router.delete('/users/:id', deleteUser);
-// profile
-router.get('/profile', getProfile);
-router.put('/profile', updateProfile);
+// Rutas de Imágenes
+adminRouter.post('/upload-image/:folder', uploadImage);
+adminRouter.delete('/delete-image/:folder', deleteImage);
 
-export default router;
+// Rutas de Videos
+adminRouter.get('/videos', getVideos);
+adminRouter.patch('/videos/:id/toggle-status', toggleVideosStatus);
+adminRouter.post('/videos/add', addVideo);
+adminRouter.get('/videos/:id', getVideo);
+adminRouter.put('/videos/:id', updateVideo);
+
+// Rutas de Galerías
+adminRouter.get('/gallery', getGalleries);
+adminRouter.patch('/gallery/:id/toggle-status', toggleGalleryStatus);
+adminRouter.post('/gallery/add', addGallery);
+adminRouter.get('/gallery/:id', getGallery);
+adminRouter.put('/gallery/:id', updateGallery);
+
+// Rutas de Usuarios - Solo superadmin
+adminRouter.route('/users')
+    .get(isSuperAdmin, getAllUsers) // Solo superadmin puede ver todos los usuarios
+    .post(isSuperAdmin, createNewUser); // Solo superadmin puede crear nuevos usuarios
+
+adminRouter.route('/users/:id')
+    .get(isSuperAdmin, getUser) // Solo superadmin puede ver un usuario específico
+    .put(isSuperAdmin, updateUser) // Solo superadmin puede actualizar un usuario
+    .delete(isSuperAdmin, deleteUser); // Solo superadmin puede eliminar un usuario
+
+// Profile
+adminRouter.get('/profile', getProfile);
+adminRouter.put('/profile', updateProfile);
+
+export default adminRouter;
