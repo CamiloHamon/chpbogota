@@ -1,16 +1,14 @@
 #data-container {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
     gap: 5px;
     margin-top: 3rem;
   }
   
 /* Estilos de la tarjeta */
 .card {
-    width: 250px;
+    width: 227px;
     margin: 20px;
-    background-color: #f9f9f9;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
@@ -34,15 +32,18 @@
   }
   
   .card-title {
-    font-size: 18px;
+    font-size: 16px;
     color: #8B1D42;
-    font-weight: bold;
     margin-bottom: 8px;
+    line-height: 22px;
   }
   
   .card-edition {
-    font-size: 16px;
-    color: #8B1D42;
+    font-size: 14px;
+    color: #b12554;
     font-weight: 600;
   }
   
+  @media (max-width: 768px) { 
+    .card {width: 100%;}
+  }

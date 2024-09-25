@@ -9,39 +9,41 @@
   <!-- Enlace al archivo CSS -->
   <link rel="stylesheet" href="/css/admin.css">
   <link rel="stylesheet" href="/css/main.css">
-
 </head>
 
 <body>
   <div class="admin-container">
+    <!-- Encabezado con botón hamburguesa -->
+    <header class="admin-header">
+      <button class="hamburger" id="hamburger-btn">
+        &#9776;
+      </button>
+      <h2>Administración</h2>
+    </header>
+
     <!-- Barra lateral de navegación -->
-    <nav class="sidebar">
-      <div class="sidebar-header">
-        <h2>Administración</h2>
-      </div>
+    <nav class="sidebar" id="sidebar">
       <ul class="menu">
-        <li><a href="/admin/revistas">Revistas</a></li>
-        <li><a href="/admin/videos">Videos</a></li>
-        <li><a href="/admin/galeria">Galería</a></li>
-        <li><a href="/admin/noticias">Noticias</a></li>
+        <li class="{{#if (eq activePage 'common-areas')}}active{{/if}}"><a href="/admin/revistas">Revistas</a></li>
+        <li class="{{#if (eq activePage 'videos')}}active{{/if}}"><a href="/admin/videos">Videos</a></li>
+        <li class="{{#if (eq activePage 'gallery')}}active{{/if}}"><a href="/admin/galeria">Galería</a></li>
+        <li class="{{#if (eq activePage 'news')}}active{{/if}}"><a href="/admin/noticias">Noticias</a></li>
         {{#ifEquals user.role 'superadmin'}}
-        <li><a href="/admin/usuarios">Usuarios</a></li>
+        <li class="{{#if (eq activePage 'users')}}active{{/if}}"><a href="/admin/usuarios">Usuarios</a></li>
         {{/ifEquals}}
-        <li> <a href="/admin/perfil">Perfil</a></li>
+        <li class="{{#if (eq activePage 'profile')}}active{{/if}}"><a href="/admin/perfil">Perfil</a></li>
+        <li class="li-logout"><a href="/auth/logout" class="logout-button">Cerrar sesión</a></li>
       </ul>
-      <div class="sidebar-footer">
-        <a href="/auth/logout" class="logout-button">Cerrar Sesión</a>
-      </div>
     </nav>
 
     <!-- Contenido principal -->
-    <main class="main-content">
+    <main class="main-content" id="main-content">
       {{{body}}}
     </main>
   </div>
 
-  <!-- Enlace al archivo JavaScript (si es necesario) -->
-  <!-- <script src="/js/admin.js"></script> -->
+  <!-- Enlace al archivo JavaScript -->
+  <script src="/js/admin/layout.js"></script>
 </body>
 
 </html>

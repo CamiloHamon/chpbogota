@@ -1,145 +1,156 @@
-/* admin.css */
-
 /* Reset de márgenes y paddings */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  /* Contenedor principal */
-  .admin-container {
-    display: flex;
-    min-height: 100vh;
-  }
-  
-  /* Barra lateral */
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Contenedor principal */
+.admin-container {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* Encabezado */
+.admin-header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: #761537;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  z-index: 1000;
+}
+
+.admin-header h2 {
+  margin-left: 10px;
+}
+
+/* Botón hamburguesa */
+.hamburger {
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  padding: 5px;
+  width: 32px;
+  height: 32px;
+  font-size: 22px;
+  margin: 0;
+  line-height: 23px;
+}
+
+/* Barra lateral */
+.sidebar {
+  position: fixed;
+  top: 55px; /* Altura del header */
+  left: -100%;
+  width: 100%;
+  height: calc(100% - 55px); /* Altura de la ventana menos el header */
+  background-color: #761537;
+  overflow-y: auto;
+  transition: left 0.3s ease;
+  z-index: 999;
+}
+
+.li-logout {
+  position: absolute!important;
+  bottom: 0;
+  width: 100%;
+}
+
+.sidebar.active {
+  left: 0;
+}
+
+.menu {
+  list-style: none;
+}
+
+.menu li {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+}
+
+li.active:before {
+  content: '';
+  background-color: #FFD700;
+  width: 5px;
+  height: 100%;
+  position: absolute;
+  right: 0;
+}
+
+.menu li.active a {
+  color: #FFD700;
+}
+
+.menu li a {
+  display: block;
+  padding: 15px 20px;
+  color: #fff;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.menu li a:hover {
+  background-color: #5e112c;
+}
+
+.logout-button {
+  background-color: #a1174f;
+  padding: 10px 20px;
+  text-align: center;
+  display: block;
+}
+
+.logout-button:hover {
+  background-color: #870e3b;
+}
+
+/* Contenido principal */
+.main-content {
+  flex: 1;
+    background-color: #f4f4f4;
+    max-height: 100vh;
+    overflow: auto;
+}
+
+/* Responsividad */
+@media (min-width: 769px) {
+  /* En pantallas grandes, mostrar el sidebar fijo */
   .sidebar {
+    position: relative;
+    top: 0;
+    left: 0;
+    height: auto;
     width: 250px;
-    background-color: #761537;
-    color: #fff;
-    display: flex;
+  }
+
+  .admin-container {
+    flex-direction: row;
+  }
+
+  .admin-header {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  /* En pantallas pequeñas */
+  .admin-container {
     flex-direction: column;
   }
-  
-  .sidebar-header {
-    padding: 20px;
-    background-color: #5e112c;
-    text-align: center;
+
+  .main-content {
+    margin-left: 0;
   }
-  
-  .sidebar-header h2 {
-    margin: 0;
-    font-size: 24px;
-    color: #fff;
-  }
-  
-  .menu {
-    list-style: none;
-    flex: 1;
-  }
-  
-  .menu li {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  }
-  
-  .menu li a {
-    display: block;
-    padding: 15px 20px;
-    color: #fff;
-    text-decoration: none;
-    transition: background-color 0.3s;
-  }
-  
-  .menu li a:hover {
-    background-color: #5e112c;
-  }
-  
-  .sidebar-footer {
-    padding: 15px 20px;
-    background-color: #5e112c;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .sidebar-footer a {
-    color: #fff;
-    text-decoration: none;
-  }
-  
-  .logout-button {
-    background-color: #a1174f;
-    padding: 10px;
-    text-align: center;
-    border-radius: 4px;
-  }
-  
-  .logout-button:hover {
-    background-color: #870e3b;
-  }
-  
-  /* Contenido principal */
+
   .main-content {
     flex: 1;
     background-color: #f4f4f4;
-    display: flex;
-    flex-direction: column;
+    margin-top: 55px; /* Para evitar el header fijo */
   }
-  
-  .header {
-    background-color: #fff;
-    padding: 20px;
-    border-bottom: 1px solid #ccc;
-  }
-  
-  .header h1 {
-    font-size: 28px;
-    color: #333;
-  }
-  
-  .content {
-    flex: 1;
-    padding: 20px;
-  }
-  
-  .content p {
-    font-size: 18px;
-    color: #555;
-  }
-  
-  /* Responsividad */
-  @media (max-width: 768px) {
-    .admin-container {
-      flex-direction: column;
-    }
-  
-    .sidebar {
-      width: 100%;
-      flex-direction: row;
-      flex-wrap: wrap;
-    }
-  
-    .sidebar-header, .sidebar-footer {
-      display: none;
-    }
-  
-    .menu {
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-    }
-  
-    .menu li {
-      flex: 1 1 50%;
-    }
-  
-    .menu li a {
-      text-align: center;
-      padding: 10px;
-    }
-  
-    .main-content {
-      padding-top: 20px;
-    }
-  }
-  
+}

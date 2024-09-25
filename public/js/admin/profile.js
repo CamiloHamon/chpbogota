@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function openModal() {
-        modalTitle.textContent = 'Editar Perfil';
+        modalTitle.textContent = 'Editar perfil';
         modalBody.innerHTML = '';
 
         formBuilder = new FormBuilder(formConfig, 'profileForm');

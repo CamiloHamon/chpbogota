@@ -157,6 +157,7 @@ app.use(passport.session());
 // Middleware para pasar el usuario a las vistas
 app.use((req, res, next) => {
   res.locals.user = req.user ? req.user.toObject() : null; // Convertir a objeto plano
+  res.locals.year = new Date().getFullYear(); // Convertir a objeto plano
   next();
 });
 

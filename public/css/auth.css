@@ -5,10 +5,12 @@ body {
     min-height: 100vh;       /* Asegura que el body ocupe al menos el alto de la ventana */
     margin: 0;               /* Opcional: elimina márgenes por defecto */
     background-color: #f1f1f1;
+    transform: translateY(-26px);
 }
 
 .auth-container {
-    width: 400px;
+    width: 80%;
+    max-width: 400px;
     margin: 20px auto;
     padding: 25px;
     background-color: #fff;
@@ -38,7 +40,4 @@ a:hover {
 }
 
 @media (max-width: 768px) {
-    .auth-container {
-        width: 100%;
-    }
 }

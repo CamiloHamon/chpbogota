@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     frozen: true
                 },
                 {
-                    title: "Fecha de creación",
+                    title: "Creación",
                     field: "insert",
                     formatter: (cell) => {
                         const date = new Date(cell.getValue());

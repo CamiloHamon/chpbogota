@@ -18,3 +18,40 @@ window.onscroll = function() {
 
     }
 };
+
+// layout.js
+
+document.addEventListener('DOMContentLoaded', function() {
+    const hamburgerBtn = document.getElementById('hamburger-btn');
+    const mainMenu = document.getElementById('main-menu');
+
+    // Toggle del menú principal
+    hamburgerBtn.addEventListener('click', function() {
+        mainMenu.classList.toggle('active');
+    });
+
+    // Cerrar el menú al hacer clic fuera de él
+    document.addEventListener('click', function(event) {
+        const isClickInsideMenu = mainMenu.contains(event.target);
+        const isClickOnHamburger = hamburgerBtn.contains(event.target);
+
+        if (!isClickInsideMenu && !isClickOnHamburger) {
+            mainMenu.classList.remove('active');
+            // Cerrar dropdowns abiertos
+            const openDropdowns = document.querySelectorAll('.dropdown.active');
+            openDropdowns.forEach(function(dropdown) {
+                dropdown.classList.remove('active');
+            });
+        }
+    });
+
+    // Manejo del dropdown en dispositivos móviles
+    const dropdown = document.querySelector('.dropdown');
+    const dropdownBtn = dropdown.querySelector('.dropdown-btn');
+
+    dropdownBtn.addEventListener('click', function(event) {
+        event.preventDefault();
+        dropdown.classList.toggle('active');
+    });
+});
+

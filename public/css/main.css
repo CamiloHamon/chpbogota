@@ -23,7 +23,15 @@ h5 {
     line-height: 20px;
     font-weight: 400;
     letter-spacing: 0px;
+    font-size: 16px;
+    margin-bottom: 1rem;
+    color: #0b0c0e;
 }
+
+footer#main-footer p {
+  font-size: 13px;
+}
+
 .text-center{
     text-align: center;
 }
@@ -51,6 +59,9 @@ h5 {
 .mt-1 {
     margin-top: 1rem;
 }
+.mb-1 {
+  margin-bottom: 1rem!important;
+}
 .my-1 {
     margin-top: 1rem;
     margin-bottom: 1rem;
@@ -77,6 +88,11 @@ h5 {
 .pos-relative{
     position: relative;
 }
+img {
+  width: 100%;
+  height: auto;
+}
+
 /* Estilos del input personalizado */
 .custom-input {
     width: 100%;
@@ -195,7 +211,6 @@ button:hover {
   .contact-form .form-label {
     display: block;
     margin-bottom: 5px;
-    font-weight: bold;
     color: #761537;
   }
 
@@ -289,6 +304,15 @@ button:hover {
     }
   }
 
+  .tabulator-row .tabulator-responsive-collapse table tr td:first-of-type {
+    width: 0;
+  }
+  .tabulator-row .tabulator-responsive-collapse table tr td {
+    width: 100%;
+  }
+  .tabulator .tabulator-footer .tabulator-paginator{
+    overflow: auto;
+  }
   .tabulator-row .tabulator-cell {
     white-space: break-spaces!important;
   }

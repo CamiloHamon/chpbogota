@@ -12,7 +12,6 @@
   flex-direction: column;
   width: 353px;
   margin: 20px;
-  background-color: #f9f9f9;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   text-align: center;
@@ -43,7 +42,7 @@
 
 /* Estilos para el título */
 .card-title {
-  font-size: 18px;
+  font-size: 16px;
   color: #8B1D42;
   font-weight: bold;
   margin-bottom: 8px;
@@ -98,4 +97,9 @@
 .icon-external {
   text-decoration: none;
   color: inherit;
+}
+
+@media (max-width: 768px) {
+
+  .card {width: 100%;}
 }

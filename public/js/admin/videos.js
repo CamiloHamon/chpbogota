@@ -122,7 +122,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     minWidth: 200
                 },
                 {
-                    title: "Fecha de creación",
+                    title: "Creación",
                     field: "insert",
                     formatter: (cell) => {
                         const date = new Date(cell.getValue());

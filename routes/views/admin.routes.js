@@ -40,7 +40,7 @@ router.get('/perfil', isAdmin, (req, res) => {
     res.render('admin/profile', { 
         layout: 'admin', 
         title: 'Perfil', 
-        activePage: 'perfil', 
+        activePage: 'profile', 
         csrfToken: req.csrfToken() 
     });
 });

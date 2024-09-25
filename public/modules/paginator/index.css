@@ -1,9 +1,11 @@
 .pagination-button {
-    margin: 5px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    background-color: #f4f4f4;
-    cursor: pointer;
+  margin: 5px;
+  padding: 0;
+  border: 1px solid #ccc;
+  background-color: #f4f4f4;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
   }
   
   .pagination-button.active {

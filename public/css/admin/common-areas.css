@@ -66,7 +66,6 @@ border: none!important;
 .tabulator-col-title {
   background-color: #761537; /* Color principal que mencionaste */
   color: white;
-  font-weight: bold;
   text-align: center;
   padding: 10px;
   border-bottom: 2px solid #ddd;

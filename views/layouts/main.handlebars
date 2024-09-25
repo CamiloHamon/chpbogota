@@ -15,36 +15,27 @@
     <!-- Header -->
     <header id="main-header">
         <div class="container-header">
-            <div class="logo d-flex">
+            <a href="/" class="logo d-flex">
                 <img src="/images/faviconcaph.png" alt="Logo">
-            </div>
-            <nav class="menu">
+            </a>
+            <!-- Botón hamburguesa -->
+            <button class="hamburger" id="hamburger-btn">&#9776;</button>
+            <nav class="menu" id="main-menu">
                 <ul>
                     <li><a href="/" class="{{#if (eq activePage 'inicio')}}active{{/if}}">Inicio</a></li>
-                    <li><a href="quienesomos" class="{{#if (eq activePage 'quienesomos')}}active{{/if}}">Quiénes
-                            Somos</a></li>
+                    <li><a href="quienesomos" class="{{#if (eq activePage 'quienesomos')}}active{{/if}}">Quiénes Somos</a></li>
                     <li><a href="servicios" class="{{#if (eq activePage 'servicios')}}active{{/if}}">Servicios</a></li>
                     <li class="dropdown">
-                        <a href="#"
-                            class="dropdown-btn {{#if (eq activePage 'bienescomunes')}}active{{/if}} {{#if (eq activePage 'videos')}}active{{/if}}">Bienes
-                            Comunes</a>
+                        <a href="#" class="dropdown-btn {{#if (eq activePage 'bienescomunes')}}active{{/if}} {{#if (eq activePage 'videos')}}active{{/if}}">Bienes Comunes</a>
                         <ul class="dropdown-menu">
-                            <li><a href="/bienescomunes"
-                                    class="{{#if (eq activePage 'bienescomunes')}}active-dropdown{{/if}}">Revista</a>
-                            </li>
-                            <li><a href="/videos"
-                                    class="{{#if (eq activePage 'videos')}}active-dropdown{{/if}}">Videos</a></li>
+                            <li><a href="/bienescomunes" class="{{#if (eq activePage 'bienescomunes')}}active-dropdown{{/if}}">Revista</a></li>
+                            <li><a href="/videos" class="{{#if (eq activePage 'videos')}}active-dropdown{{/if}}">Videos</a></li>
                         </ul>
                     </li>
-                    <li>
-                        <a href="/galeria" class="{{#if (eq activePage 'gallery')}}active{{/if}}">
-                            Galería
-                        </a>
-                    </li>
+                    <li><a href="/galeria" class="{{#if (eq activePage 'gallery')}}active{{/if}}">Galería</a></li>
                     <li><a href="/contacto" class="{{#if (eq activePage 'contacto')}}active{{/if}}">Contacto</a></li>
                 </ul>
             </nav>
-
         </div>
     </header>
 
@@ -75,9 +66,8 @@
     <!-- Footer -->
     <footer id="main-footer">
         <div class="container">
-            <p>© 2024 Colegio de Administradores de Propiedad Horizontal de Bogotá | Todos los Derechos Reservados |
-                Website by: GatoMontés</p>
-            <p>Calle 63A No. 11-40 Of 404 | Tels: 249 2709 - 606 0338 | Cel: 316 679 7878 | colegiophbogota@gmail.com
+            <p>© {{year}} Colegio de Administradores de Propiedad Horizontal de Bogotá | Todos los Derechos Reservados </p>
+            <p>Calle 63A No. 11-40 | Cel: 316 679 7878 | colegiophbogota@gmail.com
             </p>
         </div>
     </footer>

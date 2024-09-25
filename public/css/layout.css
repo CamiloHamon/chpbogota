@@ -1,224 +1,333 @@
 /* Reset básico */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 /* Estilos generales */
 body {
-    line-height: 1.6;
+  line-height: 1.6;
 }
 
 /* Contenedor centrado */
 .container {
-    width: 100%;
-    max-width: 1220px;
-    margin: 0 auto;
-    padding: 0 15px;
-}
-
-/* Barra superior amarilla */
-.top-bar {
-    background-color: #e6bd0a; /* Color amarillo */
-    height: 5px; /* Grosor de la barra */
-    display: none; /* Oculta por defecto */
+  width: 100%;
+  max-width: 1220px;
+  margin: 0 auto;
+  padding: 0 15px;
 }
 
 /* Header */
 #main-header {
-    padding: 61px 0;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 1000;
-    transition: all 0.3s ease;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  transition: all 0.3s ease;
+  padding-top: 50px;
 }
 
+/* Contenedor del header */
 #main-header .container-header {
-    background-color: #8B1D42; /* Color del menú */
-    height: 90px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin: 0 auto;
-    max-width: 1220px;
-    padding: 0 15px;
+  background-color: #8B1D42; /* Color del menú */
+  height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 auto;
+  max-width: 1220px;
+  padding: 0 15px;
+  transition: height 0.3s ease;
 }
 
+/* Logo */
 #main-header .logo img {
-    height: 50px;
+  height: 50px;
 }
 
-#main-header nav ul {
-    list-style: none;
-    display: flex;
-    gap: 30px; /* Espaciado entre los elementos del menú */
-    justify-content: center;
-    align-items: center;
+/* Botón hamburguesa */
+.hamburger {
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  padding: 5px;
+  width: 32px;
+  height: 32px;
+  font-size: 22px;
+  margin: 0;
+  line-height: 23px;
+  display: none; /* Oculto por defecto */
 }
 
-#main-header nav ul li a {
-    color: #fff;
-    text-decoration: none;
-    font-weight: bold;
-    padding: 10px 20px;
-    transition: all 0.3s ease;
+/* Menú */
+.menu {
+  display: flex;
 }
 
-#main-header nav ul li a:hover, #main-header nav ul li a.active, #main-header nav ul li a.active-dropdown {
-    color: #FFD700;
+/* Estilos para el contenedor principal del menú */
+.menu ul {
+  list-style: none;
+  display: flex;
+  gap: 30px; /* Espaciado entre los elementos del menú */
+  justify-content: center;
+  align-items: center;
 }
 
-#main-header nav ul li a {
-    height: 100%;
-    display: block;
-    line-height: 60px;
-    padding: 15px 0;
-    position: relative;
+/* Estilos para los elementos del menú */
+.menu ul .dropdown-menu{
+  display: none;
 }
 
-#main-header nav ul li a.active::after {
-    content: "";
-    height: 4px;
-    width: 100%;
-    position: absolute;
-    left: 0;
-    top: -4px;
-    z-index: 203;
-    background: #FFD700;
+/* Estilos para los elementos del menú */
+.menu ul li {
+  position: relative; /* Necesario para posicionar el submenú */
 }
 
-#main-header nav ul li a.active.scroll-header::after {
-   bottom: 11px;
-   top: inherit;
+/* Estilos para los enlaces del menú */
+.menu ul li a {
+  color: #fff;
+  text-decoration: none;
+  padding: 15px 0;
+  transition: all 0.3s ease;
+  display: block;
+  line-height: 60px;
+  position: relative;
+}
+
+/* Estilos para el hover y activo */
+.menu ul li a:hover,
+.menu ul li a.active,
+.menu ul li a.active-dropdown {
+  color: #FFD700;
+}
+
+.menu ul li a.active::after {
+  content: "";
+  height: 4px;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: -4px;
+  z-index: 203;
+  background: #FFD700;
+}
+
+.menu ul li a.active.scroll-header::after {
+  bottom: 11px;
+  top: inherit;
+}
+
+/* Submenú (Dropdown) */
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #8B1D42;
+  display: none; /* Oculto por defecto */
+  flex-direction: column;
+  padding: 0;
+  min-width: 145px;
+  z-index: 1000;
+}
+
+.dropdown-menu li {
+  list-style: none;
+  width: 100%;
+}
+
+.dropdown-menu li a {
+  display: block;
+  color: white;
+  text-decoration: none;
+  transition: background 0.3s;
+  padding: 8px 16px;
+}
+
+.dropdown-menu li a:hover {
+  background-color: #6f1534; /* Color para hover */
+}
+
+/* Mostrar el submenú al hacer hover en pantallas grandes */
+.dropdown:hover .dropdown-menu {
+  display: flex;
+  top: 100%;
+  gap: 8px;
+}
+
+.menu ul.dropdown-menu li a {
+  line-height: 30px;
+  padding: 8px 16px;
 }
 
 /* Contenido principal */
 main {
-    padding-top: 100px; /* Deja espacio para el header fijo */
+  padding-top: 100px; /* Deja espacio para el header fijo */
 }
 
 /* Footer */
 #main-footer {
-    background-color: #8B1D42;
-    color: #fff;
-    padding: 20px 0;
-    text-align: center;
+  background-color: #8B1D42;
+  color: #fff;
+  padding: 20px 0;
+  text-align: center;
 }
 
 #main-footer p {
-    margin: 5px 0;
+  margin: 5px 0;
 }
 
-/* Header cuando el usuario hace scroll */
-#main-header.scroll-header {
-    padding: 0;
-    background-color: #8B1D42;
-}
-
+/* Banner */
 .banner {
-    height: 430px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #000;
-    background-repeat: no-repeat;
-    background-position: center top;
-    background-repeat: no-repeat;
-    background-size: cover;
+  height: 430px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #000;
+  background-repeat: no-repeat;
+  background-position: center top;
+  background-size: cover;
 }
 
 .banner h6.title {
-    font-size: 80px;
-    line-height: 80px;
-    font-weight: 700;
-    letter-spacing: 0px;
-    color: #fff;
-    padding-top: 150px;
-    background-position: center top;
-    background-repeat: no-repeat;
-    background-size: cover;
+  font-size: 80px;
+  line-height: 80px;
+  color: #fff;
+  padding-top: 150px;
 }
 
-
+/* Estilos específicos para la página de inicio */
 .banner.home {
-    height: 800px;
-    padding-top: 60px;
-    margin-bottom: 160px;
+  height: 800px;
+  padding-top: 60px;
+  margin-bottom: 160px;
 }
 
+/* Banner de asociados */
 .asociados-banner-container {
-    text-decoration: none;
-    position: absolute;
-    bottom: -96px;
-    width: 100%;
-    max-width: 600px; /* Ajusta según tu necesidad */
-  }
-  
-  .asociados-banner-container img {
-    width: 100%;
+  text-decoration: none;
+  position: absolute;
+  bottom: -96px;
+  width: 100%;
+  max-width: 600px;
+}
+
+.asociados-banner-container img {
+  width: 100%;
+  display: block;
+  border-radius: 0px 0px 8px 8px;
+}
+
+/* Texto en el banner */
+.asociados-text-container {
+  background-color: #e6bd0a; /* Fondo amarillo */
+  color: #000; /* Color del texto negro */
+  text-align: center;
+  font-size: 24px;
+  padding: 10px 0;
+  border-radius: 8px 8px 0px 0px;
+}
+
+/* Overlay que aparece al hacer hover */
+.asociados-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(139, 29, 66, 0.8); /* Color del overlay */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.asociados-overlay img {
+  width: 100px; /* Ajusta el tamaño del logo */
+  opacity: 0.8;
+}
+
+.asociados-banner-container:hover .asociados-overlay {
+  opacity: 1;
+}
+
+/* Header al hacer scroll */
+#main-header.scroll-header {
+  padding: 0;
+  background-color: #8B1D42;
+}
+
+#main-header.scroll-header .container-header {
+  height: 60px;
+}
+
+
+/* Media Query para dispositivos móviles */
+@media (max-width: 768px) {
+  .menu ul li a.active::after {
+    content: none;
+}
+  /* Mostrar el botón hamburguesa */
+  .hamburger {
     display: block;
   }
-  
-  /* Texto en el banner */
-  .asociados-text-container {
-    background-color: #e6bd0a; /* Fondo amarillo */
-    color: #000; /* Color del texto negro */
-    text-align: center;
-    font-size: 24px;
-    font-weight: bold;
-    padding: 10px 0;
+
+  #main-header {
+    padding: 0;
+    height: 60px;
   }
-  
-  /* Overlay que aparece al hacer hover */
-  .asociados-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(139, 29, 66, 0.8); /* Color del overlay */
-    display: flex;
-    justify-content: center;
+
+  .container-header {
+    height: 60px!important;
+  }
+
+  /* Ajustar el header */
+  #main-header .container-header {
+    flex-direction: row;
+    justify-content: space-between;
+    height: 60px;
+    padding: 0 15px;
+  }
+
+  /* Ocultar el menú por defecto */
+  .menu {
+    position: fixed;
+    top: 60px;
+    left: -100%;
+    width: 100%;
+    height: calc(100% - 60px);
+    background-color: #8B1D42;
+    flex-direction: column;
     align-items: center;
-    opacity: 0;
-    transition: opacity 0.5s ease;
+    overflow-y: auto;
+    transition: left 0.3s ease-in-out;
+    z-index: 999;
   }
-  
-  .asociados-overlay img {
-    width: 100px; /* Ajusta el tamaño del logo */
-    opacity: 0.8;
+
+  /* Mostrar el menú cuando está activo */
+  .menu.active {
+    left: 0;
   }
-  
-  .asociados-banner-container:hover .asociados-overlay {
-    opacity: 1;
-  }
-  
+
   /* Estilos para el contenedor principal del menú */
-.menu ul {
+  .menu ul {
     list-style: none;
-    display: flex;
+    display: initial;
     gap: 30px;
   }
   
   .menu ul li {
     position: relative; /* Necesario para posicionar el submenú */
   }
+
+  .menu ul li a {
+    line-height: 30px;
+  }
   
-  /* Estilos para el submenú */
-  .dropdown-menu {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    background-color: #8B1D42;
-    display: none!important; /* Oculto por defecto */
-    flex-direction: column;
-    padding: 0px;
-    min-width: 145px;
-    z-index: 10;
-    align-items: start !important;
-    gap: 0rem!important;
+  .menu ul .dropdown-menu {
+    position: initial;
   }
   
   .dropdown-menu li {
@@ -239,9 +348,52 @@ main {
   .dropdown-menu li a:hover {
     background-color: #6f1534; /* Color para hover */
   }
-  
-  /* Mostrar el submenú cuando el mouse está sobre el menú principal */
-  .dropdown:hover .dropdown-menu {
-    display: flex!important;
+
+
+  /* Ajustar el contenido principal */
+  main {
+    padding-top: 60px;
   }
-  
+
+  /* Ajustar el banner */
+  .banner {
+    height: auto;
+    min-height: 300px;
+  }
+
+  .banner.home {
+    height: auto;
+    margin-bottom: 100px;
+  }
+
+  .banner h6.title {
+    font-size: 40px;
+    line-height: 40px;
+    padding-top: 100px;
+  }
+
+  /* Ajustar el overlay de asociados */
+  .asociados-banner-container {
+    bottom: -80px;
+    max-width: 90%;
+  }
+}
+
+/* Ajustes adicionales para asegurar compatibilidad */
+@media (max-width: 480px) {
+  /* Reducir tamaño de fuente en el banner */
+  .banner h6.title {
+    font-size: 32px;
+    line-height: 36px;
+  }
+
+  /* Ajustar padding del header */
+  #main-header .container-header {
+    padding: 0 10px;
+  }
+
+  /* Ajustar tamaño del logo */
+  #main-header .logo img {
+    height: 40px;
+  }
+}
