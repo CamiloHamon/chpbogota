@@ -9,7 +9,7 @@
     <p>{{success_msg}}</p>
 </alert>
 {{/if}}
-<form action="/auth/reset/{{token}}" method="POST" class="contact-form m-0im">
+<form id="form" action="/auth/reset/{{token}}" method="POST" class="contact-form m-0im">
     <input type="hidden" value="{{csrfToken}}" name="_csrf">
     <div class="form-group">
         <label for="password" class="form-label">Nueva contraseña:</label>
@@ -19,5 +19,7 @@
         <label class="form-label" for="passwordConfirm">Confirmar nueva contraseña:</label>
         <input class="custom-input" type="password" name="passwordConfirm" id="passwordConfirm" required>
     </div>
-    <button class="color-primary w-100" type="submit">Restablecer contraseña</button>
+    <button id="btn-submit" class="color-primary w-100" type="submit">Restablecer contraseña</button>
 </form>
+
+<script type="module" src="/js/sendForm.js"></script>
