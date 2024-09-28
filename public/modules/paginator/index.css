@@ -22,3 +22,14 @@
     justify-content: center;
     margin: 20px 0;
   }
+
+  .search-container {
+    margin-top: 2rem;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.input-container {
+  min-width: 350px;
+}

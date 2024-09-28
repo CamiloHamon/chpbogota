@@ -4,6 +4,7 @@ import { uploadImage, deleteImage } from '../../controllers/images.controller.js
 import { addVideo, getVideo, getVideos, toggleVideosStatus, updateVideo } from '../../controllers/videos.controller.js';
 import { addGallery, getGalleries, getGallery, toggleGalleryStatus, updateGallery } from '../../controllers/gallery.controller.js';
 import { createNewUser, deleteUser, getAllUsers, getProfile, getUser, updateProfile, updateUser } from '../../controllers/user.controller.js';
+import { addNews, getAllNewsAdmin, getNews, toggleNewsStatus, updateNews } from '../../controllers/news.admin.controller.js';
 
 import { isAuthenticated, isAdmin, isSuperAdmin } from '../../middlewares/auth.js';
 
@@ -51,5 +52,22 @@ adminRouter.route('/users/:id')
 // Profile
 adminRouter.get('/profile', getProfile);
 adminRouter.put('/profile', updateProfile);
+
+// News
+
+// API para obtener todas las noticias
+adminRouter.get('/news', isAdmin, getAllNewsAdmin);
+
+// API para agregar una noticia
+adminRouter.post('/news/add', isAdmin, addNews);
+
+// API para obtener una noticia por ID
+adminRouter.get('/news/:id', isAdmin, getNews);
+
+// API para actualizar una noticia
+adminRouter.put('/news/:id', isAdmin, updateNews);
+
+// API para cambiar el estado de una noticia
+adminRouter.patch('/news/:id/toggle-status', isAdmin, toggleNewsStatus);
 
 export default adminRouter;

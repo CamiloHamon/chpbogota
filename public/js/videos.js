@@ -1,3 +1,4 @@
+// public/js/videos.js
 import Paginator from '../modules/paginator/index.js';
 import { showLoading, hideLoading } from '../modules/loader/index.js';
 
@@ -56,35 +57,39 @@ function getVimeoVideoID(url) {
 // Función para renderizar el contenido paginado
 const renderContent = (items) => {
     let html = '';
-    items.forEach(item => {
-        let videoID;
-        let embedUrl;
-        let normalUrl;
-        let platform; // Para determinar si es YouTube o Vimeo
 
-        if (item.url.includes('youtube.com') || item.url.includes('youtu.be')) {
-            platform = 'youtube';
-            videoID = getYouTubeVideoID(item.url);
-            if (videoID) {
-                embedUrl = `https://www.youtube.com/embed/${videoID}`;
-                normalUrl = `https://www.youtube.com/watch?v=${videoID}`;
-            }
-        } else if (item.url.includes('vimeo.com') || item.url.includes('player.vimeo.com')) {
-            platform = 'vimeo';
-            videoID = getVimeoVideoID(item.url);
-            if (videoID) {
-                embedUrl = `https://player.vimeo.com/video/${videoID}`;
-                normalUrl = `https://vimeo.com/${videoID}`;
-            }
-        } else {
-            // Si no es YouTube ni Vimeo, puedes manejarlo según tus necesidades
-            console.warn(`URL no reconocida: ${item.url}`);
-            return; // Saltar este item
-        }
+    if (items.length === 0) {
+        html = `<p class="no-results">No se encontraron videos que coincidan con tu búsqueda.</p>`;
+    } else {
+        items.forEach(item => {
+            let videoID;
+            let embedUrl;
+            let normalUrl;
+            let platform; // Para determinar si es YouTube o Vimeo
 
-        if (embedUrl && normalUrl) {
-            html += `
-            <div class="card" data-url="${embedUrl}" data-type="iframe" data-title="${item.title}">
+            if (item.url.includes('youtube.com') || item.url.includes('youtu.be')) {
+                platform = 'youtube';
+                videoID = getYouTubeVideoID(item.url);
+                if (videoID) {
+                    embedUrl = `https://www.youtube.com/embed/${videoID}`;
+                    normalUrl = `https://www.youtube.com/watch?v=${videoID}`;
+                }
+            } else if (item.url.includes('vimeo.com') || item.url.includes('player.vimeo.com')) {
+                platform = 'vimeo';
+                videoID = getVimeoVideoID(item.url);
+                if (videoID) {
+                    embedUrl = `https://player.vimeo.com/video/${videoID}`;
+                    normalUrl = `https://vimeo.com/${videoID}`;
+                }
+            } else {
+                // Si no es YouTube ni Vimeo, puedes manejarlo según tus necesidades
+                console.warn(`URL no reconocida: ${item.url}`);
+                return; // Saltar este item
+            }
+
+            if (embedUrl && normalUrl) {
+                html += `
+                 <div class="card" data-url="${embedUrl}" data-type="iframe" data-title="${item.title}">
               <img src="/images/videos/${item.urlImage}" alt="${item.title}" class="card-image" loading="lazy" />
               <div class="card-content">
                 <h2 class="card-title">${item.title}</h2>
@@ -100,10 +105,12 @@ const renderContent = (items) => {
                 </a>
               </div>
             </div>`;
-        } else {
-            console.warn(`No se pudo procesar el video con URL: ${item.url}`);
-        }
-    });
+               
+            } else {
+                console.warn(`No se pudo procesar el video con URL: ${item.url}`);
+            }
+        });
+    }
 
     document.getElementById('data-container').innerHTML = html;
 
@@ -190,21 +197,70 @@ const renderPagination = (totalPages, currentPage, paginatorInstance) => {
 // Función para obtener todos los datos del servidor (de una sola vez)
 const fetchAllData = async () => {
     showLoading(); // Mostrar indicador de carga
-    const response = await fetch('/api/videos'); // Un solo request para todos los datos
-    const result = await response.json();
-    hideLoading(); // Ocultar indicador de carga después de cargar los datos
-    return result.data; // Supone que la API devuelve todos los datos en 'data'
+    try {
+        const response = await fetch('/api/videos'); // Asegúrate de que esta ruta sea correcta
+        const result = await response.json();
+        hideLoading(); // Ocultar indicador de carga después de cargar los datos
+        return result.data; // Supone que la API devuelve todos los datos en 'data'
+    } catch (error) {
+        hideLoading();
+        console.error('Error al obtener los videos:', error);
+        return [];
+    }
 };
+
+// Función para manejar la búsqueda
+const handleSearch = (data, query) => {
+    if (!query) return data;
+    const lowerCaseQuery = query.toLowerCase();
+    return data.filter(item => 
+        item.title.toLowerCase().includes(lowerCaseQuery) ||
+        (item.subtitle && item.subtitle.toLowerCase().includes(lowerCaseQuery)) ||
+        (item.author && item.author.toLowerCase().includes(lowerCaseQuery))
+    );
+};
+
+// Función de debounce
+function debounce(func, delay) {
+    let timeout;
+    return function(...args) {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(this, args), delay);
+    }
+}
 
 // Inicializar la paginación al cargar la página
 document.addEventListener('DOMContentLoaded', async () => {
-    const data = await fetchAllData(); // Cargar todos los datos desde la API
+    const allData = await fetchAllData(); // Cargar todos los datos desde la API
+    let filteredData = allData; // Datos filtrados inicialmente iguales a todos los datos
+
     const paginator = new Paginator({
-        dataSource: data, // Aquí usamos todo el conjunto de datos
+        dataSource: filteredData, // Aquí usamos los datos filtrados
         renderContent: renderContent,
         renderPagination: renderPagination,
         pageSize: 9 // Cuántos elementos por página
     });
 
-    paginator.init(); // Inicializar paginación con todos los datos
+    paginator.init(); // Inicializar paginación con los datos filtrados
+
+    // Manejar evento de búsqueda
+    const searchInput = document.getElementById('search-input');
+
+    const performSearch = () => {
+        const query = searchInput.value.trim();
+        filteredData = handleSearch(allData, query);
+        paginator.updateData(filteredData);
+    };
+
+    // Evento al presionar 'Enter' en el input de búsqueda
+    searchInput.addEventListener('keypress', (event) => {
+        if (event.key === 'Enter') {
+            performSearch();
+        }
+    });
+
+    // Búsqueda en tiempo real con debounce
+    searchInput.addEventListener('input', debounce(() => {
+        performSearch();
+    }, 300)); // Espera 300ms después de que el usuario deja de escribir
 });

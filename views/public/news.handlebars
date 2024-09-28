@@ -1,7 +1,9 @@
+<!-- views/public/news.handlebars -->
 <link rel="stylesheet" href="/modules/paginator/index.css">
 <link rel="stylesheet" href="/modules/loader/index.css">
 <link rel="stylesheet" href="/css/commonAreas.css">
-
+<link rel="stylesheet" href="/css/news.css">
+<link rel="stylesheet" href="/css/sharedButtons.css">
 
 <div id="loading-indicator" class="loading-spinner"></div>
 
@@ -16,4 +18,7 @@
 <div id="data-container"></div>
 <div id="pagination-container"></div>
 
-<script type="module" src="/js/gallery.js"></script>
+<!-- Modal para mostrar el contenido completo de la noticia -->
+{{>modal}}
+
+<script type="module" src="/js/news.js"></script>

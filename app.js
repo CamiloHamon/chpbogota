@@ -199,6 +199,7 @@ import galleryRoutes from './routes/views/gallery.routes.js';
 import contactRoutes from './routes/views/contact-us.routes.js';
 import adminRoutes from './routes/views/admin.routes.js';
 import authRoutes from './routes/views/auth.routes.js';
+import newsRoutes from './routes/views/news.routes.js';
 
 app.use('/', homeViewRoutes);
 app.use('/quienesomos', whoiamViewRoutes);
@@ -209,6 +210,7 @@ app.use('/galeria', galleryRoutes);
 app.use('/contacto', contactRoutes);
 app.use('/admin', adminRoutes);
 app.use('/auth', authRoutes);
+app.use('/noticias', newsRoutes);
 
 // APIs
 // Importar rutas
@@ -217,12 +219,14 @@ import videosApi from './routes/api/videos.api.routes.js';
 import galleryApi from './routes/api/gallery.api.routes.js';
 import contactApi from './routes/api/contact-us.api.routes.js';
 import adminApi from './routes/api/admin.api.routes.js';
+import newsApi from './routes/api/news.api.routes.js';
 
 app.use('/api/common-areas', commonAreasApi);
 app.use('/api/videos', videosApi);
 app.use('/api/gallery', galleryApi);
 app.use('/api/contact', contactApi);
 app.use('/api/admin', adminApi);
+app.use('/api/news', newsApi);
 
 // Iniciar servidor
 const PORT = process.env.PORT || 5000;

@@ -1,0 +1,83 @@
+/* Sección de Compartir en Redes Sociales */
+.share-buttons {
+    margin: 0 0 1rem;
+  }
+  
+  .share-buttons span {
+    font-size: 0.9em;
+    color: #555;
+  }
+  
+  .share-btn {
+    width: 35px;
+    height: 35px;
+    display: flex;
+    border-radius: 50%;
+    text-decoration: none;
+    transition: background-color 0.3s, color 0.3s;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .share-btn i {
+    font-size: 1em;
+  }
+  
+  /* Estilos específicos para cada red social */
+  .share-btn.facebook {
+    background-color: #3b5998;
+    color: #ffffff;
+  }
+  
+  .share-btn.facebook:hover {
+    background-color: #2d4373;
+  }
+  
+  .share-btn.twitter {
+    background-color: #000;
+    color: #ffffff;
+  }
+  
+  .share-btn.twitter:hover {
+    background-color: #000;
+  }
+  
+  .share-btn.whatsapp {
+    background-color: #25d366;
+    color: #ffffff;
+  }
+  
+  .share-btn.whatsapp:hover {
+    background-color: #1ebe5d;
+  }
+  
+  .share-btn.instagram {
+    background-color: #e1306c;
+    color: #ffffff;
+  }
+  
+  .share-btn.instagram:hover {
+    background-color: #c13584;
+  }
+
+  .share-buttons-content {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 2rem;
+    gap: 1rem;
+    margin-top: 0.25rem;
+}
+
+svg.icon {
+    width: 25px;
+    height: 25px;
+    fill: white;
+    }
+
+    img.icon {
+        color: #fff;
+        fill: #fff;
+        filter: invert(1);
+        width: 22px;
+    }
+  

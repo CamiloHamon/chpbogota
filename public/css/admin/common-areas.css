@@ -171,3 +171,7 @@ border: none!important;
     align-items: center;
   }
 }
+
+.form-group .ck.ck-reset.ck-editor.ck-rounded-corners {
+  width: 100%;
+}

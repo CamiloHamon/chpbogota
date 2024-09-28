@@ -1,3 +1,4 @@
+// modules/paginator/index.js
 class Paginator {
   constructor({
     dataSource,
@@ -29,6 +30,14 @@ class Paginator {
     const paginatedData = this.dataSource.slice(start, end); // Paginate the local data
     this.renderContent(paginatedData);
     this.renderPagination(this.totalPages, this.currentPage, this);
+  }
+
+  updateData(newData) {
+    this.dataSource = newData;
+    this.currentPage = 1;
+    this.totalPages = Math.ceil(this.dataSource.length / this.pageSize);
+    this.renderPagination(this.totalPages, this.currentPage, this);
+    this.goToPage(this.currentPage);
   }
 }
 
