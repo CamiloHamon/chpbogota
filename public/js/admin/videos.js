@@ -50,6 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let urlImage = null;
     let newStatus = null;
     let imageChanged = false; // Flag para determinar si la imagen ha sido cambiada
+    let currentCheckbox = null; // Referencia al checkbox actual para "Mostrar en Home"
 
     const formConfig = [
         { label: 'Título', id: 'title', type: 'text', required: true },
@@ -57,6 +58,9 @@ document.addEventListener('DOMContentLoaded', () => {
         { label: 'URL', id: 'url', type: 'text', required: true },
         { label: 'Imagen', id: 'urlImage', type: 'file', required: true }
     ];
+
+    // Objeto para almacenar el estado previo de cada checkbox
+    const checkboxStates = {};
 
     init();
 
@@ -119,7 +123,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     vertAlign: "middle",
                     resizable: false,
                     frozen: true,
-                    minWidth: 200
+                    minWidth: 200,
+                    formatter: (cell) => {
+                        return `<div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${cell.getValue()}</div>`;
+                    }
                 },
                 {
                     title: "Creación",
@@ -153,6 +160,25 @@ document.addEventListener('DOMContentLoaded', () => {
                     frozen: true
                 },
                 {
+                    title: "Mostrar",
+                    field: "showInHome",
+                    width: 70,
+                    formatter: (cell) => {
+                        const isChecked = cell.getValue();
+                        return `
+                            <label class="switch">
+                                <input type="checkbox" class="show-home-checkbox" data-id="${cell.getRow().getData()._id}" ${isChecked ? 'checked' : ''}>
+                                <span class="slider round"></span>
+                            </label>
+                        `;
+                    },
+                    hozAlign: "center",
+                    vertAlign: "middle",
+                    resizable: false,
+                    frozen: true,
+                    headerSort: false
+                },
+                {
                     title: "Acciones",
                     field: "_id",
                     formatter: (cell) => {
@@ -168,12 +194,18 @@ document.addEventListener('DOMContentLoaded', () => {
                     hozAlign: "center",
                     vertAlign: "middle",
                     resizable: false,
-                    frozen: true
+                    frozen: true,
+                    headerSort: false
+
                 }
             ],
             ajaxResponse: function (url, params, response) {
                 return response.data;
             },
+            layoutColumnsOnNewData: true,
+            movableColumns: true,
+            selectable: 1,
+            // Añade otros parámetros según sea necesario
         });
     }
 
@@ -207,7 +239,25 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function initializeEventHandlers() {
-        document.getElementById('videosTable').addEventListener('click', handleTableClick);
+        const videosTable = document.getElementById('videosTable');
+
+        // Listener para capturar el estado previo del checkbox antes de cambiar
+        videosTable.addEventListener('mousedown', function(event) {
+            const target = event.target;
+            if (target.classList.contains('show-home-checkbox')) {
+                const checkbox = target;
+                const videoId = checkbox.getAttribute('data-id');
+                checkboxStates[videoId] = checkbox.checked;
+            }
+        });
+
+        // Listener para manejar los clics en los botones de la tabla (edit y toggle-status)
+        videosTable.addEventListener('click', handleTableClick);
+
+        // Listener para manejar los clics en los checkboxes de "Mostrar en Home"
+        videosTable.addEventListener('click', handleShowInHomeClick);
+
+        // Otros listeners
         addButton.addEventListener('click', () => openModal('add'));
         closeModalBtn.addEventListener('click', closeModal);
         submitButton.addEventListener('click', handleFormSubmit);
@@ -217,6 +267,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function handleTableClick(event) {
         const target = event.target;
 
+        // Manejar el clic en el botón de editar
         if (target.classList.contains('edit-btn')) {
             const id = target.getAttribute('data-id');
             fetch(`/api/admin/videos/${id}`)
@@ -225,12 +276,139 @@ document.addEventListener('DOMContentLoaded', () => {
                     openModal('edit', data.video);
                 })
                 .catch(error => console.error('Error al obtener datos:', error));
-        } else if (target.classList.contains('toggle-status-btn')) {
+        }
+
+        // Manejar el clic en el botón de activar/inactivar
+        else if (target.classList.contains('toggle-status-btn')) {
             const id = target.getAttribute('data-id');
             const isActive = target.getAttribute('data-active') === 'true';
             const status = !isActive;
-            openConfirmModal(id, status, isActive);
+            openConfirmToggleStatusModal(id, status, isActive);
         }
+    }
+
+    function handleShowInHomeClick(event) {
+        const target = event.target;
+
+        if (target.classList.contains('show-home-checkbox')) {
+            event.preventDefault(); // Prevenir el cambio inmediato del checkbox
+            modalContent.classList.add('modal-sm')
+
+            const videoId = target.getAttribute('data-id');
+            const isChecked = target.checked;
+            const previousState = checkboxStates[videoId];
+
+            // Revertir el checkbox al estado previo
+            target.checked = previousState;
+
+            // Mostrar el modal de confirmación para showInHome
+            modalTitle.textContent = 'Confirmación';
+            modalBody.innerHTML = `<p>¿Estás seguro de ${isChecked ? 'mostrar' : 'remover'} este video en la página de inicio?${isChecked ? ' Solo puede haber uno.' : ''}</p>`;
+            modalBody.appendChild(confirmBtn);
+            confirmModal.style.display = 'flex';
+
+            // Guardar el ID y referencia al checkbox para la confirmación
+            currentId = videoId;
+            newStatus = isChecked;
+            currentCheckbox = target;
+
+            // Indicar que la acción es para showInHome
+            confirmBtn.dataset.action = 'showInHome';
+        }
+    }
+
+    function openConfirmToggleStatusModal(id, status, isActive) {
+        modalContent.classList.add('modal-sm')
+        currentId = id;
+        newStatus = status;
+
+        modalTitle.textContent = 'Confirmación';
+        modalBody.innerHTML = `<p>¿Estás seguro que deseas <b>${isActive ? 'inactivar' : 'activar'}</b> este ítem?</p>`;
+        modalBody.appendChild(confirmBtn);
+
+        confirmModal.style.display = 'flex';
+
+        // Indicar que la acción es para toggle-status
+        confirmBtn.dataset.action = 'toggleStatus';
+    }
+
+    async function handleConfirm() {
+        const action = confirmBtn.dataset.action;
+
+        if (action === 'showInHome') {
+            // Manejo de confirmación para showInHome
+            if (currentId !== null && currentCheckbox !== null) {
+                try {
+                    showLoading();
+                    const response = await fetch(`/api/admin/videos/${currentId}/toggle-showInHome`, {
+                        method: 'PATCH',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'CSRF-Token': csrfToken
+                        },
+                        body: JSON.stringify({ showInHome: newStatus })
+                    });
+
+                    const result = await response.json();
+                    hideLoading();
+
+                    if (result.success) {
+                        // Actualizar el estado del checkbox
+                        currentCheckbox.checked = newStatus;
+                        table.setData();
+                        closeModal();
+                    } else {
+                        alert('Error al actualizar el estado del video.');
+                        // Revertir el checkbox al estado previo
+                        currentCheckbox.checked = !newStatus;
+                        closeModal();
+                    }
+                } catch (error) {
+                    hideLoading();
+                    console.error('Error al actualizar showInHome:', error);
+                    alert('Error al actualizar el estado del video.');
+                    // Revertir el checkbox al estado previo
+                    currentCheckbox.checked = !newStatus;
+                    closeModal();
+                }
+            }
+        }
+        else if (action === 'toggleStatus') {
+            // Manejo de confirmación para toggle-status
+            if (currentId !== null) {
+                showLoading();
+
+                try {
+                    const response = await fetch(`/api/admin/videos/${currentId}/toggle-status`, {
+                        method: 'PATCH',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'CSRF-Token': csrfToken
+                        },
+                        body: JSON.stringify({ active: newStatus })
+                    });
+
+                    const data = await response.json();
+                    hideLoading();
+
+                    if (data.success) {
+                        table.setData();
+                        closeModal();
+                    } else {
+                        alert('Error al actualizar el estado del video.');
+                        closeModal();
+                    }
+                } catch (error) {
+                    hideLoading();
+                    console.error('Error al actualizar el estado del video:', error);
+                    alert('Error al actualizar el estado del video.');
+                    closeModal();
+                }
+            }
+        }
+
+        // Limpiar el atributo de acción después de la confirmación
+        delete confirmBtn.dataset.action;
     }
 
     function openModal(mode, data = {}) {
@@ -311,7 +489,10 @@ document.addEventListener('DOMContentLoaded', () => {
             load: (source, load, error, progress, abort, headers) => {
                 fetch(source)
                     .then(function (response) {
-                        load(response.blob());
+                        return response.blob();
+                    })
+                    .then(function (blob) {
+                        load(blob);
                     })
                     .catch(function (err) {
                         console.error('Error al cargar la imagen:', err);
@@ -323,7 +504,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 };
             },
-        }
+        };
 
         filePondInstance = FilePond.create(inputElement, {
             ...filePondLabelsES,
@@ -390,6 +571,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (responseData.success) {
                         table.setData();
                         closeModal();
+                    } else {
+                        alert('Error al guardar el video.');
                     }
                 })
                 .catch(error => console.error('Error:', error))
@@ -407,30 +590,88 @@ document.addEventListener('DOMContentLoaded', () => {
         modalBody.appendChild(confirmBtn);
 
         confirmModal.style.display = 'flex';
+
+        // Indicar que la acción es para toggle-status
+        confirmBtn.dataset.action = 'toggleStatus';
     }
 
-    function handleConfirm() {
-        if (currentId !== null) {
-            showLoading();
+    async function handleConfirm() {
+        const action = confirmBtn.dataset.action;
 
-            fetch(`/api/admin/videos/${currentId}/toggle-status`, {
-                method: 'PATCH',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'CSRF-Token': csrfToken
-                },
-                body: JSON.stringify({ active: newStatus })
-            })
-                .then(response => response.json())
-                .then(data => {
+        if (action === 'showInHome') {
+            // Manejo de confirmación para showInHome
+            if (currentId !== null && currentCheckbox !== null) {
+                try {
+                    showLoading();
+                    const response = await fetch(`/api/admin/videos/${currentId}/toggle-showInHome`, {
+                        method: 'PATCH',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'CSRF-Token': csrfToken
+                        },
+                        body: JSON.stringify({ showInHome: newStatus })
+                    });
+
+                    const result = await response.json();
+                    hideLoading();
+
+                    if (result.success) {
+                        // Actualizar el estado del checkbox
+                        currentCheckbox.checked = newStatus;
+                        table.setData();
+                        closeModal();
+                    } else {
+                        alert('Error al actualizar el estado del video.');
+                        // Revertir el checkbox al estado previo
+                        currentCheckbox.checked = !newStatus;
+                        closeModal();
+                    }
+                } catch (error) {
+                    hideLoading();
+                    console.error('Error al actualizar showInHome:', error);
+                    alert('Error al actualizar el estado del video.');
+                    // Revertir el checkbox al estado previo
+                    currentCheckbox.checked = !newStatus;
+                    closeModal();
+                }
+            }
+        }
+        else if (action === 'toggleStatus') {
+            // Manejo de confirmación para toggle-status
+            if (currentId !== null) {
+                showLoading();
+
+                try {
+                    const response = await fetch(`/api/admin/videos/${currentId}/toggle-status`, {
+                        method: 'PATCH',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'CSRF-Token': csrfToken
+                        },
+                        body: JSON.stringify({ active: newStatus })
+                    });
+
+                    const data = await response.json();
+                    hideLoading();
+
                     if (data.success) {
                         table.setData();
                         closeModal();
+                    } else {
+                        alert('Error al actualizar el estado del video.');
+                        closeModal();
                     }
-                })
-                .catch(error => console.error('Error:', error))
-                .finally(() => hideLoading());
+                } catch (error) {
+                    hideLoading();
+                    console.error('Error al actualizar el estado del video:', error);
+                    alert('Error al actualizar el estado del video.');
+                    closeModal();
+                }
+            }
         }
+
+        // Limpiar el atributo de acción después de la confirmación
+        delete confirmBtn.dataset.action;
     }
 
     function closeModal() {

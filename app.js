@@ -158,6 +158,7 @@ app.use(passport.session());
 app.use((req, res, next) => {
   res.locals.user = req.user ? req.user.toObject() : null; // Convertir a objeto plano
   res.locals.year = new Date().getFullYear(); // Convertir a objeto plano
+  res.locals.aniversary = new Date().getFullYear(); // Convertir a objeto plano
   next();
 });
 

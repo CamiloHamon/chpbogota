@@ -23,15 +23,27 @@
             <nav class="menu" id="main-menu">
                 <ul>
                     <li><a href="/" class="{{#if (eq activePage 'inicio')}}active{{/if}}">Inicio</a></li>
-                    <li><a href="quienesomos" class="{{#if (eq activePage 'quienesomos')}}active{{/if}}">Quiénes Somos</a></li>
-                    <li><a href="servicios" class="{{#if (eq activePage 'servicios')}}active{{/if}}">Servicios</a></li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-btn {{#if (eq activePage 'bienescomunes')}}active{{/if}} {{#if (eq activePage 'videos')}}active{{/if}}">Bienes Comunes</a>
+                        <a href="quienesomos" class="{{#if (eq activePage 'quienesomos')}}active{{/if}}">Quiénes
+                            Somos</a>
                         <ul class="dropdown-menu">
-                            <li><a href="/bienescomunes" class="{{#if (eq activePage 'bienescomunes')}}active-dropdown{{/if}}">Revista</a></li>
-                            <li><a href="/videos" class="{{#if (eq activePage 'videos')}}active-dropdown{{/if}}">Videos</a></li>
+                            <li><a href="servicios"
+                                    class="{{#if (eq activePage 'servicios')}}active-dropdown{{/if}}">Servicios</a></li>
                         </ul>
                     </li>
+                    <li class="dropdown">
+                        <a href="#"
+                            class="dropdown-btn {{#if (eq activePage 'bienescomunes')}}active{{/if}} {{#if (eq activePage 'videos')}}active{{/if}}">Bienes
+                            Comunes</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/bienescomunes"
+                                    class="{{#if (eq activePage 'bienescomunes')}}active-dropdown{{/if}}">Revista</a>
+                            </li>
+                            <li><a href="/videos"
+                                    class="{{#if (eq activePage 'videos')}}active-dropdown{{/if}}">Videos</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="/noticias" class="{{#if (eq activePage 'news')}}active{{/if}}">Noticias</a></li>
                     <li><a href="/galeria" class="{{#if (eq activePage 'gallery')}}active{{/if}}">Galería</a></li>
                     <li><a href="/contacto" class="{{#if (eq activePage 'contacto')}}active{{/if}}">Contacto</a></li>
                 </ul>
@@ -41,7 +53,55 @@
 
     {{#if (eq activePage 'inicio')}}
     <div class="banner home pos-relative" style="background-image: url('/images/banners/{{activePage}}.jpg');">
-        {{> carouselhome}}
+        <div class="banner-img-home">
+            <div class="left-column">
+                <div class="logo-banner">
+                    <img src="/images/faviconcaph.png" alt="CAPH Logo">
+                </div>
+                <div class="title-section">
+                    <h1>CAPH</h1>
+                    <h2>BOGOTÁ D.C</h2>
+                    <hr>
+                </div>
+                <div class="anniversary-section">
+                    <div class="stars-curve">
+                        <div class="star">★</div>
+                        <div class="star">★</div>
+                        <div class="star">★</div>
+                        <div class="star">★</div>
+                        <div class="star">★</div>
+                    </div>
+                    <h2>{{aniversary}} <span class="aniversary-grade">º</span></h2>
+                    <p>ANIVERSARIO</p>
+                </div>
+            </div>
+
+            <div class="right-column">
+                <div class="header-text">
+                    <h2>POR LA PROFESIONALIZACIÓN</h2>
+                    <h1>DE NUESTRA ACTIVIDAD</h1>
+                </div>
+                <div class="medal-icon">
+                    🏅
+                </div>
+                <div class="values-section">
+                    <div class="value-item">CAPACITACIÓN</div>
+                    <div class="value-item">EXCELENCIA</div>
+                    <div class="value-item">CALIDAD</div>
+                    <div class="value-item">EFICACIA</div>
+                </div>
+                <div class="social-media">
+                    <div class="facebook-button">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="facebook-icon">
+                            <path
+                                d="M22.675 0h-21.35C.595 0 0 .595 0 1.326v21.348C0 23.404.595 24 1.326 24H12.82v-9.294H9.692v-3.622h3.128V8.413c0-3.1 1.894-4.785 4.66-4.785 1.325 0 2.464.099 2.797.143v3.24h-1.919c-1.504 0-1.796.714-1.796 1.762v2.31h3.591l-.468 3.622h-3.123V24h6.116C23.405 24 24 23.405 24 22.674V1.326C24 .595 23.405 0 22.675 0z" />
+                        </svg>
+                    </div>
+                    <a href="https://www.facebook.com/colegiophbogota" target="_blank">/colegiophbogota</a>
+                </div>
+            </div>
+        </div>
+
         <a target="_blank" href="/asociados" class="asociados-banner-container">
             <div class="asociados-text-container">
                 <p>CONOCE A NUESTROS ASOCIADOS</p>
@@ -66,7 +126,8 @@
     <!-- Footer -->
     <footer id="main-footer">
         <div class="container">
-            <p>© {{year}} Colegio de Administradores de Propiedad Horizontal de Bogotá | Todos los Derechos Reservados </p>
+            <p>© {{year}} Colegio de Administradores de Propiedad Horizontal de Bogotá | Todos los Derechos Reservados
+            </p>
             <p>Calle 63A No. 11-40 | Cel: 316 679 7878 | colegiophbogota@gmail.com
             </p>
         </div>

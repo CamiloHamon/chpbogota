@@ -1,7 +1,7 @@
 import express from 'express';
 import { getAllCommonAreas, toggleCommonAreaStatus, addCommonArea, getCommonArea, updateCommonArea } from '../../controllers/commonAreas.controller.js';
 import { uploadImage, deleteImage } from '../../controllers/images.controller.js';
-import { addVideo, getVideo, getVideos, toggleVideosStatus, updateVideo } from '../../controllers/videos.controller.js';
+import { addVideo, getVideo, getVideos, setShowInHome, toggleShowInHome, toggleVideosStatus, updateVideo } from '../../controllers/videos.controller.js';
 import { addGallery, getGalleries, getGallery, toggleGalleryStatus, updateGallery } from '../../controllers/gallery.controller.js';
 import { createNewUser, deleteUser, getAllUsers, getProfile, getUser, updateProfile, updateUser } from '../../controllers/user.controller.js';
 import { addNews, getAllNewsAdmin, getNews, toggleNewsStatus, updateNews } from '../../controllers/news.admin.controller.js';
@@ -31,6 +31,8 @@ adminRouter.patch('/videos/:id/toggle-status', toggleVideosStatus);
 adminRouter.post('/videos/add', addVideo);
 adminRouter.get('/videos/:id', getVideo);
 adminRouter.put('/videos/:id', updateVideo);
+adminRouter.put('/videos/showInHome/:id', setShowInHome);
+adminRouter.patch('/videos/:id/toggle-showInHome', toggleShowInHome);
 
 // Rutas de Galerías
 adminRouter.get('/gallery', getGalleries);

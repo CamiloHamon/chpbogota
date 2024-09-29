@@ -238,7 +238,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         dataSource: filteredData, // Aquí usamos los datos filtrados
         renderContent: renderContent,
         renderPagination: renderPagination,
-        pageSize: 9 // Cuántos elementos por página
+        pageSize: 8 // Cuántos elementos por página
     });
 
     paginator.init(); // Inicializar paginación con los datos filtrados

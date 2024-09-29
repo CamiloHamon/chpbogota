@@ -1,10 +1,31 @@
+<link rel="stylesheet" href="/css/news.css">
+<style>.card-content{padding-bottom: 1rem;}</style>
+
+{{#if videoUrl}}
 <div class="my-1">
     {{> videoSection
-    videoUrl="QjPn-S9EkDI?si=1YpqOToxUcGWTg8T" 
-    videoTitle="OPINIÓN RCN | ¿QUÉ HACER CON LOS VECINOS RUIDOSOS?" 
-    programName="Noticias RCN | Programa: Opinión RCN"
-    description1="Germán Molano Baquero, Presidente del Colegio de Administradores de Propiedad Horizontal de Bogotá..."
-    description2="Las quejas por exceso de ruido y escándalos en el vecindario son pan de cada día..."
+    videoUrl=videoUrl
+    videoTitle=videoTitle
+    description=videoDescription
     videoLink="/videos"
-}}
+    }}
 </div>
+{{/if}}
+
+{{#if news}}
+<div class="bg-gray">
+    <h2>Últimas <a class="underline" href="/noticias">noticias</a></h2>
+    <div class="grid-container">
+        {{#each news}}
+        <div class="card">
+            <a href="/noticias/{{this.slug}}" class="card-content w-100">
+                <h2 class="card-title">{{this.title}}</h2>
+                <h3 class="card-subtitle">{{this.subtitle}}</h3>
+                <p class="card-author">Por: <strong>{{this.author}}</strong></p>
+                <small class="card-date">Publicado: {{formattedDate}}</small>
+            </a>
+        </div>
+        {{/each}}
+    </div>
+</div>
+{{/if}}

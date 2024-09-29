@@ -152,7 +152,7 @@ body {
 /* Mostrar el submenú al hacer hover en pantallas grandes */
 .dropdown:hover .dropdown-menu {
   display: flex;
-  top: 100%;
+  top: 75px!important;
   gap: 8px;
 }
 
@@ -226,6 +226,7 @@ main {
   text-align: center;
   font-size: 24px;
   padding: 10px 0;
+  font-weight: 600;
   border-radius: 8px 8px 0px 0px;
 }
 
@@ -263,9 +264,26 @@ main {
   height: 60px;
 }
 
-
 /* Media Query para dispositivos móviles */
 @media (max-width: 768px) {
+  .banner-img-home {
+    justify-content: center!important;
+    padding: 20px 0 88px!important;
+  }
+
+  .stars-curve {
+    margin: 0 68px!important;
+  }
+
+  .left-column {
+    margin-bottom: 3rem;
+    max-width: 273px;
+  }
+
+  .right-column {
+    display: none;
+  }
+
   a.logo.d-flex {
   max-width: 40px;
 }
@@ -400,4 +418,164 @@ main {
   #main-header .logo img {
     height: 40px;
   }
+}
+
+.banner-img-home {
+  display: flex;
+  justify-content: space-between;
+  padding: 50px;
+  width: 100%;
+  max-width: 800px;
+  filter: drop-shadow(2px 4px 6px black);
+}
+
+.facebook-button {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+}
+
+.social-media {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.facebook-icon {
+  width: 20px;
+  height: 20px;
+  fill: yellow; /* Cambia el color del icono a blanco */
+}
+
+.left-column, .right-column {
+  flex: 1;
+  text-align: center;
+  user-select: none;
+}
+
+.logo-banner img {
+  width: 100px;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+.aniversary-grade {
+  position: absolute;
+  top: 4px;
+  font-size: 23px;
+}
+
+.title-section h1 {
+  font-size: 3em;
+  color: white;
+  line-height: 1.2;
+}
+
+.title-section h2 {
+  color: white;
+}
+
+.title-section hr {
+  border: 1px solid yellow;
+  margin: 7px auto;
+  width: 80%;
+}
+
+.anniversary-section {
+  margin-top: 20px;
+}
+
+.anniversary-section h2, .anniversary-section p {
+  color: yellow;
+  position: relative;
+}
+
+.anniversary-section h2 {
+  font-size: 4em;
+  line-height: 1;
+}
+
+.anniversary-section p {
+  font-size: 20px;
+}
+
+.stars-curve {
+  position: relative;
+  width: 120px;
+  height: 60px;
+  margin: 0 99px;
+}
+
+.stars-curve .star {
+  position: absolute;
+  font-size: 2em;
+  color: yellow;
+  top: 50%;
+  left: 50%;
+  transform-origin: bottom center;
+}
+
+.stars-curve .star:nth-child(1) {
+  transform: rotate(-40deg) translate(-100%, -65%);
+}
+
+.stars-curve .star:nth-child(2) {
+  transform: rotate(-20deg) translate(-50%, -50%);
+}
+
+.stars-curve .star:nth-child(3) {
+  transform: rotate(0deg) translate(0%, -45%);
+}
+
+.stars-curve .star:nth-child(4) {
+  transform: rotate(20deg) translate(50%, -47%);
+}
+
+.stars-curve .star:nth-child(5) {
+  transform: rotate(40deg) translate(93%, -57%);
+}
+
+.right-column {
+  color: yellow;
+}
+
+.header-text h2 {
+  font-size: 1em;
+  color: yellow;
+  line-height: 0.5;
+  letter-spacing: 1.5px;
+}
+
+.header-text h1 {
+  font-size: 1.5em;
+  margin-bottom: 20px;
+  color: yellow;
+}
+
+.medal-icon {
+  font-size: 3em;
+  margin-bottom: 20px;
+  transform: rotate(180deg);
+}
+
+.values-section {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 20px;
+}
+
+.value-item {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: yellow;
+}
+
+.social-media a {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: yellow;
 }

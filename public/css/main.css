@@ -214,6 +214,10 @@ button:hover {
     color: #761537;
   }
 
+  .underline {
+    text-decoration: underline;
+  }
+
   label {
     color: #761537;
   }

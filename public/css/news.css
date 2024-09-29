@@ -1,21 +1,34 @@
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1rem;
+    padding: 1rem 0;
+}
+
 .card {
-    width: 300px;
-    margin: 20px;
+    width: 100%; /* Se ajusta al tamaño de la columna */
+    margin: 0; /* Remover márgenes para que el grid maneje los espacios */
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
     transition: transform 0.3s ease;
-    cursor: auto!important;
     text-decoration: none;
     display: flex;
     flex-direction: column;
     align-items: center;
+    transition: transform 0.3s ease;
 }
+
 .card-content {
     padding: 0;
 }
-.card-title {
+
+.card-subtitle {
     font-size: 16px;
+}
+
+.card-title {
+    font-size: 18px;
     color: #fff;
     border-radius: 8px 8px 0px 0px;
     padding: 1rem 0.5rem;
@@ -23,7 +36,17 @@
     line-height: 22px;
     background: #8B1D42;
 }
+
 .hr {
     width: 80%;
     margin: 15px 0 10px;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+.bg-gray {
+    padding: 1rem 0;
+    border-top: 2px solid #eee;
 }

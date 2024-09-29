@@ -36,7 +36,7 @@ const renderContent = (items) => {
       <div class="card">
         <a href="/noticias/${item.slug}" target="_blank" class="card-content w-100">
           <h2 class="card-title">${item.title}</h2>
-          <h3 class="card-subtitle">${item.subtitle || 'Sin subtítulo'}</h3>
+          <h3 class="card-subtitle">${item.subtitle || ''}</h3>
           <p class="card-author">Por: <strong>${item.author}</strong></p>
           <small class="card-date">Publicado: ${formattedDate}</small>
         </a>

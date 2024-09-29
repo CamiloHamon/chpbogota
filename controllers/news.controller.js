@@ -18,6 +18,22 @@ export const getAllNews = async (req, res) => {
   }
 };
 
+export const getAllNewsJson = async (req, res) => {
+  try {
+    const news = await NewsModel.find({ active: true })
+      .sort({ insert: -1 })
+      .limit(4);  // Limitar a 5 resultados
+    
+    return news;
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({
+      success: false,
+      error: 'Error al obtener las noticias',
+    });
+  }
+};
+
 // Obtener una noticia por ID
 export const getNewsById = async (req, res) => {
   try {

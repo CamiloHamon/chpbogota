@@ -1,23 +1,24 @@
 #data-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 5px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+  padding: 1rem 0;
   margin-top: 1rem;
 }
 
 /* Estilos de la tarjeta */
 .card {
-  position: relative; /* Para colocar los íconos de forma absoluta */
-  display: flex;
-  flex-direction: column;
-  width: 353px;
-  margin: 20px;
+  width: 100%; /* Se ajusta al tamaño de la columna */
+  margin: 0; /* Remover márgenes para que el grid maneje los espacios */
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   text-align: center;
   transition: transform 0.3s ease;
-  cursor: pointer;
   text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.3s ease;
 }
 
 .card:hover {

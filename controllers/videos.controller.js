@@ -153,3 +153,56 @@ export const updateVideo = async (req, res) => {
     });
   }
 };
+
+export const getVideoShowInHome = async (req, res) => {
+  try {
+    const video = await VideosModel.findOne({active: true, showInHome: true});
+    return video;
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'Error interno del servidor' });
+  }
+}
+
+export const setShowInHome = async (req, res) => {
+  const { id } = req.params;
+  try {
+      // Primero, establecer showInHome a false para todos los videos
+      await VideosModel.updateMany({ showInHome: true }, { showInHome: false });
+
+      // Luego, establecer showInHome a true para el video seleccionado
+      const video = await VideosModel.findByIdAndUpdate(id, { showInHome: true }, { new: true });
+
+      if (!video) {
+          return res.status(404).json({ success: false, error: 'Video no encontrado' });
+      }
+
+      res.json({ success: true, data: video });
+  } catch (error) {
+      console.error('Error al establecer showInHome:', error);
+      res.status(500).json({ success: false, error: 'Error interno del servidor' });
+  }
+};
+
+export const toggleShowInHome = async (req, res) => {
+  const { id } = req.params;
+  const { showInHome } = req.body;
+
+  try {
+      if (showInHome) {
+          // Primero, establecer showInHome a false para todos los videos
+          await VideosModel.updateMany({ showInHome: true }, { showInHome: false });
+      }
+
+      // Luego, actualizar el showInHome del video seleccionado
+      const video = await VideosModel.findByIdAndUpdate(id, { showInHome }, { new: true });
+
+      if (!video) {
+          return res.status(404).json({ success: false, error: 'Video no encontrado' });
+      }
+
+      res.json({ success: true, data: video });
+  } catch (error) {
+      console.error('Error al actualizar showInHome:', error);
+      res.status(500).json({ success: false, error: 'Error interno del servidor' });
+  }
+};

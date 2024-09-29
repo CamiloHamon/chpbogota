@@ -29,6 +29,10 @@ const VideosSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  showInHome: {
+    type: Boolean,
+    default: false
+  },
   insert: {
     type: Date,
     default: Date.now,

@@ -1,10 +1,10 @@
 // Función para cambiar el estilo del header al hacer scroll
-window.onscroll = function() {
+window.onscroll = function () {
     const $header = document.getElementById('main-header');
     const $containerHeader = document.querySelector('.container-header');
     const $active = document.querySelector('#main-header nav ul li a.active');
     const $dropdownMenu = document.querySelector('#main-header nav ul.dropdown-menu');
-    
+
     if (window.scrollY > 50) {
         $header.classList.add('scroll-header');
         $active.classList.add('scroll-header');
@@ -21,17 +21,17 @@ window.onscroll = function() {
 
 // layout.js
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const hamburgerBtn = document.getElementById('hamburger-btn');
     const mainMenu = document.getElementById('main-menu');
 
     // Toggle del menú principal
-    hamburgerBtn.addEventListener('click', function() {
+    hamburgerBtn.addEventListener('click', function () {
         mainMenu.classList.toggle('active');
     });
 
     // Cerrar el menú al hacer clic fuera de él
-    document.addEventListener('click', function(event) {
+    document.addEventListener('click', function (event) {
         const isClickInsideMenu = mainMenu.contains(event.target);
         const isClickOnHamburger = hamburgerBtn.contains(event.target);
 
@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function() {
             mainMenu.classList.remove('active');
             // Cerrar dropdowns abiertos
             const openDropdowns = document.querySelectorAll('.dropdown.active');
-            openDropdowns.forEach(function(dropdown) {
+            openDropdowns.forEach(function (dropdown) {
                 dropdown.classList.remove('active');
             });
         }
@@ -49,9 +49,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const dropdown = document.querySelector('.dropdown');
     const dropdownBtn = dropdown.querySelector('.dropdown-btn');
 
-    dropdownBtn.addEventListener('click', function(event) {
-        event.preventDefault();
-        dropdown.classList.toggle('active');
-    });
+    if (dropdownBtn) {
+        dropdownBtn.addEventListener('click', function (event) {
+            event.preventDefault();
+            dropdown.classList.toggle('active');
+        });
+    }
+
 });
 
