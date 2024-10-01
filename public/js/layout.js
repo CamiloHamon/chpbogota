@@ -7,12 +7,12 @@ window.onscroll = function () {
 
     if (window.scrollY > 50) {
         $header.classList.add('scroll-header');
-        $active.classList.add('scroll-header');
+        if ($active) $active.classList.add('scroll-header');
         $containerHeader.style.height = '60px'; // Muestra la barra amarilla
         $dropdownMenu.style.top = '75px'
     } else {
         $header.classList.remove('scroll-header');
-        $active.classList.remove('scroll-header');
+        if ($active) $active.classList.remove('scroll-header');
         $containerHeader.style.height = 'auto'; // Oculta la barra amarilla cuando está en la parte superior
         $dropdownMenu.style.top = '100%'
 

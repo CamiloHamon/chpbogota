@@ -1,31 +1,46 @@
+<!-- views/public/home.handlebars -->
+
 <link rel="stylesheet" href="/css/news.css">
-<style>.card-content{padding-bottom: 1rem;}</style>
+<style>
+  .card-content {
+    padding-bottom: 1rem;
+  }
+</style>
 
 {{#if videoUrl}}
-<div class="my-1">
+  <div class="my-1">
     {{> videoSection
-    videoUrl=videoUrl
-    videoTitle=videoTitle
-    description=videoDescription
-    videoLink="/videos"
+      videoUrl=videoUrl
+      videoTitle=videoTitle
+      description=videoDescription
+      videoLink="/videos"
     }}
-</div>
+  </div>
 {{/if}}
 
 {{#if news}}
-<div class="bg-gray">
+  <div class="bg-gray">
     <h2>Últimas <a class="underline" href="/noticias">noticias</a></h2>
     <div class="grid-container">
-        {{#each news}}
+      {{#each news}}
         <div class="card">
-            <a href="/noticias/{{this.slug}}" class="card-content w-100">
-                <h2 class="card-title">{{this.title}}</h2>
-                <h3 class="card-subtitle">{{this.subtitle}}</h3>
-                <p class="card-author">Por: <strong>{{this.author}}</strong></p>
-                <small class="card-date">Publicado: {{formattedDate}}</small>
-            </a>
+          <a href="/noticias/{{this.slug}}" class="card-content w-100">
+            <h2 class="card-title">{{this.title}}</h2>
+            <h3 class="card-subtitle">{{this.subtitle}}</h3>
+            <p class="card-author">Por: <strong>{{this.author}}</strong></p>
+            <small class="card-date">Publicado: {{formattedDate}}</small>
+          </a>
         </div>
-        {{/each}}
+      {{/each}}
     </div>
-</div>
+  </div>
+{{/if}}
+
+{{#if linksOfInterest}}
+  <div class="bg-gray mb-2">
+    <h2>Enlaces de interés</h2>
+    {{> carouselhome
+      links=linksOfInterest
+    }}
+  </div>
 {{/if}}

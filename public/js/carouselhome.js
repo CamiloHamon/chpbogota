@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
   new Glider(document.querySelector('.glider'), {
-    slidesToShow: 1,
+    slidesToShow: 3,
     dots: '#dots',
     arrows: {
       prev: '.glider-prev',  // Selector para la flecha izquierda

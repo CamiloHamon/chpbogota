@@ -1,7 +1,6 @@
 .glider-contain {
   position: relative;
 }
-
 .glider-prev,
 .glider-next {
   background-color: rgba(0, 0, 0, 0.5);
@@ -24,38 +23,21 @@
   right: 10px;
 }
 
-.glider-contain .glider div {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 400px; /* Ajusta esta altura según necesites */
+.glider-slide img {
+  max-width: 230px;
+  height: fit-content;
 }
 
-@media only screen and (min-width: 768px) { 
+.glider-slide {
+  user-select: none;
+  justify-content: center;
+  align-content: center;
+  width: 100%;
+  min-width: 150px;
+  display: flex;
+  align-items: center;
+}
 
-  .glider-contain .glider div {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 600px; /* Ajusta esta altura según necesites */
-  }
-
-  .glider-prev:hover,
-  .glider-next:hover {
-    background-color: rgba(0, 0, 0, 0.8);
-  }
-  
-  .glider-contain .glider div {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 600px; /* Ajusta esta altura según necesites */
-  }
-  
-  .glider-contain .glider img {
-    max-width: 972px;
-    max-height: 520px;
-    object-fit: contain;
-  }
-  
+.glider-next.disabled, .glider-prev.disabled {
+  background-color: #5e112c;
 }

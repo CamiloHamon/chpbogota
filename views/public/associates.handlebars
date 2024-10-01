@@ -1,0 +1,53 @@
+<link rel="stylesheet" href="/modules/glider/index.css">
+<link rel="stylesheet" href="/css/partials/carouselhome.css">
+<link rel="stylesheet" href="/css/associates.css">
+
+<section class="main-container">
+  <!-- Carrusel para Empresas -->
+  {{#if companies.length}}
+  <div class="glider-contain">
+    <button class="glider-prev">«</button>
+    <div class="glider">
+      {{#each companies}}
+      <div class="company-card">
+        <img src="{{this.urlImage}}" alt="{{this.name}}">
+      </div>
+      {{/each}}
+    </div>
+    <button class="glider-next">»</button>
+  </div>
+  {{else}}
+  <p>No hay empresas asociadas activas.</p>
+  {{/if}}
+
+  <!-- Tabla para Personas Naturales -->
+  <h2 class="text-center">Asociados Activos - Persona Natural</h2>
+  {{#if naturalPersons.length}}
+  <div class="natural-persons-table mb-2">
+    <table>
+      <tbody>
+        {{#each naturalPersons}}
+        {{#if (isEven @index)}}
+        <tr>
+          <td>{{this.name}}</td>
+          {{else}}
+          <td>{{this.name}}</td>
+        </tr>
+        {{/if}}
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+  {{else}}
+  <p>No hay personas naturales asociadas activas.</p>
+  {{/if}}
+
+  <p class="text-center mb-2">
+    Si deseas obtener más información sobre todos nuestros asociados, no dudes en contactarnos.
+    Puedes hacerlo a través del botón de WhatsApp que se encuentra en la parte inferior derecha de la página,
+    o visitando nuestra <a class="underline" href="/contacto">sección de contacto</a>. ¡Estaremos encantados de ayudarte!
+  </p>
+</section>
+
+<script src="/modules/glider/index.js"></script>
+<script src="/js/associates.js"></script>

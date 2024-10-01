@@ -2,6 +2,7 @@ import express from 'express';
 import calculateYearsCompany from '../../helpers/multer/years.js';
 import { getVideoShowInHome } from '../../controllers/videos.controller.js';
 import { getAllNewsJson } from '../../controllers/news.controller.js';
+import LinkModel from '../../models/link.model.js';
 
 const router = express.Router();
 
@@ -79,12 +80,18 @@ router.get('/', async (req, res) => {
 
   const news = await getAllNewsJson();
   const formattedNews = news.map(article => ({
-    ...article._doc, // Si estás usando Mongoose, extrae los datos del documento
+    ...article._doc, 
     formattedDate: new Date(article.insert).toLocaleDateString('es-ES', {
       year: 'numeric', month: 'long', day: 'numeric'
     })
   }));
 
+  // Obtener los enlaces de interés activos
+  const links = await LinkModel.find({ active: true });  
+  const finalLinks = links.map(link => ({
+    ...link._doc,
+    urlImage: `/images/links/${link.urlImage}`
+  }))
 
   res.render('public/home',
     {
@@ -95,8 +102,8 @@ router.get('/', async (req, res) => {
       videoUrl: videoUrl,
       videoTitle: video?.title,
       videoDescription: video?.description,
-      news: formattedNews.length > 0 ? formattedNews : null
+      news: formattedNews.length > 0 ? formattedNews : null,
+      linksOfInterest: finalLinks.length > 0 ? finalLinks : null // Añadir los enlaces de interés
     });
 });
-
 export default router;

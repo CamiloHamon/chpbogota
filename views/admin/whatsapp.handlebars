@@ -1,0 +1,39 @@
+<!-- views/whatsapp.hbs -->
+<link rel="stylesheet" href="/css/admin/whatsapp.css">
+
+<section class="main-container">
+    <div class="whatsapp-card">
+        <h1 class="mb-2">Configuración de WhatsApp</h1>
+        <form id="whatsapp-form">
+            <div class="whatsapp-info">
+                <!-- Input para el número de WhatsApp -->
+                <div class="form-group">
+                    <label for="whatsapp-url">Número de WhatsApp (con prefijo)</label>
+                    <input type="text" id="whatsapp-url" class="whatsapp-input" placeholder="Por ejemplo +57311111111">
+                </div>
+
+                <!-- Input para el mensaje de WhatsApp -->
+                <div class="form-group">
+                    <label for="whatsapp-message">Mensaje</label>
+                    <textarea id="whatsapp-message" rows="5" class="whatsapp-input" placeholder="Por ejemplo: ¡Hola! Me gustaría contactar con ustedes para sus servicios."></textarea>
+                </div>
+
+                <!-- Toggle para activar/desactivar WhatsApp -->
+                <div class="d-flex justify-end">
+                    <label for="whatsapp-active" class="mr-1">Activo</label>
+                    <label class="switch">
+                        <input type="checkbox" id="whatsapp-active">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+
+                <!-- Botón para guardar cambios -->
+                <button type="submit" class="color-primary btn-save">
+                    Guardar
+                </button>
+            </div>
+        </form>
+    </div>
+</section>
+
+<script type="module" src="/js/admin/whatsapp.js"></script>

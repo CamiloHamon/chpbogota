@@ -1,0 +1,53 @@
+/* Glider styles for companies */
+.company-card {
+    text-align: center;
+    padding: 1rem;
+  }
+  
+  .company-card img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+  }
+  
+  /* Table styles for Natural Persons */
+  .natural-persons-table {
+    margin-top: 20px;
+    display: table;
+    width: 100%;
+  }
+  
+  .natural-persons-table table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .natural-persons-table td {
+    padding: 10px;
+    text-align: center; /* Aquí centramos el texto dentro de las celdas */
+    font-size: 1.1rem;
+    vertical-align: top;
+  }
+  
+  .natural-persons-table tr td:first-child {
+    width: 50%;
+    border-right: 1px solid #ccc;
+}
+  
+  .natural-persons-table td::before {
+    content: "✔ ";
+    color: green;
+    font-weight: bold;
+  }
+  
+  /* Border under each row */
+  .natural-persons-table td {
+    border-bottom: 1px solid #ccc;
+  }
+  
+  /* Text centering for table header and title */
+  .text-center {
+    text-align: center;
+  }

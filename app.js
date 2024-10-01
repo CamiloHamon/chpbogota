@@ -20,6 +20,9 @@ import { dirname, join } from 'path';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
+// Middleware
+import { whatsappMiddleware } from './middlewares/whatsapp.js';
+
 // Inicializa dotenv para acceder a las variables de entorno
 dotenv.config();
 
@@ -128,7 +131,8 @@ app.engine('handlebars', engine({
     eq: (v1, v2) => v1 === v2, // Helper personalizado para comparaciones
     ifEquals: function (arg1, arg2, options) {
       return (arg1 === arg2) ? options.fn(this) : options.inverse(this);
-    }
+    },
+    isEven: (value) => value % 2 === 0
   }
 }));
 
@@ -183,6 +187,7 @@ app.use((req, res, next) => {
 
 // Protección CSRF
 app.use(csurf({ cookie: true }));
+app.use(whatsappMiddleware);
 
 app.use((req, res, next) => {
   res.locals.csrfToken = req.csrfToken(); // Pasa el token CSRF a las vistas  
@@ -201,6 +206,7 @@ import contactRoutes from './routes/views/contact-us.routes.js';
 import adminRoutes from './routes/views/admin.routes.js';
 import authRoutes from './routes/views/auth.routes.js';
 import newsRoutes from './routes/views/news.routes.js';
+import associatesRoutes from './routes/views/associates.routes.js';
 
 app.use('/', homeViewRoutes);
 app.use('/quienesomos', whoiamViewRoutes);
@@ -212,6 +218,7 @@ app.use('/contacto', contactRoutes);
 app.use('/admin', adminRoutes);
 app.use('/auth', authRoutes);
 app.use('/noticias', newsRoutes);
+app.use('/asociados', associatesRoutes);
 
 // APIs
 // Importar rutas

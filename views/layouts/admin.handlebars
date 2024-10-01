@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Panel de Administración</title>
+  <title>{{title}} - Administración</title>
   <meta name="csrf-token" content="{{csrfToken}}">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- Enlace al archivo CSS -->
@@ -28,6 +28,9 @@
         <li class="{{#if (eq activePage 'videos')}}active{{/if}}"><a href="/admin/videos">Videos</a></li>
         <li class="{{#if (eq activePage 'gallery')}}active{{/if}}"><a href="/admin/galeria">Galería</a></li>
         <li class="{{#if (eq activePage 'news')}}active{{/if}}"><a href="/admin/noticias">Noticias</a></li>
+        <li class="{{#if (eq activePage 'links')}}active{{/if}}"><a href="/admin/enlaces-de-interes">Enlaces de interés</a></li>
+        <li class="{{#if (eq activePage 'associates')}}active{{/if}}"><a href="/admin/asociados">Asociados</a></li>
+        <li class="{{#if (eq activePage 'whatsapp')}}active{{/if}}"><a href="/admin/whatsapp">WhatsApp</a></li>
         {{#ifEquals user.role 'superadmin'}}
         <li class="{{#if (eq activePage 'users')}}active{{/if}}"><a href="/admin/usuarios">Usuarios</a></li>
         {{/ifEquals}}

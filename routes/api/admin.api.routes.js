@@ -7,6 +7,9 @@ import { createNewUser, deleteUser, getAllUsers, getProfile, getUser, updateProf
 import { addNews, getAllNewsAdmin, getNews, toggleNewsStatus, updateNews } from '../../controllers/news.admin.controller.js';
 
 import { isAuthenticated, isAdmin, isSuperAdmin } from '../../middlewares/auth.js';
+import { addLink, getLink, getLinks, toggleLinkStatus, updateLink } from '../../controllers/link.controller.js';
+import { addAssociate, getAssociate, getAssociates, toggleAssociateStatus, updateAssociate } from '../../controllers/associates.controller.js';
+import { getWhatsAppConfig, updateWhatsAppConfig } from '../../controllers/whatsapp.controller.js';
 
 const adminRouter = express.Router();
 
@@ -56,20 +59,29 @@ adminRouter.get('/profile', getProfile);
 adminRouter.put('/profile', updateProfile);
 
 // News
-
-// API para obtener todas las noticias
 adminRouter.get('/news', isAdmin, getAllNewsAdmin);
-
-// API para agregar una noticia
 adminRouter.post('/news/add', isAdmin, addNews);
-
-// API para obtener una noticia por ID
 adminRouter.get('/news/:id', isAdmin, getNews);
-
-// API para actualizar una noticia
 adminRouter.put('/news/:id', isAdmin, updateNews);
-
-// API para cambiar el estado de una noticia
 adminRouter.patch('/news/:id/toggle-status', isAdmin, toggleNewsStatus);
+
+// Rutas de Enlaces de interés
+adminRouter.get('/links', getLinks);
+adminRouter.patch('/links/:id/toggle-status', toggleLinkStatus);
+adminRouter.post('/links/add', addLink);
+adminRouter.get('/links/:id', getLink);
+adminRouter.put('/links/:id', updateLink);
+
+// Routes for Associates
+adminRouter.get('/associates', getAssociates);
+adminRouter.patch('/associates/:id/toggle-status', toggleAssociateStatus);
+adminRouter.post('/associates/add', addAssociate);
+adminRouter.get('/associates/:id', getAssociate);
+adminRouter.put('/associates/:id', updateAssociate);
+
+//WhatsApp
+// Rutas para configurar el botón de WhatsApp
+adminRouter.get('/whatsapp', getWhatsAppConfig);
+adminRouter.put('/whatsapp', updateWhatsAppConfig);
 
 export default adminRouter;

@@ -66,4 +66,37 @@ router.get('/noticias', isAdmin, (req, res) => {
     });
 });
 
+// Links
+// Página de administración de enlaces de interes
+router.get('/enlaces-de-interes', isAdmin, (req, res) => {
+    res.render('admin/links', {
+        layout: 'admin',
+        title: 'Enlaces de interés',
+        activePage: 'links',
+        csrfToken: req.csrfToken(),
+    });
+});
+
+// Associates
+// Página de administración de enlaces de asociados
+router.get('/asociados', isAdmin, (req, res) => {
+    res.render('admin/associates', {
+        layout: 'admin',
+        title: 'Asociados',
+        activePage: 'associates',
+        csrfToken: req.csrfToken(),
+    });
+});
+
+// WhatsApp
+// Página de administración de WhatsApp
+router.get('/whatsapp', isAdmin, (req, res) => {
+    res.render('admin/whatsapp', {
+        layout: 'admin',
+        title: 'WhatsApp',
+        activePage: 'whatsapp',
+        csrfToken: req.csrfToken(),
+    });
+});
+
 export default router;

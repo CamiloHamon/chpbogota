@@ -5,7 +5,9 @@
     <meta charset="UTF-8">
     <meta name="csrf-token" content="{{csrfToken}}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{title}}</title>
+    <meta name="description"
+        content="Colegio de Administradores de Propiedad Horizontal de Bogotá D.C | El COLEGIO DE ADMINISTRADORES DE PROPIEDAD HORIZONTAL DE BOGOTÁ, es una entidad sin ánimo de lucro, de derecho privado, constituida por un seleccionado grupo de Administradores de Propiedad horizontal, Administradores de Empresas, Abogados, Contadores, Ingenieros, Arquitectos, y otros profesionales. Con un afán desinteresado de ayudar al desarrollo de las actividades propias del régimen especial, para beneficio de la comunidad y la profesionalización de la actividad de administración, hemos originado con sentido de responsabilidad y honestidad, la primera agremiación en el país, reconocida a nivel nacional e internacional, contando con el acompañamiento de los Profesionales de la Administración de Propiedad Horizontal de España, Argentina, Uruguay, Paraguay, Brasil, Italia, Venezuela. ">
+    <title>{{title}} - Colegio de Administradores de Propiedad Horizontal de Bogotá</title>
     <link rel="stylesheet" href="/css/layout.css">
     <link rel="stylesheet" href="/css/main.css">
 </head>
@@ -102,7 +104,7 @@
             </div>
         </div>
 
-        <a target="_blank" href="/asociados" class="asociados-banner-container">
+        <a href="/asociados" class="asociados-banner-container">
             <div class="asociados-text-container">
                 <p>CONOCE A NUESTROS ASOCIADOS</p>
             </div>
@@ -121,6 +123,16 @@
     <!-- Contenido principal -->
     <main class="container">
         {{{body}}}
+        {{#if whatsappNumber}}
+        <a href="https://web.whatsapp.com/send?phone={{whatsappNumber}}&text={{whatsappMessage}}"
+            class="whatsapp-button" target="_blank">
+            <div class="whatsapp-icon-container">
+                <img src="{{whatsappImage}}" alt="WhatsApp">
+            </div>
+            <span class="whatsapp-text">¡Contáctanos!</span>
+        </a>
+
+        {{/if}}
     </main>
 
     <!-- Footer -->
@@ -128,7 +140,9 @@
         <div class="container">
             <p>© {{year}} Colegio de Administradores de Propiedad Horizontal de Bogotá | Todos los Derechos Reservados
             </p>
-            <p>Calle 63A No. 11-40 | Cel: 316 679 7878 | colegiophbogota@gmail.com
+            <p>
+                Cel: <a class="text-white underline" href="tel:+573166797878">316 679 7878</a> |
+                <a class="text-white underline" href="mailto:colegiophbogota@gmail.com">colegiophbogota@gmail.com</a>
             </p>
         </div>
     </footer>

@@ -1,5 +1,4 @@
 <!-- Incluir el CSS y JS de Glider.js -->
-
 <link rel="stylesheet" href="/modules/glider/index.css">
 <link rel="stylesheet" href="/css/partials/carouselhome.css">
 
@@ -8,9 +7,13 @@
   <button class="glider-prev">«</button>
 
   <div class="glider">
-    <div><img src="/images/banners/carousel/home1.png" alt="Image 1"></div>
-    <div><img src="/images/banners/carousel/home1.png" alt="Image 2"></div>
-    <div><img src="/images/banners/carousel/home1.png" alt="Image 3"></div>
+    {{#each links}}
+    <div class="card box-shadow-none">
+      <a href="{{this.url}}" target="_blank" class="">
+        <img src="{{this.urlImage}}" alt="{{this.name}}">
+      </a>
+    </div>
+    {{/each}}
   </div>
 
   <!-- Flecha derecha -->
