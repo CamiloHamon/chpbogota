@@ -33,7 +33,73 @@ const app = express();
 app.use(express.static(join(__dirname, 'public')));
 
 // Middleware de seguridad y manejo de cabeceras HTTP
-
+app.use(helmet({
+  contentSecurityPolicy: {
+    directives: {
+      "default-src": ["'self'"],
+      "frame-src": [
+        "'self'",
+        "https://www.youtube.com",
+        "https://vimeo.com",
+        "https://player.vimeo.com",
+        "https://www.google.com",           // Permitir iframes de Google
+        "https://maps.google.com"           // Permitir iframes de Google Maps
+      ],
+      "script-src": [
+        "'self'",
+        "'unsafe-inline'",                  // Necesario para scripts inline de Google Maps
+        "https://www.youtube.com",
+        "https://www.youtube-nocookie.com",
+        "https://player.vimeo.com",
+        "https://maps.googleapis.com",      // Permitir scripts de Google Maps API
+        "https://maps.gstatic.com"
+      ],
+      "style-src": [
+        "'self'",
+        "'unsafe-inline'",                  // Necesario para estilos inline de Google Maps
+        "https://fonts.googleapis.com",
+        "https://maps.googleapis.com",
+        "https://maps.gstatic.com"
+      ],
+      "worker-src": ["'self'", "blob:"],
+      "img-src": [
+        "'self'",
+        "blob:",
+        "data:",                            // Permitir imágenes inline en base64
+        "https://i.ytimg.com",
+        "https://i.vimeocdn.com",
+        "https://maps.googleapis.com",
+        "https://maps.gstatic.com",
+        "https://maps.google.com",
+        "https://maps.gstatic.com",
+        "https://www.google.com"
+      ],
+      "connect-src": [
+        "'self'",
+        "https://player.vimeo.com",
+        "https://vimeo.com",
+        "https://f.vimeocdn.com",
+        "https://maps.googleapis.com",
+        "https://maps.gstatic.com",
+        "https://www.google.com",
+        "https://clients4.google.com",
+        "https://clients2.google.com"
+      ],
+      "font-src": [
+        "'self'",
+        "https://fonts.gstatic.com",
+        "https://fonts.googleapis.com"
+      ],
+      "media-src": [
+        "'self'",
+        "https://player.vimeo.com"
+      ],
+      "object-src": ["'none'"],             // Bloquear objetos embebidos (por seguridad)
+      "base-uri": ["'self'"],
+      "form-action": ["'self'"]
+    }
+  }
+}));
 
 // Logger de peticiones HTTP
 app.use(morgan('dev'));
