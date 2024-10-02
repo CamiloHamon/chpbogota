@@ -250,7 +250,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             };
     
-            const endpoint = currentMode === 'edit' ? `/api/admin/users/${currentId}` : '/api/admin/users/add';
+            const endpoint = currentMode === 'edit' ? `/api/admin/users/${currentId}` : '/api/admin/users';
     
             fetch(endpoint, fetchOptions)
                 .then(response => response.json())
