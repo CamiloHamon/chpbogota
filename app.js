@@ -111,7 +111,7 @@ app.use(cors());
 // Limitar el número de peticiones
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutos
-  max: 100, // Limita a 100 solicitudes por IP
+  max: 800, // Limita a 500 solicitudes por IP
 });
 
 app.use(limiter);
@@ -229,6 +229,14 @@ app.use('/api/gallery', galleryApi);
 app.use('/api/contact', contactApi);
 app.use('/api/admin', adminApi);
 app.use('/api/news', newsApi);
+
+app.use((req, res, next) => {
+  res.status(404).render('public/404', {
+    layout: 'main',
+    title: 'Recurso no encontrado',
+    activePage: '404'
+  });
+});
 
 // Iniciar servidor
 const PORT = process.env.PORT || 5000;
