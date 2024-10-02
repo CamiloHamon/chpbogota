@@ -4,7 +4,7 @@ import { transporter } from '../config/nodemailer.js';
 
 // Cargar las credenciales de Google desde el archivo JSON
 const recaptchaClient = new RecaptchaEnterpriseServiceClient({
-  keyFilename: './config/credentials.json', // Ruta relativa al archivo de credenciales
+  credentials: JSON.parse(Buffer.from(process.env.GOOGLE_APPLICATION_CREDENTIALS, 'base64').toString())
 });
 
 async function validateRecaptchaEnterprise(recaptchaToken, projectID, recaptchaKey) {
@@ -46,7 +46,7 @@ async function validateRecaptchaEnterprise(recaptchaToken, projectID, recaptchaK
 export const saveMessage = async (req, res) => {
   try {
     const { subject, message, userName, email, recaptchaToken } = req.body;
-    const projectID = process.env.GOOGLE_PROJECT_ID; 
+    const projectID = process.env.GOOGLE_PROJECT_ID;
     const recaptchaKey = process.env.GOOGLE_RECAPTCHA_KEY;
 
     // Validar reCAPTCHA Enterprise
