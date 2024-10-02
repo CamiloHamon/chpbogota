@@ -12,9 +12,17 @@ const images = [
 // Función para renderizar el listado de noticias
 const renderContent = (items) => {
   let html = '';
+
+  if(items.length == 0) {
+    html += `<h4 class="text-center">No hay noticias disponibles para mostrar.</h4>`
+    const dataContainer = document.getElementById('data-container');
+    dataContainer.removeAttribute('id');
+    dataContainer.classList.add('d-flex', 'justify-center', 'mt-2')
+    dataContainer.innerHTML = html;
+    return;
+  }
+
   items.forEach(item => {
-    // Usar una imagen predeterminada si no hay una imagen proporcionada
-    const imageUrl = item.image || '/images/default-news.jpg'; // Reemplaza con la ruta de tu imagen predeterminada
 
     // Formatear la fecha de publicación
     const formattedDate = new Date(item.insert).toLocaleDateString('es-CO', {

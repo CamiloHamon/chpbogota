@@ -16,13 +16,11 @@
     </div>
     <button class="glider-next">»</button>
   </div>
-  {{else}}
-  <p>No hay empresas asociadas activas.</p>
   {{/if}}
 
   <!-- Tabla para Personas Naturales -->
-  <h2 class="text-center">Asociados Activos - Persona Natural</h2>
   {{#if naturalPersons.length}}
+  <h2 class="text-center">Asociados Activos - Persona Natural</h2>
   <div class="natural-persons-table mb-2">
     <table>
       <tbody>
@@ -38,8 +36,6 @@
       </tbody>
     </table>
   </div>
-  {{else}}
-  <p>No hay personas naturales asociadas activas.</p>
   {{/if}}
 
   <p class="text-center mb-2">

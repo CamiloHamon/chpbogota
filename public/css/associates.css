@@ -1,13 +1,15 @@
 /* Glider styles for companies */
+.main-container {
+  margin-top: 1rem;
+}
 .company-card {
     text-align: center;
     padding: 1rem;
   }
   
   .company-card img {
-    width: 150px;
     height: 150px;
-    object-fit: cover;
+    object-fit: contain;
     border-radius: 8px;
     margin-bottom: 0.5rem;
   }

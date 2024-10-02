@@ -43,25 +43,25 @@ app.use(helmet({
         "https://vimeo.com",
         "https://player.vimeo.com",
         "https://www.google.com",
-        "https://www.gstatic.com",  // Permitir iframes y recursos de Google
+        "https://www.gstatic.com"
       ],
       "script-src": [
         "'self'",
-        "'unsafe-inline'",                   // Para scripts inline, si es necesario
+        "'unsafe-inline'",
         "https://www.youtube.com",
         "https://www.youtube-nocookie.com",
         "https://player.vimeo.com",
         "https://maps.googleapis.com",
         "https://maps.gstatic.com",
-        "https://www.google.com",           // Permitir scripts de Google reCAPTCHA
-        "https://www.gstatic.com",          // Scripts asociados a reCAPTCHA
+        "https://www.google.com",
+        "https://www.gstatic.com"
       ],
       "style-src": [
         "'self'",
         "'unsafe-inline'",
         "https://fonts.googleapis.com",
         "https://maps.googleapis.com",
-        "https://maps.gstatic.com",
+        "https://maps.gstatic.com"
       ],
       "img-src": [
         "'self'",
@@ -71,28 +71,27 @@ app.use(helmet({
         "https://i.vimeocdn.com",
         "https://maps.googleapis.com",
         "https://maps.gstatic.com",
-        "https://maps.google.com",
         "https://www.google.com",
-        "https://www.gstatic.com",
+        "https://www.gstatic.com"
       ],
       "connect-src": [
         "'self'",
         "https://player.vimeo.com",
-        "https://vimeo.com",
         "https://maps.googleapis.com",
         "https://maps.gstatic.com",
         "https://www.google.com",
-        "https://www.gstatic.com",
+        "https://www.gstatic.com"
       ],
       "font-src": [
         "'self'",
         "https://fonts.gstatic.com",
-        "https://fonts.googleapis.com",
+        "https://fonts.googleapis.com"
       ],
+      "worker-src": ["'self'", "blob:"],  // Agregar 'blob:' para permitir Workers
       "media-src": ["'self'", "https://player.vimeo.com"],
-      "object-src": ["'none'"],  // Bloquear objetos embebidos por seguridad
+      "object-src": ["'none'"],
       "base-uri": ["'self'"],
-      "form-action": ["'self'"],
+      "form-action": ["'self'"]
     }
   }
 }));
