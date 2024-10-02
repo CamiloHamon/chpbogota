@@ -68,6 +68,7 @@ export const getNewsBySlug = async (req, res) => {
     const facebookShareURL = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(fullURL)}`;
     const twitterShareURL = `https://twitter.com/intent/tweet?url=${encodeURIComponent(fullURL)}&text=${encodeURIComponent(news.title)}`;
     const whatsappShareURL = `https://api.whatsapp.com/send?text=${encodeURIComponent(news.title)}%20${encodeURIComponent(fullURL)}`;
+    const linkedinShareURL = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(fullURL)}`;
 
     // Renderizar la plantilla con los datos de la noticia y las URLs de compartir
     return res.render('public/news-detail', {
@@ -86,6 +87,7 @@ export const getNewsBySlug = async (req, res) => {
       facebookShareURL,
       twitterShareURL,
       whatsappShareURL,
+      linkedinShareURL
     });
   } catch (error) {
     console.error('Error al obtener la noticia:', error);

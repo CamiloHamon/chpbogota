@@ -240,6 +240,7 @@ button:hover {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
+    font-size: 16px;
   }
   
   /* Estilos para el enfoque de los campos */
@@ -366,4 +367,8 @@ button:hover {
   color: #0f5132;
   background-color: #d1e7dd;
   border-color: #badbcc;
+}
+
+.grecaptcha-badge{
+  bottom: 110px!important;
 }

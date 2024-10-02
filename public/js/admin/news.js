@@ -3,8 +3,29 @@ import { showLoading, hideLoading } from '../../modules/loader/index.js';
 import FormBuilder from '../../components/form.js';
 
 // Asegúrate de que ClassicEditor está disponible globalmente
-const ClassicEditor = window.ClassicEditor;
-
+import {
+  ClassicEditor,
+  Essentials,
+  Paragraph,
+  Bold,
+  Italic,
+  Font,
+  FileRepository,
+  Link,
+  MediaEmbed,
+  Heading,
+  List,
+  Indent,
+  Table,
+  TableToolbar,
+  Image,
+  ImageToolbar,
+  ImageCaption,
+  ImageStyle,
+  ImageUpload,
+  Alignment,
+  BlockQuote // Asegúrate de importar BlockQuote
+} from 'ckeditor5';
 document.addEventListener('DOMContentLoaded', () => {
   // Variables globales
   const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
@@ -229,12 +250,74 @@ document.addEventListener('DOMContentLoaded', () => {
       // El contenido se asignará después de inicializar el editor
     }
 
-    // Inicializar CKEditor con el adaptador de subida personalizado y en español
     ClassicEditor.create(document.querySelector('#content'), {
-      language: 'es', // Configurar el idioma a español
-      ckfinder: {
-        // Configuración del adaptador personalizado
-        uploadUrl: `/api/admin/upload-image/news`, // Ajusta el folder según corresponda
+      language: 'es', // Configuración en español
+      plugins: [
+        Essentials, Bold, Italic, Font, FileRepository,
+        Link, MediaEmbed, Heading, List, Indent, Table, TableToolbar,
+        Image, ImageToolbar, ImageCaption, ImageStyle, ImageUpload,
+        Alignment, BlockQuote // Agregar BlockQuote
+      ],
+      toolbar: [
+        'undo', 'redo', '|', 'heading', 'fontSize', 'fontFamily', 'fontColor',
+        'fontBackgroundColor', 'bold', 'italic', 'alignment', '|', 'link',
+        'imageUpload', 'mediaEmbed', '|', 'bulletedList', 'numberedList',
+        'outdent', 'indent', '|', 'insertTable', 'blockQuote' // Asegurarse de que BlockQuote esté aquí
+      ],
+      heading: {
+        options: [
+          { model: 'paragraph', title: 'Párrafo', class: 'ck-heading_paragraph' },
+          { model: 'heading1', view: 'h1', title: 'Encabezado 1', class: 'ck-heading_heading1' },
+          { model: 'heading2', view: 'h2', title: 'Encabezado 2', class: 'ck-heading_heading2' },
+          { model: 'heading3', view: 'h3', title: 'Encabezado 3', class: 'ck-heading_heading3' }
+        ]
+      },
+      image: {
+        resizeOptions: [
+          {
+            name: 'resizeImage:original',
+            label: 'Default image width',
+            value: null,
+          },
+          {
+            name: 'resizeImage:50',
+            label: '50% page width',
+            value: '50',
+          },
+          {
+            name: 'resizeImage:75',
+            label: '75% page width',
+            value: '75',
+          },
+        ],
+        toolbar: [
+          'imageTextAlternative',
+          'toggleImageCaption',
+          '|',
+          'imageStyle:inline',
+          'imageStyle:wrapText',
+          'imageStyle:breakText',
+          '|',
+          'resizeImage',
+        ],
+      },
+      table: {
+        contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells']
+      },
+      link: {
+        decorators: {
+          isExternal: {
+            mode: 'manual',
+            label: 'Abrir en nueva pestaña',
+            attributes: {
+              target: '_blank',
+              rel: 'noopener noreferrer'
+            }
+          }
+        }
+      },
+      mediaEmbed: {
+        previewsInData: true
       }
     })
       .then(editor => {
@@ -251,6 +334,7 @@ document.addEventListener('DOMContentLoaded', () => {
       .catch(error => {
         console.error('Error al inicializar el editor:', error);
       });
+
 
     confirmModal.style.display = 'flex';
   }

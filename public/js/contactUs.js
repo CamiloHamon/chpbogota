@@ -32,12 +32,12 @@ document.addEventListener('DOMContentLoaded', function () {
   const modalClose = modal.querySelector('.close');
 
   // Agregar evento al botón de cerrar del modal
-  modalClose.addEventListener('click', function() {
+  modalClose.addEventListener('click', function () {
     closeModal();
   });
 
   // Cerrar el modal al hacer clic fuera del contenido
-  window.addEventListener('click', function(event) {
+  window.addEventListener('click', function (event) {
     if (event.target === modal) {
       closeModal();
     }
@@ -81,62 +81,55 @@ document.addEventListener('DOMContentLoaded', function () {
     // Enviar el formulario si es válido
     if (isFormValid) {
       showLoading();
-      // Deshabilitar inputs y botón
-      disableForm();
 
-      // Preparar datos para enviar
-      const formData = {
-        userName: nameField.value.trim(),
-        email: emailField.value.trim(),
-        subject: subjectField.value.trim(),
-        message: messageField.value.trim()
-      };
+      // Obtener el token de reCAPTCHA
+      grecaptcha.enterprise.ready(async () => {
+        const token = await grecaptcha.enterprise.execute('6Ldb1VQqAAAAAEln4-7qmy6vzY8Zm6Q_vdIwCnJS', { action: 'LOGIN' });
+        // Deshabilitar inputs y botón
+        disableForm();
 
-      // Enviar solicitud POST a la API
-      fetch('/api/contact/save', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'CSRF-Token': csrfToken // Incluir el token CSRF en el header
-        },
-        credentials: 'same-origin', // Asegura que las cookies se envíen en la solicitud
-        body: JSON.stringify(formData)
-      })
-        .then(response => {
-          // Rehabilitar inputs y botón
-          enableForm();
+        // Preparar datos para enviar, incluyendo el token de reCAPTCHA
+        const formData = {
+          userName: nameField.value.trim(),
+          email: emailField.value.trim(),
+          subject: subjectField.value.trim(),
+          message: messageField.value.trim(),
+          recaptchaToken: token // Añadir el token de reCAPTCHA
+        };
 
-          if (response.ok) {
-            // Si la respuesta es exitosa
-            // Mostrar el modal con el mensaje de éxito
-            showModal('Mensaje enviado', 'Tu mensaje ha sido enviado correctamente.');
-
-            // Reiniciar el formulario
-            form.reset();
-          } else {
-            // Si hay un error en la respuesta
-            return response.json().then(data => {
-              if (data.errors) {
-                // Manejar errores de validación desde el servidor
-                handleServerErrors(data.errors);
-              } else {
-                // Mostrar el modal con el mensaje de error
-                showModal('Error', 'Ocurrió un error al enviar tu mensaje. Por favor, intenta de nuevo más tarde.');
-              }
-            });
-          }
+        // Enviar solicitud POST a la API
+        fetch('/api/contact/save', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'CSRF-Token': csrfToken
+          },
+          body: JSON.stringify(formData)
         })
-        .catch(error => {
-          // Rehabilitar inputs y botón
-          enableForm();
+          .then(response => {
+            enableForm();
+            hideLoading();
 
-          console.error('Error:', error);
-          // Mostrar el modal con el mensaje de error
-          showModal('Error', 'Ocurrió un error al enviar tu mensaje. Por favor, intenta de nuevo más tarde.');
-        })
-        .finally(() => {
-          hideLoading();
-        });
+            if (response.ok) {
+              // Mostrar mensaje de éxito
+              showModal('Mensaje enviado', 'Tu mensaje ha sido enviado correctamente.');
+              form.reset(); // Reiniciar formulario
+            } else {
+              return response.json().then(data => {
+                if (data.errors) {
+                  handleServerErrors(data.errors);
+                } else {
+                  showModal('Error', 'Ocurrió un error al enviar tu mensaje.');
+                }
+              });
+            }
+          })
+          .catch(error => {
+            enableForm();
+            hideLoading();
+            showModal('Error', 'Ocurrió un error al enviar tu mensaje.');
+          });
+      });
     }
   });
 

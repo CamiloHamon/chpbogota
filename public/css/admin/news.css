@@ -1,0 +1,31 @@
+.contact-form { 
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1rem;
+    width: 100%!important;
+    max-width: 800px;
+}
+
+.w-50-1rem {
+    width: calc(50% - 1rem);
+}
+
+.form-group:nth-child(1) {
+    width: 100%;
+}
+.form-group:nth-child(2) {
+    width: calc(50% - 1rem);
+}
+.form-group:nth-child(3) {
+    width: 50%;
+}
+.form-group:nth-child(4) {
+    width: 100%;
+}
+.contact-form .form-group { 
+    margin: 0;
+}
+
+.ck-editor__editable {
+    min-height: 200px; /* Ajusta el valor según lo que necesites */
+}

@@ -31,7 +31,14 @@
 <!-- Modal -->
 {{>modal}}
 
-<script type="module" src="/modules/ckeditor/ckeditor.js"></script>
+<script type="importmap">
+{
+  "imports": {
+    "ckeditor5": "/modules/ckeditor/ckeditor.js",
+    "ckeditor5/": "/modules/ckeditor/"
+  }
+}
+</script>
 <script type="module" src="/js/admin/news.js"></script>
 <script type="module" src="/modules/tabulator/index.js"></script>
 <script type="module" src="/modules/filePond/index.js"></script>

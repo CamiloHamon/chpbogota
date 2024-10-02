@@ -12,7 +12,9 @@
   "author": "caphbogota",
   "license": "ISC",
   "dependencies": {
+    "@ckeditor/ckeditor5-alignment": "^43.1.1",
     "@ckeditor/ckeditor5-build-classic": "^43.1.1",
+    "@google-cloud/recaptcha-enterprise": "^5.11.0",
     "bcryptjs": "^2.4.3",
     "connect-flash": "^0.1.1",
     "connect-mongo": "^5.1.0",
@@ -30,6 +32,7 @@
     "mongoose": "^8.6.1",
     "morgan": "^1.10.0",
     "multer": "^1.4.5-lts.1",
+    "node-fetch": "^3.3.2",
     "nodemailer": "^6.9.15",
     "passport": "^0.7.0",
     "passport-local": "^1.0.0",

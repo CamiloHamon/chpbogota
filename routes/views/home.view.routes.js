@@ -96,7 +96,7 @@ router.get('/', async (req, res) => {
   res.render('public/home',
     {
       layout: 'main',
-      title: 'Colegio de Administradores de Propiedad Horizontal de Bogotá – CAPH Bogotá',
+      title: 'Inicio',
       activePage: 'inicio',
       aniversary: yearsCompany,
       videoUrl: videoUrl,

@@ -2,6 +2,7 @@
 <html lang="es">
 
 <head>
+    <script src="https://www.google.com/recaptcha/enterprise.js?render=6Ldb1VQqAAAAAEln4-7qmy6vzY8Zm6Q_vdIwCnJS"></script>
     <meta charset="UTF-8">
     <meta name="csrf-token" content="{{csrfToken}}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -33,6 +34,7 @@
                                     class="{{#if (eq activePage 'servicios')}}active-dropdown{{/if}}">Servicios</a></li>
                         </ul>
                     </li>
+                    <li><a href="/noticias" class="{{#if (eq activePage 'news')}}active{{/if}}">Noticias</a></li>
                     <li class="dropdown">
                         <a href="#"
                             class="dropdown-btn {{#if (eq activePage 'bienescomunes')}}active{{/if}} {{#if (eq activePage 'videos')}}active{{/if}}">Bienes
@@ -45,7 +47,6 @@
                                     class="{{#if (eq activePage 'videos')}}active-dropdown{{/if}}">Videos</a></li>
                         </ul>
                     </li>
-                    <li><a href="/noticias" class="{{#if (eq activePage 'news')}}active{{/if}}">Noticias</a></li>
                     <li><a href="/galeria" class="{{#if (eq activePage 'gallery')}}active{{/if}}">Galería</a></li>
                     <li><a href="/contacto" class="{{#if (eq activePage 'contacto')}}active{{/if}}">Contacto</a></li>
                 </ul>
@@ -84,7 +85,7 @@
                     <h1>DE NUESTRA ACTIVIDAD</h1>
                 </div>
                 <div class="medal-icon">
-                    🏅
+                    <img src="/images/home/medal.png" alt="">
                 </div>
                 <div class="values-section">
                     <div class="value-item">CAPACITACIÓN</div>
